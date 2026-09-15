@@ -45,8 +45,14 @@ next-env.d.ts
 # AI agent configs
 AGENTS.md
 CLAUDE.md
+CODELY.md
 .copilot/
 .codex/
+.codely-cli/
+.impeccable/
+
+# local browser profiles used for visual checks
+.tmp-chrome-profile*/
 
 # Shadcn local config
 components.json

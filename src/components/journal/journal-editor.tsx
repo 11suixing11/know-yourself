@@ -611,23 +611,23 @@ export function JournalEditor({ entryId, createOnMount = false, returnTo }: { en
   } : null;
 
   if (syncState === "loading" || loading) {
-    return <div className="atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-state" role="status"><span className="journal-state-pulse" />{language === "zh" ? "正在打开编辑器…" : "Opening editor…"}</div></PageContainer></div>;
+    return <div className="press-journal-page atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-state" role="status"><span className="journal-state-pulse" />{language === "zh" ? "正在打开编辑器…" : "Opening editor…"}</div></PageContainer></div>;
   }
 
   if (!user) {
-    return <div className="atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-access-state"><LockKeyhole aria-hidden="true" /><h1>{language === "zh" ? "登录后继续创作" : "Sign in to continue"}</h1><p>{language === "zh" ? "草稿只保存在你的账号中。" : "Drafts are stored only in your account."}</p><Link href="/account/" className="atlas-primary-action">{language === "zh" ? "登录或注册" : "Sign in or register"}</Link></div></PageContainer></div>;
+    return <div className="press-journal-page atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-access-state"><LockKeyhole aria-hidden="true" /><h1>{language === "zh" ? "登录后继续创作" : "Sign in to continue"}</h1><p>{language === "zh" ? "草稿只保存在你的账号中。" : "Drafts are stored only in your account."}</p><Link href="/account/" className="press-primary-action atlas-primary-action">{language === "zh" ? "登录或注册" : "Sign in or register"}</Link></div></PageContainer></div>;
   }
 
   if (viewer && !viewer.emailVerified) {
-    return <div className="atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-access-state"><LockKeyhole aria-hidden="true" /><h1>{language === "zh" ? "验证邮箱后继续" : "Verify your email to continue"}</h1><p>{language === "zh" ? "完成验证后即可保存草稿和上传图片。" : "After verification, you can save drafts and upload images."}</p><Link href="/account/" className="atlas-primary-action">{language === "zh" ? "前往账号" : "Open account"}</Link></div></PageContainer></div>;
+    return <div className="press-journal-page atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-access-state"><LockKeyhole aria-hidden="true" /><h1>{language === "zh" ? "验证邮箱后继续" : "Verify your email to continue"}</h1><p>{language === "zh" ? "完成验证后即可保存草稿和上传图片。" : "After verification, you can save drafts and upload images."}</p><Link href="/account/" className="press-primary-action atlas-primary-action">{language === "zh" ? "前往账号" : "Open account"}</Link></div></PageContainer></div>;
   }
 
   if (loadError || !entry || !previewEntry) {
-    return <div className="atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-state journal-state-error"><FileImage aria-hidden="true" /><h1>{language === "zh" ? "编辑器没有打开" : "The editor did not open"}</h1><p>{loadError}</p><div><button type="button" className="atlas-secondary-action" onClick={() => void load()}><RefreshCw aria-hidden="true" />{language === "zh" ? "重新加载" : "Try again"}</button><Link href={libraryHref} className="atlas-primary-action"><ArrowLeft aria-hidden="true" />{language === "zh" ? "返回" : "Back"}</Link></div></div></PageContainer></div>;
+    return <div className="press-page atlas-page"><AppHeader backHref={libraryHref} /><PageContainer><div className="journal-state journal-state-error"><FileImage aria-hidden="true" /><h1>{language === "zh" ? "编辑器没有打开" : "The editor did not open"}</h1><p>{loadError}</p><div><button type="button" className="press-secondary-action atlas-secondary-action" onClick={() => void load()}><RefreshCw aria-hidden="true" />{language === "zh" ? "重新加载" : "Try again"}</button><Link href={libraryHref} className="press-primary-action atlas-primary-action"><ArrowLeft aria-hidden="true" />{language === "zh" ? "返回" : "Back"}</Link></div></div></PageContainer></div>;
   }
 
   return (
-    <div className="atlas-page journal-editor-page">
+    <div className="press-journal-page atlas-page journal-editor-page">
       <AppHeader backHref={libraryHref} backLabel={communityMode ? (language === "zh" ? "社区" : "Community") : (language === "zh" ? "个人库" : "Library")} section={communityMode ? (language === "zh" ? "社区图文" : "Community image post") : (language === "zh" ? "札记编辑" : "Journal editor")} />
       <PageContainer className="journal-editor-container">
         <header className="journal-editor-header">
@@ -717,7 +717,7 @@ export function JournalEditor({ entryId, createOnMount = false, returnTo }: { en
                       <div className="journal-image-toolbar"><span>{String(entry.images.length + index + 1).padStart(2, "0")}</span><div><button type="button" onClick={() => { URL.revokeObjectURL(pending.previewUrl); setPendingUploads((current) => current.filter((item) => item.id !== pending.id)); }} aria-label={language === "zh" ? "移除待上传图片" : "Remove pending image"}><X aria-hidden="true" /></button></div></div>
                       <div className="journal-pending-grid">
                         <div className="journal-image-preview"><Image src={pending.previewUrl} alt="" width={640} height={480} unoptimized />{pending.status === "uploading" && <div className="journal-image-process"><UploadCloud aria-hidden="true" /><span>{pending.progress}%</span></div>}</div>
-                        <div><strong>{pending.file.name}</strong>{pending.status === "failed" ? <><p role="alert">{pending.error}</p><button type="button" className="atlas-secondary-action" onClick={() => void runPendingUpload(pending)}><RefreshCw aria-hidden="true" />{language === "zh" ? "重试上传" : "Retry upload"}</button></> : <p>{language === "zh" ? "正在上传并清除原始元数据…" : "Uploading and removing original metadata…"}</p>}</div>
+                        <div><strong>{pending.file.name}</strong>{pending.status === "failed" ? <><p role="alert">{pending.error}</p><button type="button" className="press-secondary-action atlas-secondary-action" onClick={() => void runPendingUpload(pending)}><RefreshCw aria-hidden="true" />{language === "zh" ? "重试上传" : "Retry upload"}</button></> : <p>{language === "zh" ? "正在上传并清除原始元数据…" : "Uploading and removing original metadata…"}</p>}</div>
                       </div>
                     </article>
                   ))}
@@ -744,11 +744,11 @@ export function JournalEditor({ entryId, createOnMount = false, returnTo }: { en
               {validationError && <p className="journal-validation-message"><CircleAlert aria-hidden="true" />{validationError}</p>}
               {entry.hasUnpublishedChanges && entry.publicRevision > 0 && <p className="journal-private-change"><LockKeyhole aria-hidden="true" />{language === "zh" ? "这些修改仍是私密的。" : "These changes are still private."}</p>}
 
-              <button type="button" className="atlas-primary-action journal-publish-action" disabled={Boolean(validationError) || Boolean(actionBusy) || saveState === "error"} onClick={() => void publish()}>
+              <button type="button" className="press-primary-action atlas-primary-action journal-publish-action" disabled={Boolean(validationError) || Boolean(actionBusy) || saveState === "error"} onClick={() => void publish()}>
                 {actionBusy === "publish" ? <LoaderCircle className="is-spinning" aria-hidden="true" /> : <Globe2 aria-hidden="true" />}
                 {entry.publicRevision > 0 ? (language === "zh" ? "更新公开版" : "Update public version") : (communityMode ? (language === "zh" ? "发布图文帖" : "Publish image post") : (language === "zh" ? "发布札记" : "Publish journal"))}
               </button>
-              {entry.status === "published" && <button type="button" className="atlas-secondary-action journal-unpublish-action" disabled={Boolean(actionBusy)} onClick={() => void unpublish()}><LockKeyhole aria-hidden="true" />{actionBusy === "unpublish" ? (language === "zh" ? "取消中…" : "Unpublishing…") : (language === "zh" ? "取消公开" : "Unpublish")}</button>}
+              {entry.status === "published" && <button type="button" className="press-secondary-action atlas-secondary-action journal-unpublish-action" disabled={Boolean(actionBusy)} onClick={() => void unpublish()}><LockKeyhole aria-hidden="true" />{actionBusy === "unpublish" ? (language === "zh" ? "取消中…" : "Unpublishing…") : (language === "zh" ? "取消公开" : "Unpublish")}</button>}
               <button type="button" className="journal-delete-action" disabled={Boolean(actionBusy)} onClick={() => void removeEntry()}><Trash2 aria-hidden="true" />{actionBusy === "delete" ? (language === "zh" ? "删除中…" : "Deleting…") : (language === "zh" ? "永久删除" : "Delete permanently")}</button>
             </aside>
           </div>

@@ -60,7 +60,7 @@ function pickArchetype(definition: QuizPaper, key: string, language: Lang) {
 }
 
 function Loading({ language }: { language: Lang }) {
-  return <div className="atlas-page min-h-screen"><AppHeader /><main id="main-content" tabIndex={-1} className="atlas-loading" aria-busy="true"><span className="atlas-loading-orbit" aria-hidden="true" /><p role="status" aria-live="polite">{language === "zh" ? "正在整理你的回答…" : "Reading your responses…"}</p></main></div>;
+  return <div className="press-page atlas-page min-h-screen"><AppHeader /><main id="main-content" tabIndex={-1} className="atlas-loading" aria-busy="true"><span className="atlas-loading-orbit" aria-hidden="true" /><p role="status" aria-live="polite">{language === "zh" ? "正在整理你的回答…" : "Reading your responses…"}</p></main></div>;
 }
 
 const resultLeadCopy: Record<string, { zh: string; en: string }> = {
@@ -490,7 +490,7 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
 
   if (loading || syncState === "loading" || loadedAccountScope !== accountScope) return <Loading language={language} />;
   if (!result || !content) {
-    return <div className="atlas-page min-h-screen"><AppHeader /><PageContainer><div className="atlas-empty-state mx-auto mt-16 max-w-lg"><h1 className="text-2xl font-semibold">{language === "zh" ? "还没有找到这次结果" : "No result found yet"}</h1><p className="mt-3 max-w-md text-sm leading-6 text-ink/55 dark:text-white/55">{language === "zh" ? "先完成一次测评。游客结果保存在本机；登录后会自动同步，也能在其他登录设备查看。" : "Complete the assessment once. Guest results stay on this device; after sign-in they sync automatically and are available on your other signed-in devices."}</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`/test/${testId}/`} className="atlas-primary-action justify-center">{language === "zh" ? "查看测评说明" : "View assessment details"}<ArrowRight className="size-4" /></Link><Link href="/" className="atlas-secondary-action justify-center">{language === "zh" ? "返回首页" : "Back home"}</Link></div></div></PageContainer></div>;
+    return <div className="press-page atlas-page min-h-screen"><AppHeader /><PageContainer><div className="atlas-empty-state mx-auto mt-16 max-w-lg"><h1 className="text-2xl font-semibold">{language === "zh" ? "还没有找到这次结果" : "No result found yet"}</h1><p className="mt-3 max-w-md text-sm leading-6 text-ink/55 dark:text-white/55">{language === "zh" ? "先完成一次测评。游客结果保存在本机；登录后会自动同步，也能在其他登录设备查看。" : "Complete the assessment once. Guest results stay on this device; after sign-in they sync automatically and are available on your other signed-in devices."}</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`/test/${testId}/`} className="press-primary-action atlas-primary-action justify-center">{language === "zh" ? "查看测评说明" : "View assessment details"}<ArrowRight className="size-4" /></Link><Link href="/" className="press-secondary-action atlas-secondary-action justify-center">{language === "zh" ? "返回首页" : "Back home"}</Link></div></div></PageContainer></div>;
   }
 
   const pattern = paper.kind;
@@ -519,19 +519,19 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
   const showGuestAccountAction = !user && syncState === "guest";
 
   return (
-    <div className="atlas-page min-h-screen">
+    <div className="press-page atlas-page min-h-screen">
       <FocusHeader backHref="/" backLabel={language === "zh" ? "返回首页" : "Back home"} section={testName} />
-      <PageContainer className="max-w-3xl">
-        <section className={`atlas-result-save-status${saveStatus.warning ? " atlas-result-save-status--warning" : ""}`} aria-label={language === "zh" ? "保存状态" : "Save status"}>
-          <div className="atlas-result-save-status-copy" role="status">
+      <PageContainer className="press-result-main">
+        <section className={`press-result-status atlas-result-save-status${saveStatus.warning ? " atlas-result-save-status--warning" : ""}`} aria-label={language === "zh" ? "保存状态" : "Save status"}>
+          <div className="press-result-status-copy atlas-result-save-status-copy" role="status">
             {saveStatus.warning ? <AlertTriangle aria-hidden="true" /> : cloudSyncEnabled ? <Cloud aria-hidden="true" /> : <Check aria-hidden="true" />}
             <div><strong>{saveStatus.title}</strong><p>{saveStatus.description}</p></div>
           </div>
           {showGuestAccountAction && <Link href="/account/" className="atlas-text-link shrink-0">{language === "zh" ? "登录后跨设备查看" : "Sign in for access across devices"}<ArrowRight className="size-3.5" aria-hidden="true" /></Link>}
         </section>
-        <p className="atlas-result-badge-note"><Award className="size-3.5" aria-hidden="true" />{user ? <>{language === "zh" ? "新徽章已加入收藏 · " : "New badge added to your collection · "}<Link href="/account/">{language === "zh" ? "在个人资料中佩戴" : "wear it from your profile"}</Link></> : <Link href="/account/">{language === "zh" ? "登录后可收藏并佩戴这枚徽章" : "Sign in to collect and wear this badge"}</Link>}</p>
-        <div className="atlas-result-intro-block" style={{ "--result-accent": accent } as React.CSSProperties}>
-          <p className="atlas-result-question">{content.lead}</p>
+        <p className="press-result-badge-note atlas-result-badge-note"><Award className="size-3.5" aria-hidden="true" />{user ? <>{language === "zh" ? "新徽章已加入收藏 · " : "New badge added to your collection · "}<Link href="/account/">{language === "zh" ? "在个人资料中佩戴" : "wear it from your profile"}</Link></> : <Link href="/account/">{language === "zh" ? "登录后可收藏并佩戴这枚徽章" : "Sign in to collect and wear this badge"}</Link>}</p>
+        <div className="press-result-intro atlas-result-intro-block" style={{ "--result-accent": accent } as React.CSSProperties}>
+          <p className="press-result-question atlas-result-question">{content.lead}</p>
           <div className={`atlas-result-visual-layout${content.visualSelection ? " atlas-result-visual-layout--active" : ""}`}>
             {content.visualSelection && <QuizVisualFrame visual={content.visualSelection.visual} lang={language} sizes="(max-width: 720px) calc(100vw - 2.5rem), 26rem" className="atlas-result-visual" preload />}
             <div className="atlas-result-identity">
@@ -552,7 +552,7 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
           )}
           <p className="atlas-result-identity-note">{content.identityNote}</p>
           {content.visualSelection && (
-            <fieldset className="quiz-visual-feedback" disabled={visualFeedback === "sending" || visualFeedback === "yes" || visualFeedback === "no"}>
+            <fieldset className="press-visual-feedback quiz-visual-feedback" disabled={visualFeedback === "sending" || visualFeedback === "yes" || visualFeedback === "no"}>
               <legend>{language === "zh" ? "图像是否帮助理解这次结果" : "Did the image help you understand this result?"}</legend>
               <div>
                 <button type="button" onClick={() => submitVisualFeedback(true)} aria-pressed={visualFeedback === "yes"}><ThumbsUp aria-hidden="true" />{language === "zh" ? "有帮助" : "Yes"}</button>
@@ -566,13 +566,13 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
         {content.details && <ResultDetails {...content.details} />}
 
         {!(paper.kind === "score" && !Object.keys(result.percentages ?? {}).length && !content.narrative && !content.typeData) && (
-          <section className="atlas-result-panel mt-8"><h2 className="atlas-result-section-title">{language === "zh" ? "结果解释" : "Result interpretation"}</h2><div className="mt-7"><NarrativeSection pattern={pattern} result={result} narrative={content.narrative} typeData={content.typeData} dimensions={paper.resultContent.dimensions} archetypes={paper.resultContent.archetypes} accentColor="var(--accent)" lang={language} introDescription={content.description} /></div></section>
+          <section className="press-result-panel atlas-result-panel mt-8"><h2 className="press-result-section-title atlas-result-section-title">{language === "zh" ? "结果解释" : "Result interpretation"}</h2><div className="mt-7"><NarrativeSection pattern={pattern} result={result} narrative={content.narrative} typeData={content.typeData} dimensions={paper.resultContent.dimensions} archetypes={paper.resultContent.archetypes} accentColor="var(--accent)" lang={language} introDescription={content.description} /></div></section>
         )}
 
         <ReflectionGuide testId={testId} entry={{ topic }} pattern={pattern} result={result} dimensions={paper.resultContent.dimensions} accentColor={accent} lang={language} />
 
         {communityOpen && attemptId && <CommunityComposer attemptId={attemptId} testId={testId} answers={attemptAnswers ?? undefined} testName={testName} resultTitle={content.title} summary={content.summary} language={language} syncNow={syncNow} onAttemptSynced={handleAttemptSynced} onClose={() => setCommunityOpen(false)} />}
-        <section className="mt-8 flex flex-col gap-3 border-t border-ink/10 pt-6 dark:border-white/10 sm:flex-row" aria-label={language === "zh" ? "结果操作" : "Result actions"}><button type="button" onClick={() => router.push(`/quiz/${testId}/`)} className="atlas-secondary-action flex-1 justify-center"><RefreshCw className="size-4" aria-hidden="true" />{language === "zh" ? "重新测评" : "Retake"}</button><button type="button" onClick={share} className="atlas-secondary-action flex-1 justify-center" aria-describedby="share-status">{copied ? <Check className="size-4" aria-hidden="true" /> : <Share2 className="size-4" aria-hidden="true" />}{copied ? (language === "zh" ? "已复制" : "Copied") : (language === "zh" ? "复制分享链接" : "Copy share link")}</button><button type="button" onClick={() => setCommunityOpen(true)} className="atlas-primary-action flex-1 justify-center"><Share2 className="size-4" aria-hidden="true" />{language === "zh" ? "公开分享结果" : "Share publicly"}</button></section>
+        <section className="press-result-actions mt-8 flex flex-col gap-3 border-t border-ink/10 pt-6 dark:border-white/10 sm:flex-row" aria-label={language === "zh" ? "结果操作" : "Result actions"}><button type="button" onClick={() => router.push(`/quiz/${testId}/`)} className="press-secondary-action atlas-secondary-action flex-1 justify-center"><RefreshCw className="size-4" aria-hidden="true" />{language === "zh" ? "重新测评" : "Retake"}</button><button type="button" onClick={share} className="press-secondary-action atlas-secondary-action flex-1 justify-center" aria-describedby="share-status">{copied ? <Check className="size-4" aria-hidden="true" /> : <Share2 className="size-4" aria-hidden="true" />}{copied ? (language === "zh" ? "已复制" : "Copied") : (language === "zh" ? "复制分享链接" : "Copy share link")}</button><button type="button" onClick={() => setCommunityOpen(true)} className="press-primary-action atlas-primary-action flex-1 justify-center"><Share2 className="size-4" aria-hidden="true" />{language === "zh" ? "公开分享结果" : "Share publicly"}</button></section>
         <p id="share-status" className="mt-3 min-h-5 text-center text-xs text-ink/55 dark:text-white/55" role="status" aria-live="polite">{copied ? (language === "zh" ? "分享文字和链接已复制。" : "Share text and link copied.") : shareError ? (language === "zh" ? "暂时无法分享或复制，请稍后再试。" : "Sharing and clipboard access are unavailable. Please try again.") : ""}</p>
         <div className="mt-5 flex flex-col gap-3 text-center text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-center"><Link href="/history/" className="atlas-text-link justify-center">{language === "zh" ? "查看历史" : "View history"}</Link><span className="hidden sm:inline">/</span><Link href={`/test/${testId}/`} className="atlas-text-link justify-center">{language === "zh" ? "查看测评说明" : "Assessment details"}</Link></div>
         <p className="mt-9 text-center text-xs leading-5 text-muted-foreground">{language === "zh" ? "仅用于自我反思，不构成诊断或专业评估。" : "For self-reflection only. This is not a diagnosis or professional assessment."}</p>

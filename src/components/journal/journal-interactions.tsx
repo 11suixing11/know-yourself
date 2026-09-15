@@ -66,7 +66,7 @@ function CommentForm({ entryId, parentId, language, onSaved }: {
     }}>
       <label htmlFor={`journal-comment-${parentId ?? "root"}`} className="sr-only">{language === "zh" ? "留言内容" : "Response"}</label>
       <textarea id={`journal-comment-${parentId ?? "root"}`} rows={parentId ? 2 : 4} maxLength={1000} value={body} onChange={(event) => setBody(event.target.value)} placeholder={language === "zh" ? "留下你的理解或支持…" : "Leave understanding or support…"} />
-      <div><span className={error ? "is-error" : ""} role={error ? "alert" : undefined}>{error || `${Array.from(body).length}/1000`}</span><button type="submit" className="atlas-secondary-action" disabled={busy || !body.trim()}>{busy ? (language === "zh" ? "发送中…" : "Sending…") : (language === "zh" ? "发送" : "Send")}</button></div>
+      <div><span className={error ? "is-error" : ""} role={error ? "alert" : undefined}>{error || `${Array.from(body).length}/1000`}</span><button type="submit" className="press-secondary-action atlas-secondary-action" disabled={busy || !body.trim()}>{busy ? (language === "zh" ? "发送中…" : "Sending…") : (language === "zh" ? "发送" : "Send")}</button></div>
     </form>
   );
 }
@@ -150,10 +150,10 @@ function ReportDialog({ target, language, onClose, onSubmitted }: {
 
   return (
     <div className="journal-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <section ref={dialogRef} className="journal-report-dialog" role="dialog" aria-modal="true" aria-labelledby="journal-report-title" aria-describedby="journal-report-description">
+      <section ref={dialogRef} className="press-journal-dialog journal-report-dialog" role="dialog" aria-modal="true" aria-labelledby="journal-report-title" aria-describedby="journal-report-description">
         <header><div><p>{language === "zh" ? "内容举报" : "Content report"}</p><h2 id="journal-report-title">{target.label}</h2></div><button type="button" onClick={onClose} aria-label={language === "zh" ? "关闭举报" : "Close report"}><X aria-hidden="true" /></button></header>
         <p id="journal-report-description" className="sr-only">{language === "zh" ? "选择举报原因，并可补充说明。" : "Choose a report reason and optionally add details."}</p>
-        {!user ? <div className="journal-report-signin"><p>{language === "zh" ? "登录后可以提交举报。" : "Sign in to submit a report."}</p><Link href="/account/" className="atlas-primary-action">{language === "zh" ? "前往登录" : "Sign in"}</Link></div> : <form onSubmit={async (event) => {
+        {!user ? <div className="journal-report-signin"><p>{language === "zh" ? "登录后可以提交举报。" : "Sign in to submit a report."}</p><Link href="/account/" className="press-primary-action atlas-primary-action">{language === "zh" ? "前往登录" : "Sign in"}</Link></div> : <form onSubmit={async (event) => {
           event.preventDefault();
           setBusy(true);
           setError("");
@@ -170,7 +170,7 @@ function ReportDialog({ target, language, onClose, onSubmitted }: {
           <select ref={selectRef} id="journal-report-reason" value={reason} onChange={(event) => setReason(event.target.value as JournalReportReason)}>{REPORT_REASONS.map((item) => <option key={item.value} value={item.value}>{language === "zh" ? item.zh : item.en}</option>)}</select>
           <label htmlFor="journal-report-details">{language === "zh" ? "补充说明（可选）" : "Details (optional)"}</label>
           <textarea id="journal-report-details" value={details} maxLength={2000} rows={5} onChange={(event) => setDetails(event.target.value)} />
-          <div className="journal-report-footer"><span className={error ? "is-error" : ""} role={error ? "alert" : undefined}>{error || `${Array.from(details).length}/2000`}</span><button type="submit" className="atlas-primary-action" disabled={busy}>{busy ? (language === "zh" ? "提交中…" : "Submitting…") : (language === "zh" ? "提交举报" : "Submit report")}</button></div>
+          <div className="journal-report-footer"><span className={error ? "is-error" : ""} role={error ? "alert" : undefined}>{error || `${Array.from(details).length}/2000`}</span><button type="submit" className="press-primary-action atlas-primary-action" disabled={busy}>{busy ? (language === "zh" ? "提交中…" : "Submitting…") : (language === "zh" ? "提交举报" : "Submit report")}</button></div>
         </form>}
       </section>
     </div>
@@ -193,7 +193,7 @@ export function JournalInteractions({ entry, language, onRefresh }: { entry: Jou
   };
 
   return (
-    <section className="journal-interactions" aria-labelledby="journal-responses-heading">
+    <section className="press-journal-interactions journal-interactions" aria-labelledby="journal-responses-heading">
       <div className="journal-interaction-toolbar">
         {user
           ? <button type="button" className={entry.reacted ? "is-active" : ""} disabled={reactionBusy} onClick={() => void toggleReaction()}><Heart fill={entry.reacted ? "currentColor" : "none"} aria-hidden="true" />{language === "zh" ? "共鸣" : "Resonate"}<span>{entry.reactionCount}</span></button>

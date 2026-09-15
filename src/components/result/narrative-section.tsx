@@ -16,7 +16,7 @@ interface NarrativeSectionProps {
 function NarrativeBlock({ title, text }: { title: string; text?: string }) {
   if (!text) return null;
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="press-narrative-block flex flex-col gap-1.5">
       <h3 className="text-sm font-semibold text-foreground">{title}</h3>
       <p className="text-sm leading-relaxed text-muted-foreground">{text}</p>
     </div>
@@ -26,7 +26,7 @@ function NarrativeBlock({ title, text }: { title: string; text?: string }) {
 function BadgeList({ title, items }: { title: string; items?: string[] }) {
   if (!items?.length) return null;
   return (
-    <div className="flex flex-col gap-2">
+    <div className="press-narrative-badges flex flex-col gap-2">
       <h3 className="text-sm font-semibold text-foreground">{title}</h3>
       <div className="flex flex-wrap gap-2">
         {items.map((value, index) => (
@@ -69,7 +69,7 @@ function TypeSignals({
 }) {
   if (!result.dimensions?.length) return null;
   return (
-    <div className="flex flex-col gap-5 border-t border-border/60 pt-5">
+    <div className="press-narrative-signals flex flex-col gap-5 border-t border-border/60 pt-5">
       <h3 className="text-sm font-semibold text-foreground">{lang === "zh" ? "偏好轮廓" : "Preference profile"}</h3>
       {result.dimensions.map((dimension) => {
         const metadata = dimensions?.[dimension.name];
@@ -113,7 +113,7 @@ export function NarrativeSection({
   if (pattern === "dimensions" && result.percentages) {
     const entries = Object.entries(result.percentages);
     return (
-      <div className="flex flex-col gap-5">
+      <div className="press-narrative flex flex-col gap-5">
         {narrative?.description && narrative.description !== introDescription && <p className="text-sm leading-relaxed text-muted-foreground">{narrative.description}</p>}
         {entries.map(([key, pct]) => {
           const dim = dimensions?.[key];
@@ -134,7 +134,7 @@ export function NarrativeSection({
     const interpretation = desc;
 
     return (
-      <div className="flex flex-col gap-5">
+      <div className="press-narrative flex flex-col gap-5">
         {interpretation && interpretation !== introDescription && <NarrativeBlock title={lang === "zh" ? "解读" : "Interpretation"} text={interpretation} />}
         {result.percentages && dimensions ? (
           <div className="flex flex-col gap-4 border-t border-border/60 pt-5">
@@ -162,7 +162,7 @@ export function NarrativeSection({
   if (narrative?.contradiction) sections.push({ title: lang === "zh" ? "也许会来回拉扯的地方" : "Where it may pull both ways", text: narrative.contradiction });
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="press-narrative flex flex-col gap-5">
       {sections.map((section) => <NarrativeBlock key={section.title} title={section.title} text={section.text} />)}
       <BadgeList title={lang === "zh" ? "你可以依靠的部分" : "Available strengths"} items={narrative?.strengths ?? typeData?.strengths} />
       <BadgeList title={lang === "zh" ? "值得轻轻留意的部分" : "Worth noticing gently"} items={narrative?.weaknesses ?? typeData?.weaknesses} />

@@ -2,6 +2,7 @@
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import "./rebuild.css";
+import "./refactor.css";
 import { MobileNav, PreferenceSync } from "@/components/shell/app-shell";
 import { AccountProvider } from "@/components/account-provider";
 import { OG_IMAGE_URL, serializeJsonLd, SITE_DESCRIPTION, SITE_DESCRIPTION_EN, SITE_NAME, SITE_URL, siteUrl } from "@/lib/site-config";
@@ -9,7 +10,7 @@ import { OG_IMAGE_URL, serializeJsonLd, SITE_DESCRIPTION, SITE_DESCRIPTION_EN, S
 /* Archivo sets every heading and IBM Plex Mono every number the product
  * reports. next/font self-hosts both, so there is no third-party connection
  * and no metric swap after paint. Archivo is loaded as a variable font because
- * the display tier already uses 620 and 820 -- weights no static cut carries.
+ * the display tier uses 620 and 640 -- weights no static cut carries.
  * Neither face has han glyphs; CJK stays on the system stack behind them. */
 const archivo = Archivo({ subsets: ["latin"], display: "swap", variable: "--font-archivo" });
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", variable: "--font-plex-mono" });
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   other: { "apple-mobile-web-app-capable": "yes", "apple-mobile-web-app-status-bar-style": "default", "apple-mobile-web-app-title": "认识你自己" },
 };
 
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F2F6FA" }, { media: "(prefers-color-scheme: dark)", color: "#061220" }], colorScheme: "light dark" };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FAFBFD" }, { media: "(prefers-color-scheme: dark)", color: "#1B1C23" }], colorScheme: "light dark" };
 
 const jsonLd = {
   "@context": "https://schema.org",

@@ -58,7 +58,7 @@ export function JournalDetail({
   }, [load, syncState, userId]);
 
   return (
-    <div className="atlas-page journal-detail-page">
+    <div className="press-journal-page atlas-page journal-detail-page">
       <FocusHeader backHref={backHref} backLabel={language === "zh" ? "返回" : "Back"} section={returnTo === "community" ? (language === "zh" ? "社区图文" : "Community image post") : (language === "zh" ? "图像札记" : "Image journal")} />
       <PageContainer className="journal-reading-container max-w-3xl">
         {loading && <div className="journal-state" role="status"><span className="journal-state-pulse" />{language === "zh" ? "正在打开札记…" : "Opening journal…"}</div>}

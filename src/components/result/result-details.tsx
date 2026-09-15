@@ -14,7 +14,7 @@ export function ResultDetails({ title, subtitle, items, quote }: ResultDetailsPr
   if (!items.length && !quote) return null;
 
   return (
-    <section className="atlas-result-details" aria-labelledby="result-details-heading">
+    <section className="press-result-details atlas-result-details" aria-labelledby="result-details-heading">
       <div className="atlas-result-details-heading">
         <h2 id="result-details-heading">{title}</h2>
         <p>{subtitle}</p>

@@ -42,7 +42,7 @@ function QuizShell({ testId, section, className, labelledBy, busy, children }: {
 }) {
   const { language } = useLanguage();
   return (
-    <div className="atlas-page min-h-screen">
+    <div className="press-quiz-page atlas-page min-h-screen">
       <FocusHeader backHref={`/test/${testId}/`} backLabel={language === "zh" ? "测评说明" : "Assessment details"} section={section} />
       <main id="main-content" tabIndex={-1} className={className} aria-labelledby={labelledBy} aria-busy={busy}>{children}</main>
     </div>
@@ -400,7 +400,7 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
     const answeredInSession = resumeSession.answers.filter((answer) => answer !== null).length;
     return (
       <QuizShell testId={questionSet.id} className="mx-auto flex min-h-[70vh] max-w-lg items-center px-5 py-16">
-        <div className="atlas-resume-panel w-full">
+        <div className="press-resume-panel atlas-resume-panel w-full">
           <span className="atlas-resume-symbol" aria-hidden="true">↗</span>
           <h1 className="mt-6 text-3xl font-semibold">{language === "zh" ? "你有一段未完成的回答。" : "You have an unfinished assessment."}</h1>
           <p className="mt-4 text-sm leading-6 text-ink/58 dark:text-white/58">
@@ -410,11 +410,11 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
           </p>
           <DraftSaveStatus savedAt={draftSavedLabel} label={draftStatus.label} warning={draftStatus.warning} />
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button type="button" onClick={startFresh} className="atlas-secondary-action flex-1 justify-center">
+            <button type="button" onClick={startFresh} className="press-secondary-action atlas-secondary-action flex-1 justify-center">
               <RotateCcw className="size-4" aria-hidden="true" />
               {language === "zh" ? "重新开始" : "Start fresh"}
             </button>
-            <button type="button" onClick={continueDraft} className="atlas-primary-action flex-1 justify-center">
+            <button type="button" onClick={continueDraft} className="press-primary-action atlas-primary-action flex-1 justify-center">
               <ArrowRight className="size-4" aria-hidden="true" />
               {language === "zh" ? "继续回答" : "Continue"}
             </button>
@@ -431,16 +431,16 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
       section={quizTitle}
       labelledBy="quiz-title"
       busy={submitting}
-      className="quiz-main mx-auto w-full max-w-3xl px-5 pb-20 pt-8 sm:px-8 sm:pt-10"
+      className="press-quiz-main quiz-main mx-auto w-full max-w-3xl px-5 pb-20 pt-8 sm:px-8 sm:pt-10"
     >
-      <div className="quiz-heading-row">
+      <div className="press-quiz-heading-row quiz-heading-row">
         <h1 id="quiz-title" className="quiz-main-title">{quizTitle}</h1>
         <span className="atlas-progress-count">
           {String(currentQuestion + 1).padStart(2, "0")} <span>/ {String(total).padStart(2, "0")}</span>
         </span>
       </div>
 
-      <div className="quiz-progress-block">
+      <div className="press-quiz-progress quiz-progress-block">
         <div
           className="atlas-meter"
           style={{ "--progress": progress / 100 } as React.CSSProperties}
@@ -457,15 +457,15 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
         <DraftSaveStatus savedAt={answered > 0 ? draftSavedLabel : null} label={draftStatus.label} warning={draftStatus.warning} />
       </div>
 
-      <div ref={swipeAreaRef} className="quiz-question-area">
-        <section key={question.id} className={cn("quiz-question-stage", direction > 0 ? "quiz-question-stage--next" : "quiz-question-stage--prev")}>
-          <h2 ref={questionHeadingRef} tabIndex={-1} className={cn("quiz-question-title", questionTitleClass(question.prompt[language]))}>
+      <div ref={swipeAreaRef} className="press-quiz-question-area quiz-question-area">
+        <section key={question.id} className={cn("press-quiz-stage quiz-question-stage", direction > 0 ? "quiz-question-stage--next" : "quiz-question-stage--prev")}>
+          <h2 ref={questionHeadingRef} tabIndex={-1} className={cn("press-quiz-question-title quiz-question-title", questionTitleClass(question.prompt[language]))}>
             {question.prompt[language]}
           </h2>
-          <div className="quiz-answer-group">
+          <div className="press-answer-group quiz-answer-group">
             <div
               ref={optionListRef}
-              className="quiz-answer-list"
+              className="press-answer-list quiz-answer-list"
               role="radiogroup"
               aria-label={language === "zh" ? "选择最接近你的回答" : "Choose the response closest to you"}
             >
@@ -492,25 +492,25 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
         </section>
       </div>
 
-      <div className="quiz-actions">
-        <button type="button" onClick={() => move(currentQuestion - 1)} disabled={currentQuestion === 0} className="atlas-secondary-action">
+      <div className="press-quiz-actions quiz-actions">
+        <button type="button" onClick={() => move(currentQuestion - 1)} disabled={currentQuestion === 0} className="press-secondary-action atlas-secondary-action">
           <ArrowLeft className="size-4" aria-hidden="true" />
           {language === "zh" ? "上一题" : "Previous"}
         </button>
         {isLast ? (
-          <button type="button" onClick={submit} disabled={currentAnswer === null || submitting || !allAnswered} className="atlas-primary-action">
+          <button type="button" onClick={submit} disabled={currentAnswer === null || submitting || !allAnswered} className="press-primary-action atlas-primary-action">
             {submitting ? (language === "zh" ? "正在整理……" : "Reading…") : (language === "zh" ? "查看结果" : "See result")}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
         ) : (
-          <button type="button" onClick={() => move(currentQuestion + 1)} disabled={currentAnswer === null} className="atlas-primary-action">
+          <button type="button" onClick={() => move(currentQuestion + 1)} disabled={currentAnswer === null} className="press-primary-action atlas-primary-action">
             {language === "zh" ? "下一题" : "Next"}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
         )}
       </div>
-      <div className="mt-4 min-h-5 text-center text-xs" role="status" aria-live="polite">{submitError}</div>
-      <p className="mt-5 text-center text-[11px] text-ink/35 dark:text-white/35">
+      <div className="press-quiz-submit-status mt-4 min-h-5 text-center text-xs" role="status" aria-live="polite">{submitError}</div>
+      <p className="press-quiz-tip mt-5 text-center text-[11px] text-ink/35 dark:text-white/35">
         {language === "zh" ? "提示：1–9 选择，↑ ↓ 换选项，← → 换题" : "Tip: 1–9 to choose, ↑ ↓ between options, ← → between questions"}
       </p>
     </QuizShell>

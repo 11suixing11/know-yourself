@@ -37,7 +37,7 @@ export function JournalArticle({
   const date = publicView ? entry.publishedAt : entry.updatedAt;
 
   return (
-    <article className="journal-article" lang={entry.contentLanguage === "bilingual" ? undefined : entry.contentLanguage}>
+    <article className="press-journal-article journal-article" lang={entry.contentLanguage === "bilingual" ? undefined : entry.contentLanguage}>
       {preview && (
         <div className={`journal-preview-banner ${preview === "private" ? "is-private" : "is-public"}`}>
           {preview === "private" ? <LockKeyhole aria-hidden="true" /> : <Globe2 aria-hidden="true" />}

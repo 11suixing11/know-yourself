@@ -100,9 +100,9 @@ export function ThemeToggle() {
 
 function HeaderWordmark() {
   return (
-    <Link href="/" className="atlas-wordmark">
-      <span className="atlas-wordmark-mark" aria-hidden="true"><span /></span>
-      <span className="atlas-wordmark-copy"><strong>认识你自己</strong><small>Know Yourself</small></span>
+    <Link href="/" className="press-wordmark atlas-wordmark">
+      <span className="press-wordmark-seal atlas-wordmark-mark" aria-hidden="true"><span>己</span></span>
+      <span className="press-wordmark-copy atlas-wordmark-copy"><strong>认识你自己</strong><small>Know Yourself</small></span>
     </Link>
   );
 }
@@ -159,9 +159,9 @@ function DesktopNav() {
  */
 export function AppHeader({ backHref, backLabel, section }: { backHref?: string; backLabel?: string; section?: string }) {
   return (
-    <header className="atlas-header">
-      <div className="atlas-header-inner mx-auto flex w-full max-w-6xl items-center gap-4 px-5 sm:px-8">
-        <div className="flex min-w-0 items-center gap-4">
+    <header className="press-header atlas-header">
+      <div className="press-header-inner atlas-header-inner">
+        <div className="press-header-brand">
           {backHref ? <HeaderBackLink href={backHref} label={backLabel} /> : <HeaderWordmark />}
           <HeaderSection section={section} />
         </div>
@@ -179,8 +179,8 @@ export function AppHeader({ backHref, backLabel, section }: { backHref?: string;
  */
 export function FocusHeader({ backHref, backLabel, section }: { backHref: string; backLabel?: string; section?: string }) {
   return (
-    <header className="atlas-header">
-      <div className="atlas-header-inner mx-auto flex w-full max-w-3xl items-center gap-4 px-5 sm:px-8">
+    <header className="press-header press-header--focus atlas-header">
+      <div className="press-header-inner press-header-inner--focus atlas-header-inner">
         <div className="flex min-w-0 items-center gap-4">
           <HeaderBackLink href={backHref} label={backLabel} />
           <HeaderSection section={section} />
@@ -198,13 +198,13 @@ export function MobileNav() {
   const routePath = pathname || "/";
   if (routePath.startsWith("/quiz/") || routePath.startsWith("/result/")) return null;
   return (
-    <nav className="atlas-mobile-nav fixed inset-x-0 bottom-0 z-40 border-t border-ink/10 bg-paper px-3 pt-2 dark:border-white/10 dark:bg-night" aria-label={language === "zh" ? "主导航" : "Primary navigation"}>
-      <div className="mx-auto grid max-w-lg grid-cols-4 gap-0.5">
+    <nav className="press-mobile-nav atlas-mobile-nav" aria-label={language === "zh" ? "主导航" : "Primary navigation"}>
+      <div className="press-mobile-nav-grid">
         {navItems.map(({ href, label, labelEn, icon: Icon }) => {
           const active = isNavItemActive(routePath, href);
           const showAvatar = href === "/account/" && user;
           return (
-            <Link key={href} href={href} aria-current={active ? "page" : undefined} className={cn("atlas-mobile-nav-link flex min-h-12 flex-col items-center justify-center gap-1 whitespace-nowrap font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent", active ? "bg-ink text-paper dark:bg-white dark:text-ink" : "text-ink/65 hover:bg-ink/5 dark:text-white/68 dark:hover:bg-white/5")}>
+            <Link key={href} href={href} aria-current={active ? "page" : undefined} className={cn("press-mobile-nav-link atlas-mobile-nav-link", active && "is-active")}>
               {showAvatar ? <AccountAvatar displayName={user.displayName} avatar={profile?.avatar} size="sm" /> : <Icon className="size-4" strokeWidth={active ? 2.2 : 1.7} />}
               <span>{language === "zh" ? label : labelEn}</span>
             </Link>
@@ -216,5 +216,5 @@ export function MobileNav() {
 }
 
 export function PageContainer({ children, className, id = "main-content" }: { children: React.ReactNode; className?: string; id?: string }) {
-  return <main id={id} tabIndex={-1} className={cn("atlas-page-container mx-auto w-full max-w-6xl px-5 pb-28 pt-8 sm:px-8 sm:pb-16 sm:pt-12", className)}>{children}</main>;
+  return <main id={id} tabIndex={-1} className={cn("press-page-container atlas-page-container", className)}>{children}</main>;
 }

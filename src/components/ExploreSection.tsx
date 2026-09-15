@@ -36,13 +36,13 @@ export default function ExploreSection({ lang = "zh" }: { lang?: Lang }) {
     : { all: "Any length", short: "Up to 16", medium: "17 to 25", long: "26 or more" };
 
   return (
-    <div className="catalog-explorer">
-      <header className="catalog-explorer-heading">
+    <div className="press-catalog-explorer catalog-explorer">
+      <header className="press-catalog-heading catalog-explorer-heading">
         <div>
-          <p className="atlas-section-kicker">{lang === "zh" ? "测评目录" : "Assessment index"}</p>
           <h2>{lang === "zh" ? `全部 ${QUIZ_CATALOG.length} 项测评` : `All ${QUIZ_CATALOG.length} assessments`}</h2>
+          <p>{lang === "zh" ? "按主题浏览，或者直接搜索正在关心的词。" : "Browse by subject or search for what is on your mind."}</p>
         </div>
-        <label className="atlas-search catalog-search" htmlFor="assessment-search">
+        <label className="press-catalog-search atlas-search catalog-search" htmlFor="assessment-search">
           <span className="sr-only">{lang === "zh" ? "搜索测评" : "Search assessments"}</span>
           <Search aria-hidden="true" />
           <input id="assessment-search" name="assessment-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={lang === "zh" ? "搜索性格、情绪、关系……" : "Search personality, emotion, relationships…"} />
@@ -50,7 +50,7 @@ export default function ExploreSection({ lang = "zh" }: { lang?: Lang }) {
         </label>
       </header>
 
-      <div className="catalog-filter-bar">
+      <div className="press-catalog-filter-bar catalog-filter-bar">
         <div className="catalog-topic-filter">
           <SlidersHorizontal aria-hidden="true" />
           <div role="group" aria-label={lang === "zh" ? "按主题筛选" : "Filter by subject"}>
@@ -72,7 +72,7 @@ export default function ExploreSection({ lang = "zh" }: { lang?: Lang }) {
       </div>
 
       {results.length ? (
-        <div className="atlas-catalog-grid">
+        <div className="press-catalog-grid atlas-catalog-grid">
           {results.map((test, index) => <TestCard key={test.id} test={test} index={index} lang={lang} variant="catalog" />)}
         </div>
       ) : (

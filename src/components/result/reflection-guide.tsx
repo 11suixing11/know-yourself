@@ -110,7 +110,7 @@ export function ReflectionGuide({
   ];
 
   return (
-    <section className="mt-8 w-full overflow-hidden rounded-2xl border border-border/60 bg-[var(--paper-strong)]">
+    <section className="press-reflection mt-8 w-full overflow-hidden rounded-2xl border border-border/60 bg-[var(--paper-strong)]">
       <div className="px-5 py-6 sm:px-7">
         <h2 className="text-xl font-semibold text-foreground">
           {lang === "zh" ? "把结果带回真实生活" : "Bring the result into real life"}
@@ -146,7 +146,7 @@ export function ReflectionGuide({
       </div>
 
       {recommendations.length > 0 && (
-        <div className="border-t border-border/60 bg-[var(--sheet-surface)] px-5 py-5 dark:bg-white/[0.035] sm:px-7">
+        <div className="press-reflection-more border-t border-border/60 bg-[var(--sheet-surface)] px-5 py-5 dark:bg-white/[0.035] sm:px-7">
           <p className="text-xs font-medium text-muted-foreground">
             {lang === "zh" ? "想从另一个角度继续" : "Continue from another angle"}
           </p>

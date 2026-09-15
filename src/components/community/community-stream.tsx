@@ -20,17 +20,29 @@ export function CommunityStream() {
   const [composerOpen, setComposerOpen] = useState(false);
   const [feedVersion, setFeedVersion] = useState(0);
   const text = language === "zh";
-  return <div className="atlas-page min-h-screen">
+  return <div className="press-page atlas-page min-h-screen">
     <AppHeader section={text ? "社区" : "Community"} />
-    <PageContainer className="community-page max-w-4xl">
-      <header className="community-intro">
-        <div><h1>{text ? "把想法留给可能懂你的人" : "Leave a thought for someone who may understand"}</h1><p>{text ? "测评、文字和图像现在在同一个社区里。你可以选择最适合此刻的一种表达方式。" : "Assessments, words, and images now live in one community. Choose the form that fits this moment."}</p></div>
-        <aside><p>{text ? "主题不设预设范围，你可以选择文字、测评或图像来表达。公开发布前，你可以先看清会出现什么；未来如提供 AI 功能，也会单独征得同意。" : "There is no preset topic list. Choose words, an assessment, or images. Review what will be public before posting; if AI features are offered later, they will require separate consent."}</p><Link href="/history/" className="atlas-text-link">{text ? "从测评记录开始" : "Start from an assessment"}<ArrowRight aria-hidden="true" /></Link></aside>
+    <PageContainer className="press-community-page community-page">
+      <header className="press-community-intro community-intro">
+        <div className="press-community-statement">
+          <p className="press-edition-line">{text ? "一份共同书写的自我观察刊物" : "A shared publication of personal observations"}</p>
+          <h1>{text ? "此刻的你，正在注意什么？" : "What are you noticing about yourself?"}</h1>
+          <p>{text ? "不必先得出结论。写下一句话、分享一次测评，或者用几张图片留下正在发生的感受。" : "You do not need a conclusion first. Leave a sentence, share an assessment, or hold the moment in a few images."}</p>
+        </div>
+        <aside className="press-community-note">
+          <span>{text ? "公开之前" : "Before publishing"}</span>
+          <p>{text ? "你会先看清哪些内容将被公开。私人记录、草稿和未分享的测评结果仍然只属于你。" : "You will see exactly what becomes public. Private notes, drafts, and unshared results remain yours."}</p>
+          <Link href="/privacy/" className="press-inline-link atlas-text-link">{text ? "了解隐私边界" : "Read the privacy boundary"}<ArrowRight aria-hidden="true" /></Link>
+        </aside>
       </header>
 
-      <div className="community-create-actions" aria-label={text ? "创建社区内容" : "Create community content"}>
-        <button type="button" className="atlas-primary-action" onClick={() => setComposerOpen(true)}><MessageSquarePlus aria-hidden="true" />{text ? "写一段文字" : "Write a text post"}</button>
-        <Link href="/journal/new/?from=community" className="atlas-secondary-action"><ImagePlus aria-hidden="true" />{text ? "发一篇图文帖" : "Create an image post"}</Link>
+      <div className="press-create-desk community-create-actions" aria-label={text ? "创建社区内容" : "Create community content"}>
+        <div className="press-create-copy">
+          <strong>{text ? "从你最自然的表达开始" : "Begin with the form that feels natural"}</strong>
+          <span>{text ? "公开内容会进入下方共同刊物。" : "Public work joins the shared publication below."}</span>
+        </div>
+        <button type="button" className="press-primary-action atlas-primary-action" onClick={() => setComposerOpen(true)}><MessageSquarePlus aria-hidden="true" />{text ? "写下一段话" : "Write a note"}</button>
+        <Link href="/journal/new/?from=community" className="press-secondary-action atlas-secondary-action"><ImagePlus aria-hidden="true" />{text ? "制作图像帖" : "Make an image post"}</Link>
         <div className="community-create-meta">
           <span className="community-create-note">{text ? "图像上传需要验证邮箱" : "Email verification is required for image uploads"}</span>
           {user
@@ -40,7 +52,13 @@ export function CommunityStream() {
       </div>
 
       {composerOpen && <CommunityTextComposer language={language} onClose={() => setComposerOpen(false)} onPublished={() => { setComposerOpen(false); setFeedVersion((value) => value + 1); }} />}
-      <CommunityFeed key={feedVersion} language={language} onCreateText={() => setComposerOpen(true)} />
+      <section className="press-feed-section" aria-labelledby="press-feed-title">
+        <div className="press-feed-heading">
+          <h2 id="press-feed-title">{text ? "正在被写下的观察" : "Observations being written now"}</h2>
+          <p>{text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}</p>
+        </div>
+        <CommunityFeed key={feedVersion} language={language} onCreateText={() => setComposerOpen(true)} />
+      </section>
     </PageContainer>
   </div>;
 }

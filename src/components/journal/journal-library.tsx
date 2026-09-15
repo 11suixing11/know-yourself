@@ -95,7 +95,7 @@ export function JournalLibrary() {
   const pageLoading = syncState === "loading" || (Boolean(user) && loading);
 
   return (
-    <div className="atlas-page journal-library-page">
+    <div className="press-journal-page atlas-page journal-library-page">
       <AppHeader backHref="/" backLabel={language === "zh" ? "返回首页" : "Back home"} section={language === "zh" ? "图像札记" : "Image journal"} />
       <PageContainer className="journal-library-container">
         <header className="journal-library-header">
@@ -104,7 +104,7 @@ export function JournalLibrary() {
             <h1>{language === "zh" ? "图像札记" : "Image journal"}</h1>
             <p>{language === "zh" ? "把几张图和此刻的文字，留在同一页。" : "Keep a few images and the words of this moment on one page."}</p>
           </div>
-          {user && canCreate && <Link href="/journal/new/" className="atlas-primary-action"><ImagePlus aria-hidden="true" />{language === "zh" ? "新建札记" : "New journal"}</Link>}
+          {user && canCreate && <Link href="/journal/new/" className="press-primary-action atlas-primary-action"><ImagePlus aria-hidden="true" />{language === "zh" ? "新建札记" : "New journal"}</Link>}
         </header>
 
         {pageLoading ? <div className="journal-state" role="status"><span className="journal-state-pulse" />{language === "zh" ? "正在整理个人库…" : "Arranging your library…"}</div> : !user ? (
@@ -112,12 +112,12 @@ export function JournalLibrary() {
             <LockKeyhole aria-hidden="true" />
             <h2>{language === "zh" ? "登录后打开个人库" : "Sign in to open your library"}</h2>
             <p>{language === "zh" ? "草稿和私密预览只对你可见。" : "Drafts and private previews are visible only to you."}</p>
-            <Link href="/account/" className="atlas-primary-action"><LogIn aria-hidden="true" />{language === "zh" ? "登录或注册" : "Sign in or register"}</Link>
+            <Link href="/account/" className="press-primary-action atlas-primary-action"><LogIn aria-hidden="true" />{language === "zh" ? "登录或注册" : "Sign in or register"}</Link>
           </div>
         ) : error ? (
           <div className="journal-state journal-state-error">
             <FileImage aria-hidden="true" /><h2>{language === "zh" ? "个人库没有打开" : "Your library did not open"}</h2><p>{error}</p>
-            <button type="button" className="atlas-secondary-action" onClick={() => void load()}><RefreshCw aria-hidden="true" />{language === "zh" ? "重新加载" : "Try again"}</button>
+            <button type="button" className="press-secondary-action atlas-secondary-action" onClick={() => void load()}><RefreshCw aria-hidden="true" />{language === "zh" ? "重新加载" : "Try again"}</button>
           </div>
         ) : data && !data.viewer.emailVerified ? (
           <div className="journal-access-state">
@@ -145,7 +145,7 @@ export function JournalLibrary() {
                 <span className="journal-empty-mark" aria-hidden="true"><FileImage /></span>
                 <h2>{tab === "drafts" ? (language === "zh" ? "从一张图开始" : "Begin with one image") : (language === "zh" ? "还没有公开札记" : "No published journals yet")}</h2>
                 <p>{tab === "drafts" ? (language === "zh" ? "标题、文字和图片会自动保存到你的草稿。" : "Your title, words, and images are saved as a draft.") : (language === "zh" ? "完成草稿后，你可以明确选择公开。" : "When a draft is ready, you can explicitly publish it.")}</p>
-                {tab === "drafts" && <Link href="/journal/new/" className="atlas-primary-action"><ImagePlus aria-hidden="true" />{language === "zh" ? "新建札记" : "New journal"}</Link>}
+                {tab === "drafts" && <Link href="/journal/new/" className="press-primary-action atlas-primary-action"><ImagePlus aria-hidden="true" />{language === "zh" ? "新建札记" : "New journal"}</Link>}
               </div>
             ) : <div className="journal-library-grid">{entries.map((entry) => <JournalLibraryCard key={`${tab}-${entry.id}`} entry={entry} language={language} tab={tab} />)}</div>}
           </>
