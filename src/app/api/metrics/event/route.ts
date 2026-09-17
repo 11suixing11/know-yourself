@@ -7,7 +7,9 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const trustedError = await assertTrustedMutation(request);
   if (trustedError) return trustedError;
-  if (!allowRateLimitedRequest(request, "aggregate-event", 12)) return rateLimitResponse();
+  // One result-page visit can legitimately fire 5-6 funnel counters within a
+  // minute, so this action gets a wider window than single-shot mutations.
+  if (!allowRateLimitedRequest(request, "aggregate-event", 30)) return rateLimitResponse();
   try {
     return json(recordAggregateEvent(await readJson(request, 1_500)), 202);
   } catch (cause) {

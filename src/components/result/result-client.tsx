@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Award, Check, Cloud, RefreshCw, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
@@ -14,6 +14,7 @@ import { ResultDetails } from "@/components/result/result-details";
 import { QuizVisualFrame } from "@/components/quiz/quiz-visual";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { getAttemptById, getLatestAttempt } from "@/lib/storage";
+import { pingResultRead } from "@/lib/metrics";
 import { copyOrShare } from "@/lib/share";
 /**
  * The composer is a form, an upload and a preview that only a minority of
@@ -488,6 +489,25 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
     }
   }, [content, testId, visualFeedback]);
 
+  // The comprehension proxy: the disclaimer sits at the very end of the
+  // result narrative, so seeing half of it means the reader scrolled through.
+  const resultEndRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (!result || typeof IntersectionObserver === "undefined") return;
+    const node = resultEndRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          pingResultRead(testId);
+        }
+      }
+    }, { threshold: 0.5 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [result, testId]);
+
   if (loading || syncState === "loading" || loadedAccountScope !== accountScope) return <Loading language={language} />;
   if (!result || !content) {
     return <div className="press-page atlas-page min-h-screen"><AppHeader /><PageContainer><div className="atlas-empty-state mx-auto mt-16 max-w-lg"><h1 className="text-2xl font-semibold">{language === "zh" ? "还没有找到这次结果" : "No result found yet"}</h1><p className="mt-3 max-w-md text-sm leading-6 text-ink/55 dark:text-white/55">{language === "zh" ? "先完成一次测评。游客结果保存在本机；登录后会自动同步，也能在其他登录设备查看。" : "Complete the assessment once. Guest results stay on this device; after sign-in they sync automatically and are available on your other signed-in devices."}</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`/test/${testId}/`} className="press-primary-action atlas-primary-action justify-center">{language === "zh" ? "查看测评说明" : "View assessment details"}<ArrowRight className="size-4" /></Link><Link href="/" className="press-secondary-action atlas-secondary-action justify-center">{language === "zh" ? "返回首页" : "Back home"}</Link></div></div></PageContainer></div>;
@@ -575,7 +595,7 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
         <section className="press-result-actions mt-8 flex flex-col gap-3 border-t border-ink/10 pt-6 dark:border-white/10 sm:flex-row" aria-label={language === "zh" ? "结果操作" : "Result actions"}><button type="button" onClick={() => router.push(`/quiz/${testId}/`)} className="press-secondary-action atlas-secondary-action flex-1 justify-center"><RefreshCw className="size-4" aria-hidden="true" />{language === "zh" ? "重新测评" : "Retake"}</button><button type="button" onClick={share} className="press-secondary-action atlas-secondary-action flex-1 justify-center" aria-describedby="share-status">{copied ? <Check className="size-4" aria-hidden="true" /> : <Share2 className="size-4" aria-hidden="true" />}{copied ? (language === "zh" ? "已复制" : "Copied") : (language === "zh" ? "复制分享链接" : "Copy share link")}</button><button type="button" onClick={() => setCommunityOpen(true)} className="press-primary-action atlas-primary-action flex-1 justify-center"><Share2 className="size-4" aria-hidden="true" />{language === "zh" ? "公开分享结果" : "Share publicly"}</button></section>
         <p id="share-status" className="mt-3 min-h-5 text-center text-xs text-ink/55 dark:text-white/55" role="status" aria-live="polite">{copied ? (language === "zh" ? "分享文字和链接已复制。" : "Share text and link copied.") : shareError ? (language === "zh" ? "暂时无法分享或复制，请稍后再试。" : "Sharing and clipboard access are unavailable. Please try again.") : ""}</p>
         <div className="mt-5 flex flex-col gap-3 text-center text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-center"><Link href="/history/" className="atlas-text-link justify-center">{language === "zh" ? "查看历史" : "View history"}</Link><span className="hidden sm:inline">/</span><Link href={`/test/${testId}/`} className="atlas-text-link justify-center">{language === "zh" ? "查看测评说明" : "Assessment details"}</Link></div>
-        <p className="mt-9 text-center text-xs leading-5 text-muted-foreground">{language === "zh" ? "仅用于自我反思，不构成诊断或专业评估。" : "For self-reflection only. This is not a diagnosis or professional assessment."}</p>
+        <p ref={resultEndRef} className="mt-9 text-center text-xs leading-5 text-muted-foreground">{language === "zh" ? "仅用于自我反思，不构成诊断或专业评估。" : "For self-reflection only. This is not a diagnosis or professional assessment."}</p>
       </PageContainer>
     </div>
   );

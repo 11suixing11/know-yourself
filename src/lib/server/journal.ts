@@ -1141,21 +1141,75 @@ export function createContentComplaint(value: unknown) {
   return { id: complaintId };
 }
 
+const METRIC_ROUTE_CLASSES = new Set(["home", "catalog", "detail", "result", "history", "bookmarks", "journal", "community"]);
+const METRIC_QUIZ_ID = /^[a-z0-9][a-z0-9-]{0,63}$/;
+const METRIC_LANG_DEVICE = /^(?:zh|en):(?:mobile|desktop)$/;
+const METRIC_LANG_DEVICE_LENGTH = /^(?:zh|en):(?:mobile|desktop):(?:short|medium|long)$/;
+const METRIC_RETURN_BUCKETS = /^completion:(?:1d|2-7d|8-28d)$/;
+
+/**
+ * Every aggregate event reduces to (event_name, entity_type, entity_id,
+ * value, day) dimensions. No account, attempt, request, or device identifier
+ * is ever part of a dimension, so the stored rows can never be linked back
+ * to a person or connected across events.
+ */
+function aggregateEventDimensions(input: Record<string, unknown>) {
+  const eventName = typeof input.event === "string" ? input.event : null;
+  if (!eventName) throw new JournalError("事件类型无效");
+  const metricValue = typeof input.value === "string" ? input.value : null;
+
+  if (eventName === "quiz_visual_helpfulness") {
+    const allowedQuizIds = new Set(["animal-personality", "emotion-regulation", "attachment-style", "life-satisfaction"]);
+    const quizId = typeof input.quizId === "string" && allowedQuizIds.has(input.quizId) ? input.quizId : null;
+    if (!quizId) throw new JournalError("测评标识无效");
+    const visualKey = typeof input.visualKey === "string" && /^[a-zA-Z0-9][a-zA-Z0-9:_-]{0,79}$/.test(input.visualKey) ? input.visualKey : null;
+    if (!visualKey) throw new JournalError("图像标识无效");
+    if (typeof input.helpful !== "boolean") throw new JournalError("反馈值无效");
+    return { eventName, entityType: "quiz_visual", entityId: quizId, value: `${visualKey}:${input.helpful ? "helpful" : "not_helpful"}` };
+  }
+
+  if (eventName === "route_view") {
+    const route = typeof input.route === "string" && METRIC_ROUTE_CLASSES.has(input.route) ? input.route : null;
+    if (!route) throw new JournalError("路由标识无效");
+    if (!metricValue || !METRIC_LANG_DEVICE.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "route", entityId: route, value: metricValue };
+  }
+
+  if (eventName === "quiz_start" || eventName === "quiz_complete") {
+    const quizId = typeof input.quizId === "string" && METRIC_QUIZ_ID.test(input.quizId) ? input.quizId : null;
+    if (!quizId) throw new JournalError("测评标识无效");
+    if (!metricValue || !METRIC_LANG_DEVICE_LENGTH.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "quiz", entityId: quizId, value: metricValue };
+  }
+
+  if (eventName === "result_read") {
+    const quizId = typeof input.quizId === "string" && METRIC_QUIZ_ID.test(input.quizId) ? input.quizId : null;
+    if (!quizId) throw new JournalError("测评标识无效");
+    if (!metricValue || !METRIC_LANG_DEVICE.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "quiz", entityId: quizId, value: metricValue };
+  }
+
+  if (eventName === "baseline_cohort") {
+    if (!metricValue || !METRIC_LANG_DEVICE.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "cohort", entityId: "", value: metricValue };
+  }
+
+  if (eventName === "baseline_return") {
+    if (!metricValue || !METRIC_RETURN_BUCKETS.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "cohort", entityId: "", value: metricValue };
+  }
+
+  throw new JournalError("事件类型无效");
+}
+
 export function recordAggregateEvent(value: unknown) {
-  const input = object(value);
-  if (input.event !== "quiz_visual_helpfulness") throw new JournalError("事件类型无效");
-  const allowedQuizIds = new Set(["animal-personality", "emotion-regulation", "attachment-style", "life-satisfaction"]);
-  const quizId = typeof input.quizId === "string" && allowedQuizIds.has(input.quizId) ? input.quizId : null;
-  if (!quizId) throw new JournalError("测评标识无效");
-  const visualKey = typeof input.visualKey === "string" && /^[a-zA-Z0-9][a-zA-Z0-9:_-]{0,79}$/.test(input.visualKey) ? input.visualKey : null;
-  if (!visualKey) throw new JournalError("图像标识无效");
-  if (typeof input.helpful !== "boolean") throw new JournalError("反馈值无效");
+  const dimensions = aggregateEventDimensions(object(value));
   getDatabase().prepare(`
     INSERT INTO aggregate_events (event_name, entity_type, entity_id, value, event_day, event_count)
     VALUES (?, ?, ?, ?, ?, 1)
     ON CONFLICT(event_name, entity_type, entity_id, value, event_day)
     DO UPDATE SET event_count = event_count + 1
-  `).run("quiz_visual_helpfulness", "quiz_visual", quizId, `${visualKey}:${input.helpful ? "helpful" : "not_helpful"}`, day());
+  `).run(dimensions.eventName, dimensions.entityType, dimensions.entityId, dimensions.value, day());
   return { ok: true };
 }
 

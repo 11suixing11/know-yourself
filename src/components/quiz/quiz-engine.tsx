@@ -9,7 +9,8 @@ import { FocusHeader } from "@/components/shell/app-shell";
 import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { submitCloudQuiz } from "@/lib/account";
-import { clearQuizSession, getQuizSession, saveAttempt, saveQuizSession } from "@/lib/storage";
+import { clearQuizSession, getAttempts, getQuizSession, saveAttempt, saveQuizSession } from "@/lib/storage";
+import { pingQuizCompletion, pingQuizStart } from "@/lib/metrics";
 import { cn } from "@/lib/utils";
 
 /** Hoisted: `questionTitleClass` runs once per character of every prompt. */
@@ -146,6 +147,15 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
     };
   }, []);
 
+  // "Start" is measured when the answering stage is actually on screen, not
+  // while the resume panel is up: on first mount without a draft, and again
+  // the moment a draft is continued or discarded. The ping ledger dedupes
+  // repeats per device per day.
+  useEffect(() => {
+    if (resumeSession || total === 0) return;
+    pingQuizStart(questionSet.id, total);
+  }, [questionSet.id, resumeSession, total]);
+
   useEffect(() => () => {
     if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
   }, []);
@@ -234,6 +244,9 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
     setSubmitError("");
     try {
       const numericAnswers = answersRef.current as number[];
+      // Captured before the save: the 28-day return judgment reads the local
+      // history as it was before this completion joined it.
+      const priorAttempts = getAttempts();
       let cloudFailed = false;
       let attempt;
 
@@ -262,6 +275,7 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
         });
       }
       clearQuizSession(questionSet.id);
+      pingQuizCompletion(questionSet.id, total, priorAttempts);
       const params = new URLSearchParams({ attempt: attempt.id });
       if (cloudFailed) params.set("sync", "failed");
       router.push(`/result/${questionSet.id}/?${params}`);
@@ -269,7 +283,7 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
       setSubmitting(false);
       setSubmitError(language === "zh" ? "结果暂时无法保存，请再试一次。" : "Your result could not be saved. Please try again.");
     }
-  }, [allAnswered, language, questionSet.id, questionSet.title.en, questionSet.title.zh, router, submitting, syncChoice, user]);
+  }, [allAnswered, language, questionSet.id, questionSet.title.en, questionSet.title.zh, router, submitting, syncChoice, total, user]);
 
   const advance = useCallback(() => {
     if (currentAnswer === null) return;
