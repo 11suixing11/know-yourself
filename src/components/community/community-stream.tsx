@@ -1,24 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, ImagePlus, MessageSquarePlus } from "lucide-react";
-import { CommunityFeed } from "@/components/community/community-feed";
-import { CommunityTextComposer } from "@/components/community/community-text-composer";
+import { ArrowRight } from "lucide-react";
+import { CommunityVoiceSection } from "@/components/community/community-voice-section";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { useAccountIdentity } from "@/components/account-provider";
 import { useLanguage } from "@/hooks/use-local-storage";
 
 /**
- * The unified community stream. It backs both the homepage and the
- * compatibility `/community/` route so the feed has exactly one
+ * The compatibility community surface. The homepage renders the same shared
+ * voice block beneath its editorial front page, so the feed has exactly one
  * implementation, one empty-state copy, and one composer wiring.
  */
 export function CommunityStream() {
   const { language } = useLanguage();
-  const { user } = useAccountIdentity();
-  const [composerOpen, setComposerOpen] = useState(false);
-  const [feedVersion, setFeedVersion] = useState(0);
   const text = language === "zh";
   return <div className="press-page atlas-page min-h-screen">
     <AppHeader section={text ? "社区" : "Community"} />
@@ -36,29 +30,11 @@ export function CommunityStream() {
         </aside>
       </header>
 
-      <div className="press-create-desk community-create-actions" aria-label={text ? "创建社区内容" : "Create community content"}>
-        <div className="press-create-copy">
-          <strong>{text ? "从你最自然的表达开始" : "Begin with the form that feels natural"}</strong>
-          <span>{text ? "公开内容会进入下方共同刊物。" : "Public work joins the shared publication below."}</span>
-        </div>
-        <button type="button" className="press-primary-action atlas-primary-action" onClick={() => setComposerOpen(true)}><MessageSquarePlus aria-hidden="true" />{text ? "写下一段话" : "Write a note"}</button>
-        <Link href="/journal/new/?from=community" className="press-secondary-action atlas-secondary-action"><ImagePlus aria-hidden="true" />{text ? "制作图像帖" : "Make an image post"}</Link>
-        <div className="community-create-meta">
-          <span className="community-create-note">{text ? "图像上传需要验证邮箱" : "Email verification is required for image uploads"}</span>
-          {user
-            ? <Link href="/journal/" className="atlas-text-link">{text ? "我的图文帖" : "My image posts"}<ArrowRight aria-hidden="true" /></Link>
-            : <Link href="/account/" className="atlas-text-link">{text ? "登录后参与" : "Sign in to participate"}<ArrowRight aria-hidden="true" /></Link>}
-        </div>
-      </div>
-
-      {composerOpen && <CommunityTextComposer language={language} onClose={() => setComposerOpen(false)} onPublished={() => { setComposerOpen(false); setFeedVersion((value) => value + 1); }} />}
-      <section className="press-feed-section" aria-labelledby="press-feed-title">
-        <div className="press-feed-heading">
-          <h2 id="press-feed-title">{text ? "正在被写下的观察" : "Observations being written now"}</h2>
-          <p>{text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}</p>
-        </div>
-        <CommunityFeed key={feedVersion} language={language} onCreateText={() => setComposerOpen(true)} />
-      </section>
+      <CommunityVoiceSection
+        language={language}
+        heading={text ? "正在被写下的观察" : "Observations being written now"}
+        subheading={text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}
+      />
     </PageContainer>
   </div>;
 }

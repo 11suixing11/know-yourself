@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { ArrowRight, Bookmark, BookmarkCheck, Clock3 } from "lucide-react";
-import type { PublicQuizCatalogEntry } from "@/core/quiz";
+import type { PublicQuizCard, PublicQuizCatalogEntry } from "@/core/quiz";
 import type { QuizTrustProfile } from "@/core/quiz/types";
 import type { TestRegistryEntry } from "@/lib/test-registry";
 import type { Lang } from "@/lib/types";
 import { TEST_CATEGORIES } from "@/lib/constants";
-import { getCoreTestGroup } from "@/lib/core-tests";
+import { getHomeFacet } from "@/lib/home-facets";
 import { useBookmarks } from "@/hooks/use-local-storage";
 import { CategoryMark } from "@/components/quiz/category-mark";
 import { QuizVisualFrame } from "@/components/quiz/quiz-visual";
 import { getQuizCover } from "@/lib/quiz-media";
 
-type TestCardItem = TestRegistryEntry | PublicQuizCatalogEntry;
+type TestCardItem = TestRegistryEntry | PublicQuizCatalogEntry | PublicQuizCard;
 
 function getCardCopy(test: TestCardItem, lang: Lang) {
   if ("title" in test) {
@@ -40,7 +40,7 @@ export function TestCard({ test, index = 0, lang = "zh", variant = "card" }: { t
   const saved = isBookmarked(test.id);
   const { title, description, duration } = getCardCopy(test, lang);
   const group = "topic" in test ? test.topic : undefined;
-  const fallbackGroup = getCoreTestGroup(test.id);
+  const fallbackGroup = getHomeFacet(test.id);
   const categoryLabel = group?.label[lang] ?? (fallbackGroup ? (lang === "zh" ? fallbackGroup.zh : fallbackGroup.en) : getCategoryLabel(test.category, lang));
   const category = group?.id ?? fallbackGroup?.id ?? test.category;
   const trust = "trust" in test ? (test as TestCardItem & { trust?: QuizTrustProfile }).trust : undefined;

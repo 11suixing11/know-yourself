@@ -2,67 +2,61 @@
  * genre: editorial social product
  * macrostructure: community broadsheet / focused workbench
  * design-system: DESIGN.md · designed-as-app
- * skin: morning light — warm, cozy, everyday (2026-09-19)
  */
 
 :root {
-  --color-paper: oklch(97.8% 0.015 92);
-  --color-paper-strong: oklch(99.2% 0.008 92);
-  --color-ink: oklch(23% 0.028 48);
-  --color-night: oklch(19.5% 0.012 55);
-  --color-night-ink: oklch(91% 0.016 82);
-  --color-accent: oklch(56% 0.09 50);
-  --color-accent-ink: oklch(99% 0.008 85);
-  --color-accent-soft: oklch(91% 0.042 55);
-  --color-teal: oklch(47% 0.045 150);
-  --color-teal-soft: oklch(92% 0.022 140);
-  --color-signal: oklch(75% 0.1 78);
-  --color-signal-ink: oklch(29% 0.038 62);
-  --color-muted: oklch(94% 0.017 90);
-  --color-muted-text: oklch(45% 0.026 50);
-  --color-sheet-wash: oklch(92.5% 0.028 85);
-  --color-sheet-surface: oklch(98.4% 0.016 90);
-  --color-sheet-ink: oklch(45% 0.05 48);
-  --color-danger: oklch(50% 0.15 25);
+  --color-paper: oklch(98.8% 0.003 255);
+  --color-paper-strong: oklch(99.8% 0.001 255);
+  --color-ink: oklch(25% 0.02 258);
+  --color-night: oklch(16.5% 0.015 260);
+  --color-night-ink: oklch(93% 0.008 260);
+  --color-accent: oklch(50% 0.15 265);
+  --color-accent-ink: oklch(99% 0.002 265);
+  --color-accent-soft: oklch(94% 0.025 265);
+  --color-teal: oklch(50% 0.065 210);
+  --color-teal-soft: oklch(93% 0.02 210);
+  --color-signal: oklch(70% 0.11 80);
+  --color-signal-ink: oklch(25% 0.03 70);
+  --color-muted: oklch(94% 0.004 255);
+  --color-muted-text: oklch(46% 0.015 258);
+  --color-sheet-wash: oklch(96% 0.005 255);
+  --color-sheet-surface: oklch(98.5% 0.003 255);
+  --color-sheet-ink: oklch(40% 0.03 258);
+  --color-danger: oklch(50% 0.16 25);
   --color-topic-self: oklch(46% 0.12 268);
   --color-topic-emotion: oklch(50% 0.1 232);
   --color-topic-relationship: oklch(48% 0.08 205);
   --color-topic-life: oklch(47% 0.07 185);
   --header-height: 5rem;
-  --radius-control: 0.875rem;
-  --radius-panel: 1.375rem;
-  --radius-media: 1.125rem;
+  --radius-control: 0.625rem;
+  --radius-panel: 1rem;
+  --radius-media: 0.875rem;
   --tracking-display: -0.015em;
   --tracking-title: -0.01em;
 }
 
 .dark {
   --color-paper: var(--color-night);
-  --color-paper-strong: oklch(23.5% 0.016 55);
+  --color-paper-strong: oklch(21.5% 0.018 260);
   --color-ink: var(--color-night-ink);
-  --color-accent: oklch(75% 0.085 65);
-  --color-accent-ink: oklch(21% 0.03 50);
-  --color-accent-soft: oklch(30% 0.04 58);
-  --color-teal: oklch(73% 0.05 145);
-  --color-teal-soft: oklch(29% 0.03 140);
+  --color-accent: oklch(72% 0.12 265);
+  --color-accent-ink: oklch(16% 0.02 262);
+  --color-accent-soft: oklch(27% 0.045 265);
+  --color-teal: oklch(74% 0.06 210);
+  --color-teal-soft: oklch(27% 0.03 210);
   --color-signal: oklch(80% 0.1 80);
-  --color-muted: oklch(28% 0.016 55);
-  --color-muted-text: oklch(74% 0.014 75);
-  --color-sheet-wash: oklch(28% 0.022 60);
-  --color-sheet-surface: oklch(23% 0.018 58);
-  --color-sheet-ink: oklch(80% 0.04 75);
-  --color-danger: oklch(72% 0.13 25);
-  --surface-contrast: oklch(28% 0.018 55);
+  --color-muted: oklch(27% 0.015 260);
+  --color-muted-text: oklch(74% 0.012 262);
+  --color-sheet-wash: oklch(26% 0.02 258);
+  --color-sheet-surface: oklch(21.5% 0.015 260);
+  --color-sheet-ink: oklch(78% 0.025 255);
+  --color-danger: oklch(72% 0.12 25);
+  --surface-contrast: oklch(25% 0.02 260);
   --surface-contrast-ink: var(--color-night-ink);
 }
 
 html { scrollbar-color: color-mix(in oklab, var(--accent) 55%, transparent) var(--paper); }
-
-/* Morning-light background: the photo lives inside the page wrapper as a
- * soft-light blend over the warm paper — the warmth of the window light
- * seeps through without overwhelming the surface. */
 body { background: var(--paper); color: var(--ink); caret-color: var(--accent); }
-
 ::selection { background: var(--accent); color: var(--color-accent-ink); }
 
 .press-page { min-height: 100dvh; background: linear-gradient(var(--soft-line), var(--soft-line)) top / 100% 1px no-repeat, var(--paper); }
@@ -1934,78 +1928,41 @@ html[lang="zh-CN"] .press-journal-page .journal-title-input {
   }
 }
 
-/* Homepage front page: four facets, four different editorial rhythms.
- * Taste-skill dials: VARIANCE 8 / MOTION 3 / DENSITY 3.
- * Hero lede: the morning-light photo carries the first impression. */
-.press-home-lede { border-bottom: 1px solid var(--line); padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 6vw, 5rem); position: relative; margin-inline: calc(-1 * clamp(1rem, 3vw, 2.5rem)); }
-.press-home-lede h1 { max-width: 12ch; margin: 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem); font-style: normal; font-weight: 500; letter-spacing: 0.02em; line-height: 1.1; text-wrap: balance; }
-html[lang="zh-CN"] .press-home-lede h1 { max-width: 11em; line-height: 1.14; }
+/* Homepage front page: one editorial question, four facet bands, and the
+ * shared community voice block. Only layout and rhythm live here; colors and
+ * type come from the same tokens as the rest of the press skin. */
+.press-home-lede { border-bottom: 1px solid var(--line); padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem); }
+.press-home-lede h1 { max-width: 12ch; margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-style: normal; font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.06; text-wrap: balance; }
+html[lang="zh-CN"] .press-home-lede h1 { max-width: 9em; letter-spacing: 0; line-height: 1.08; }
 .press-home-lede > p:last-child { max-width: 58ch; margin: 2rem 0 0; color: var(--muted-text); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.8; }
 
+.press-home-facets { display: grid; gap: clamp(2.5rem, 6vw, 4rem); padding-top: clamp(3rem, 7vw, 5rem); }
+.press-home-facet + .press-home-facet { border-top: 1px solid var(--line); padding-top: clamp(2.5rem, 6vw, 4rem); }
 .press-home-facet-head { display: flex; align-items: baseline; gap: 1rem; }
-.press-home-facet-index { display: inline-grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 999px; background: var(--accent-soft); border: 2px solid var(--paper-strong); box-shadow: 0 1px 3px color-mix(in oklab, var(--ink) 14%, transparent); color: var(--accent); font-size: 0.76rem; transform: rotate(-5deg); flex-shrink: 0; }
-.press-home-facet:nth-of-type(even) .press-home-facet-index { transform: rotate(4deg); }
+.press-home-facet-index { color: var(--accent); font-family: var(--font-plex-mono); font-size: 0.85rem; }
 .press-home-facet-head h2 { margin: 0; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 1.8rem); font-weight: 620; letter-spacing: var(--tracking-display); }
 html[lang="zh-CN"] .press-home-facet-head h2 { letter-spacing: 0.02em; }
 .press-home-facet-head p { margin: 0.45rem 0 0; color: var(--muted-text); font-size: 0.82rem; line-height: 1.7; }
-.press-home-facet-entry { margin: 1.6rem 0 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; text-wrap: balance; }
+.press-home-facet-entry { margin: 1.6rem 0 0; font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 620; letter-spacing: var(--tracking-display); line-height: 1.35; text-wrap: balance; }
+html[lang="zh-CN"] .press-home-facet-entry { letter-spacing: 0; }
 .press-home-facet-entry > span { display: block; margin-top: 0.5rem; color: var(--muted-text); font-size: 0.85rem; font-weight: 400; letter-spacing: normal; line-height: 1.7; }
-.press-home-facet-emoji { display: inline-block; margin-inline: 0.15em; font-size: 0.85em; vertical-align: baseline; }
-.press-home-facet-anchor { position: relative; min-width: 0; }
-.press-home-facet-anchor::before { content: ""; position: absolute; top: -0.4rem; right: 14%; z-index: 1; width: 3.2rem; height: 1rem; background: color-mix(in oklab, var(--accent) 18%, var(--paper-strong)); border-radius: 2px; opacity: 0.85; transform: rotate(3deg); box-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 8%, transparent); }
 
-.press-home-facets { padding-top: clamp(3rem, 7vw, 5rem); }
-.press-home-facet { padding-top: clamp(2rem, 4vw, 3rem); }
-.press-home-facet + .press-home-facet { margin-top: clamp(3rem, 6vw, 5rem); }
-
-/* ── Facet 1 · self: standard two-column band (anchor card right, links left) ── */
 .press-home-facet-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; margin-top: 1.8rem; }
+.press-home-facet-anchor { min-width: 0; }
 .press-home-facet-links { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .press-home-facet-links li { border-bottom: 1px solid var(--soft-line); }
 .press-home-facet-links a { display: flex; align-items: center; gap: 0.9rem; min-height: 3.2rem; padding: 0.9rem 0.2rem; color: inherit; transition: color 160ms var(--ease-out); }
 .press-home-facet-links a:hover { color: var(--accent); }
 .press-home-facet-link-title { flex: 1; min-width: 0; font-weight: 500; line-height: 1.5; }
 .press-home-facet-link-meta { color: var(--muted-text); font-family: var(--font-plex-mono); font-size: 0.72rem; white-space: nowrap; }
-
-/* ── Facet 2 · emotion: reversed — card on the LEFT, links on the RIGHT, with a pull-quote entry above ── */
-.press-home-facet--reverse { padding-top: clamp(2rem, 4vw, 3rem); }
-.press-home-facet--reverse .press-home-facet-body { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); }
-.press-home-facet--reverse .press-home-facet-anchor { order: -1; }
-.press-home-facet--reverse .press-home-facet-head { flex-direction: row-reverse; justify-content: flex-start; text-align: left; }
-.press-home-facet--reverse .press-home-facet-entry { margin-top: 0; margin-bottom: 1.2rem; }
-
-/* ── Facet 3 · relationship: full-width editorial strip, no card, four inline pills ── */
-.press-home-facet--inline .press-home-facet-inline-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.4rem; }
-.press-home-facet-inline-pill { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 2.75rem; padding: 0.55rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); color: var(--ink); font-size: 0.82rem; font-weight: 500; transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out); }
-.press-home-facet-inline-pill:hover { border-color: var(--accent); color: var(--accent); }
-.press-home-facet-inline-pill .press-home-facet-link-meta { color: var(--muted-text); }
-
-/* ── Facet 4 · life: compact two-column split — info left, links right, no anchor card ── */
-.press-home-facet--compact .press-home-facet-compact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; margin-top: 1.2rem; }
-.press-home-facet--compact .press-home-facet-links { border-top: 1px solid var(--line); }
-.press-home-facet--compact .press-home-facet-entry--compact { margin-top: 1rem; font-size: clamp(1.1rem, 1.8vw, 1.4rem); }
+.press-home-facet-all .press-home-facet-link-title { color: var(--accent); font-weight: 600; }
 
 @media (max-width: 799px) {
-  .press-home-facet-body,
-  .press-home-facet--reverse .press-home-facet-body { grid-template-columns: 1fr; }
+  .press-home-facet-body { grid-template-columns: 1fr; }
   .press-home-facet-anchor { order: 1; }
   .press-home-facet-links { order: 2; }
-  .press-home-facet--compact .press-home-facet-compact-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .press-home-facet-links a { transition: none; }
 }
-
-/* Motion layer: quiet micro-interactions only. */
-@media (prefers-reduced-motion: no-preference) {
-  .press-home-facet-links a { transition: color 160ms var(--ease-out), transform 160ms var(--ease-out); }
-  .press-home-facet-links a:hover { transform: translateX(2px); }
-  .press-home-facet-links a:hover svg { transform: translateX(2px); transition: transform 160ms var(--ease-out); }
-  .press-home-facet-anchor .press-test-card { transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
-  .press-home-facet-anchor .press-test-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
-}
-
-.press-home-catalog-cta { display: flex; justify-content: center; margin-top: clamp(2rem, 5vw, 3.5rem); }
-.press-home-catalog-cta a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.9rem; padding: 0.6rem 1.4rem; border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent); border-radius: var(--radius-pill, 999px); color: var(--accent); font-weight: 600; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out); }
-.press-home-catalog-cta a:hover { background: var(--accent); color: var(--color-accent-ink); }

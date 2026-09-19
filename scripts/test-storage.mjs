@@ -33,7 +33,8 @@ function setupStorage(entries = {}) {
 
 const storage = await compile("src/lib/storage.ts");
 const registry = await compile("src/lib/test-registry.ts");
-const coreTests = await compile("src/lib/core-tests.ts", { "./test-registry": registry });
+const homeFacets = await compile("src/lib/home-facets.ts");
+const coreTests = await compile("src/lib/core-tests.ts", { "./test-registry": registry, "./home-facets": homeFacets });
 const localProfile = await compile("src/lib/local-profile.ts");
 const accountSync = await compile("src/lib/account-sync.ts");
 const dataManager = await compile("src/lib/data-manager.ts", { "./storage": storage, "./core-tests": coreTests, "./local-profile": localProfile, "./account-sync": accountSync });

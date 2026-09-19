@@ -228,6 +228,14 @@ export interface PublicQuizCatalogEntry extends QuizCatalogEntry {
   topic: QuizTopic;
 }
 
+/**
+ * The public catalog entry without its loader. A `load` function cannot cross
+ * the server/client boundary, and importing the catalog client-side would drag
+ * the full internal registry into the bundle. Server Components hand this
+ * form to client pages instead.
+ */
+export type PublicQuizCard = Omit<PublicQuizCatalogEntry, "load">;
+
 export interface QuizDefinition {
   id: string;
   kind: QuizKind;

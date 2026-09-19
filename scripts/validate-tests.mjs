@@ -5,7 +5,9 @@ import path from "node:path";
 const root = process.cwd();
 const testsDir = path.join(root, "src", "lib", "tests");
 const registrySource = await readFile(path.join(root, "src", "lib", "test-registry.ts"), "utf8");
-const coreSource = await readFile(path.join(root, "src", "lib", "core-tests.ts"), "utf8");
+// CORE_TEST_GROUPS derives from home-facets.ts, so the drift contract reads
+// the facet module where the curated ids actually live.
+const coreSource = await readFile(path.join(root, "src", "lib", "home-facets.ts"), "utf8");
 const files = await readdir(testsDir);
 
 const entries = Array.from(registrySource.matchAll(/\{\s*id:\s*"([a-z0-9-]+)"\s*,\s*loader:\s*\(\)\s*=>\s*import\("\.\/tests\/([a-z0-9-]+)"\)/g), (match) => {
