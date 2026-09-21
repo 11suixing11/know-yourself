@@ -1168,6 +1168,15 @@ function aggregateEventDimensions(input: Record<string, unknown>) {
     return { eventName, entityType: "quiz_visual", entityId: quizId, value: `${visualKey}:${input.helpful ? "helpful" : "not_helpful"}` };
   }
 
+  if (eventName === "ai_insight") {
+    const allowedQuizIds = new Set(["attachment-style"]);
+    const quizId = typeof input.quizId === "string" && allowedQuizIds.has(input.quizId) ? input.quizId : null;
+    if (!quizId) throw new JournalError("测评标识无效");
+    const stage = typeof input.stage === "string" && /^(requested|generated|failed|helpful|not_helpful)$/.test(input.stage) ? input.stage : null;
+    if (!stage) throw new JournalError("阶段值无效");
+    return { eventName, entityType: "quiz_ai", entityId: quizId, value: stage };
+  }
+
   if (eventName === "route_view") {
     const route = typeof input.route === "string" && METRIC_ROUTE_CLASSES.has(input.route) ? input.route : null;
     if (!route) throw new JournalError("路由标识无效");

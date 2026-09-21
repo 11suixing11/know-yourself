@@ -59,6 +59,7 @@ PRODUCT.md 原文：28 天内在**至少两个不同日期**完成"有意义反�
 | `baseline_cohort` | cohort | （空） | lang:device | 本设备首个完成，设备一生一次（账本） |
 | `baseline_return` | cohort | （空） | 延续类型:间隔桶（1d / 2-7d / 8-28d） | 首次达成 P0/P1 延续判定 |
 | `quiz_visual_helpfulness` | quiz_visual | quizId | visualKey:helpful | 已有，不变 |
+| `ai_insight` | quiz_ai | quizId（实验期仅 `attachment-style`） | requested / generated / failed / helpful / not_helpful | 实验位：结果页「另一个视角」卡片的点击、生成成败与好评计数，走同一聚合计数接口 |
 
 **P1 追加的延续信号**（均带"本机 28 天内有过完成"的前置判定，判定不成立就静默不发）：`continuation_history`、`continuation_result_revisit`（重看完成日 ≠ 今天的旧结果）、`continuation_bookmark`、`continuation_journal_draft`（登录用户此事件由服务端在创建草稿时自记，不经客户端）。
 

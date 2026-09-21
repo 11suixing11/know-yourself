@@ -1,6 +1,6 @@
 ﻿# Know Yourself · 架构一页图
 
-**更新：2026 年 9 月 15 日**
+**更新：2026 年 9 月 20 日**
 
 > 这是一份写给项目所有者的事实地图：只描述现状，不描述愿景。
 > 维护契约：任何架构变更必须同步更新本文档，改代码不改图视同破坏契约。
@@ -21,7 +21,7 @@ Caddy「门卫」 —— 域名 knowyourself.cc.cd 的证书自动续期，
 Node 主进程（Next.js 应用，systemd 守护，端口 3333）
    |
    |-- 页面：React 在服务器端把 HTML 先拼好再发，浏览器接管交互
-   |-- 接口：src/app/api/ 下 36 个路由——登录、社区 feed、札记、举报……
+   |-- 接口：src/app/api/ 下 37 个路由——登录、社区 feed、札记、举报、聚合计数、AI 视角实验（quiz-insight，实验位）……
    |
    |-- 读写 --> SQLite 单文件（/var/lib/quiz-platform/app.sqlite3）
    |            账号、云端测评历史、札记修订、互动、治理审计、配额
@@ -53,9 +53,9 @@ Node 主进程（Next.js 应用，systemd 守护，端口 3333）
 | `src/core/quiz/` | **评分引擎**：纯逻辑，不懂界面；type / dimensions / score 三类算法 |
 | `src/lib/test-registry.ts` | 193 个测评模块的唯一元数据入口 |
 | `src/lib/storage.ts` | 浏览器本地库（游客测评数据住这里） |
-| `src/lib/server/` | 服务端重活：database（SQLite 门面）、journal、governance、email、badges |
+| `src/lib/server/` | 服务端重活：database（SQLite 门面）、journal、governance、email、badges、ai-insight（实验位：结果页 AI 组装卡，key 留空即隐藏） |
 | `tokens.css` + `globals/rebuild/refactor.css` | 视觉系统：tokens 是配色字典，三个 css 是三个年代的皮肤层（待蒸馏为一层） |
-| `scripts/` | 12 个测试套件 + 媒体 worker + 打包脚本 |
+| `scripts/` | 14 个测试套件 + 媒体 worker + 打包脚本 |
 | `deploy/` | 生产部署的单元与运维说明 |
 
 ## 数据的「本地优先」双工
@@ -66,7 +66,7 @@ Node 主进程（Next.js 应用，systemd 守护，端口 3333）
 
 ```
 改代码 → commit 到分支
-→ CI 八道关：依赖审计 → lint → typecheck → 12 套测试 → 旗舰审计 → a11y 审计 → 构建 → standalone 打包
+→ CI 八道关：依赖审计 → lint → typecheck → 14 套测试 → 旗舰审计 → a11y 审计 → 构建 → standalone 打包
 → 全绿 → 受限部署用户发布到 VPS → systemd 重启进程
 ```
 
@@ -74,7 +74,7 @@ Node 主进程（Next.js 应用，systemd 守护，端口 3333）
 
 ## 安全网与已知裂缝
 
-- `npm test` 12 套件兜底（本机运行前须清空 `NODE_ENV`——本机全局变量污染是环境坑，非代码问题）。
+- `npm test` 14 套件兜底（本机运行前须清空 `NODE_ENV`——本机全局变量污染是环境坑，非代码问题）。
 - 数据库 / 媒体 / 删除墓碑每日一致性快照，滚动保留 30 天；**不是**异地容灾，主机或磁盘损坏不可恢复。
 - 已知结构性裂缝：生产环境若缺 `BETTER_AUTH_SECRET` 环境变量，构建仍然全绿，但登录与社区接口会 500。修复项排第一。
 

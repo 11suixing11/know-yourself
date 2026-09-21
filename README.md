@@ -124,11 +124,19 @@ SMTP_USER=...
 SMTP_PASSWORD=...
 SMTP_SECURE=false
 JOURNAL_ADMIN_USER_ID=...
+# 实验位：结果页「另一个视角」AI 卡片，key 留空时功能对用户完全隐藏
+AI_INSIGHT_API_KEY=
+AI_INSIGHT_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+AI_INSIGHT_MODEL=deepseek-v4.1-flash
+# 可选：带客户端门禁的中转（如 agentrouter）所需的额外请求头，JSON 对象
+AI_INSIGHT_HEADERS=
 ```
 
 客户端通过运行时 `/api/config/turnstile` 读取 `TURNSTILE_SITE_KEY`；`/api/config/account` 只返回邮箱验证、注册与找回密码是否可用的布尔值，不返回 SMTP 主机、账号或密钥。注册、重发与找回密码接口在运行配置缺失时直接返回 `503`，注册成功后再显式发送验证邮件，因此界面不会把失败投递显示为成功。忘记密码请求由 Turnstile 保护并返回统一响应（不区分邮箱是否已注册），重置邮件链接 30 分钟内一次性有效，重置成功后其他设备的登录状态会被吊销。`NEXT_PUBLIC_TURNSTILE_SITE_KEY` 仅作为本地或旧部署兼容项。`SMTP_USER` 和 `SMTP_PASSWORD` 必须同时提供或同时省略；`JOURNAL_ADMIN_USER_ID` 也可使用兼容变量 `ADMIN_USER_ID`，当前生产设计只配置一个管理员用户 ID。生产密钥只放在服务器环境文件中，不提交到仓库。
 
 Turnstile、SMTP、管理员 ID、媒体目录和备份目录都是生产发布的必需运行时配置或验收项。仓库提供相应代码路径，但不能据此推断生产服务器已经填入有效密钥或完成外部服务验证。
+
+`AI_INSIGHT_*` 控制实验性「另一个视角」卡片：仅 `attachment-style` 测评的结果页可见，`AI_INSIGHT_API_KEY` 留空时整个功能不渲染。它走任意 OpenAI 兼容 chat 服务，换供应商只改 `AI_INSIGHT_BASE_URL` 与 `AI_INSIGHT_MODEL`（例如硅基流动 `https://api.siliconflow.cn/v1` + `deepseek-ai/DeepSeek-V4-Flash`；接 agentrouter 这类带客户端门禁的中转时，用 `AI_INSIGHT_HEADERS` 以 JSON 传入所需请求头）。数据最小化：请求只携带维度百分比、命中结果与界面语言，不含原始答案或任何账号标识；prompt 由服务端从人工编写的结果文案组装，模型输出经长度与禁词校验后才返回。相关计数落在 `aggregate_events` 的 `ai_insight` 事件（维度与既有指标一致，无个人标识）。生成超时上限默认 25 秒，可用 `AI_INSIGHT_TIMEOUT_MS` 调整（1000–120000）。
 
 ## 媒体边界
 

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { getQuizVisualSelection, getResultKey, getResultScore, getScoreBand } from "@/core/quiz/scoring";
 import { useAccountActions, useAccountIdentity, useAccountSync } from "@/components/account-provider";
 import { AppHeader, FocusHeader, PageContainer } from "@/components/shell/app-shell";
+import { AiInsightSection } from "@/components/result/ai-insight-section";
 import { NarrativeSection } from "@/components/result/narrative-section";
 import { ReflectionGuide } from "@/components/result/reflection-guide";
 import { ResultDetails } from "@/components/result/result-details";
@@ -587,6 +588,10 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
 
         {!(paper.kind === "score" && !Object.keys(result.percentages ?? {}).length && !content.narrative && !content.typeData) && (
           <section className="press-result-panel atlas-result-panel mt-8"><h2 className="press-result-section-title atlas-result-section-title">{language === "zh" ? "结果解释" : "Result interpretation"}</h2><div className="mt-7"><NarrativeSection pattern={pattern} result={result} narrative={content.narrative} typeData={content.typeData} dimensions={paper.resultContent.dimensions} archetypes={paper.resultContent.archetypes} accentColor="var(--accent)" lang={language} introDescription={content.description} /></div></section>
+        )}
+
+        {testId === "attachment-style" && (
+          <AiInsightSection testId={testId} lang={language} resultKey={content.key} percentages={result.percentages ?? {}} />
         )}
 
         <ReflectionGuide testId={testId} entry={{ topic }} pattern={pattern} result={result} dimensions={paper.resultContent.dimensions} accentColor={accent} lang={language} />

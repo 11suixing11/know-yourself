@@ -29,7 +29,8 @@
         "test:auth-email": "node scripts/test-auth-email.mjs",
         "test:password-reset": "node scripts/test-password-reset.mjs",
         "test:metrics": "node scripts/test-metrics.mjs",
-        "test": "npm run check:registry && npm run test:scoring && npm run test:quiz-media && npm run test:storage && npm run test:cloud-revision && npm run test:community && npm run test:journal && npm run test:badges && npm run test:turnstile && npm run test:share && npm run test:auth-email && npm run test:password-reset && npm run test:metrics"
+        "test:ai-insight": "node scripts/test-ai-insight.mjs",
+        "test": "npm run check:registry && npm run test:scoring && npm run test:quiz-media && npm run test:storage && npm run test:cloud-revision && npm run test:community && npm run test:journal && npm run test:badges && npm run test:turnstile && npm run test:share && npm run test:auth-email && npm run test:password-reset && npm run test:metrics && npm run test:ai-insight"
     },
     "dependencies": {
         "better-auth": "^1.7.1",
