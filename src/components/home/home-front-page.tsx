@@ -31,7 +31,7 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
       if (cancelled || !pageRef.current) return;
       effect = new LiquidDistort(el, {
         mode: "ripple",
-        strength: 10,
+        strength: 15,
         radius: 250,
         follow: 0.92,
         decay: 1.2,
@@ -60,6 +60,7 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
 
       {/* === HERO: the morning-light photo carries the question === */}
       <header className="press-home-lede home-lede">
+        <img src="/bg/morning-light.jpg" alt="" className="press-home-lede-photo" aria-hidden="true" />
         <p className="press-edition-line">{text ? "一个心理测评网站" : "A quiz site — with a community"}</p>
         <h1>{text ? "有点迷茫，还是就是无聊？🌙" : "A bit lost? Or just bored? 🌙"}</h1>
         <p>{text ? "来做个测评，看看结果；也看看大家发了什么，或者自己也发一个 ✍️" : "Take an assessment and see what it says — then read what others posted, or share something yourself ✍️"}</p>
