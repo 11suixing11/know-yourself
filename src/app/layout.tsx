@@ -1,5 +1,7 @@
 ﻿import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
+import { AppThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import "./rebuild.css";
 import "./refactor.css";
@@ -57,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head><link rel="apple-touch-icon" href="/icons/icon-192.svg" /><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} /></head>
-      <body className="min-h-full bg-paper font-sans text-ink dark:bg-night dark:text-white"><a className="skip-link" href="#main-content">跳到主要内容 / Skip to main content</a><AccountProvider><PreferenceSync /><MetricsRoutePing />{children}<MobileNav /></AccountProvider></body>
+      <body className="min-h-full bg-paper font-sans text-ink dark:bg-night dark:text-white"><a className="skip-link" href="#main-content">跳到主要内容 / Skip to main content</a><AppRouterCacheProvider><AppThemeProvider><AccountProvider><PreferenceSync /><MetricsRoutePing />{children}<MobileNav /></AccountProvider></AppThemeProvider></AppRouterCacheProvider></body>
     </html>
   );
 }

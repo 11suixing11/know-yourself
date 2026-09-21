@@ -16,6 +16,7 @@
         "check:registry": "node scripts/validate-tests.mjs",
         "audit:flagship": "node scripts/audit-flagship-tests.mjs",
         "metrics:report": "node scripts/metrics-report.mjs",
+        "theme:tokens": "node scripts/gen-mui-tokens.mjs",
         "media:generate": "node scripts/generate-quiz-media.mjs",
         "test:scoring": "node scripts/smoke-score-tests.mjs",
         "test:quiz-media": "node scripts/test-quiz-media.mjs",
@@ -33,6 +34,10 @@
         "test": "npm run check:registry && npm run test:scoring && npm run test:quiz-media && npm run test:storage && npm run test:cloud-revision && npm run test:community && npm run test:journal && npm run test:badges && npm run test:turnstile && npm run test:share && npm run test:auth-email && npm run test:password-reset && npm run test:metrics && npm run test:ai-insight"
     },
     "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/material": "^9.4.0",
+        "@mui/material-nextjs": "^9.4.0",
         "better-auth": "^1.7.1",
         "better-sqlite3": "^12.11.1",
         "clsx": "^2.1.1",
