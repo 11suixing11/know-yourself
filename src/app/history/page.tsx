@@ -9,6 +9,7 @@ import { useAttempts, useLanguage } from "@/hooks/use-local-storage";
 import { getQuizEntry, getResultKey, getResultScore, getScoreBand, loadQuizDefinition, type QuizDefinition, type QuizResult } from "@/core/quiz";
 import { clearCloudAttempts, deleteCloudAttempt } from "@/lib/account";
 import { clearAttempts } from "@/lib/storage";
+import { pingContinuationHistory } from "@/lib/metrics";
 import { CategoryMark } from "@/components/quiz/category-mark";
 
 function escapeRegExp(value: string) {
@@ -87,6 +88,13 @@ export default function HistoryPage() {
   const cloudSyncEnabled = Boolean(user && syncChoice === "merge");
   const entries = useMemo(() => attempts.map((attempt) => ({ attempt, entry: getQuizEntry(attempt.testId) })).filter((item): item is { attempt: typeof attempts[number]; entry: NonNullable<ReturnType<typeof getQuizEntry>> } => Boolean(item.entry)), [attempts]);
   const formatDate = (timestamp: number) => language === "zh" ? new Intl.DateTimeFormat("zh-CN", { dateStyle: "medium" }).format(timestamp) : new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(timestamp);
+
+  // The P1 continuation judgment stays on the device: the visit only counts
+  // when a completion from an earlier day within 28 days is already local.
+  // The ledger dedupes refires from the attempts array changing after sync.
+  useEffect(() => {
+    pingContinuationHistory(attempts);
+  }, [attempts]);
 
   useEffect(() => {
     let cancelled = false;

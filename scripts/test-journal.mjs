@@ -124,6 +124,33 @@ try {
   assert.throws(() => journal.getOwnedJournalEntry("reader", draft.id), (error) => error.code === "JOURNAL_NOT_FOUND");
   assert.throws(() => journal.createJournalEntry("unverified", {}), (error) => error.code === "EMAIL_NOT_VERIFIED");
 
+  // --- The P1 journal-draft continuation is judged inside the draft action:
+  // a count only happens for an account whose latest cloud completion sits
+  // on an earlier day within the 28-day window, at most once per account per
+  // day, and the stored row stays an anonymous day-grained counter.
+  sqlite.prepare('INSERT INTO "user" (id, name, emailVerified) VALUES (?, ?, ?)').run("cont-old", "延续·窗口内完成", 1);
+  sqlite.prepare('INSERT INTO "user" (id, name, emailVerified) VALUES (?, ?, ?)').run("cont-today", "延续·当天完成", 1);
+  sqlite.prepare('INSERT INTO "user" (id, name, emailVerified) VALUES (?, ?, ?)').run("cont-stale", "延续·过期完成", 1);
+  sqlite.prepare('INSERT INTO "user" (id, name, emailVerified) VALUES (?, ?, ?)').run("cont-none", "延续·无完成", 1);
+  const insertCloudAttempt = sqlite.prepare("INSERT INTO quiz_attempts (user_id, id, test_id, result_json, answers_json, completed_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  insertCloudAttempt.run("cont-old", "cont-a1", "mbti", "{}", "[]", Date.now() - 3 * 86_400_000, Date.now() - 3 * 86_400_000);
+  insertCloudAttempt.run("cont-today", "cont-a2", "mbti", "{}", "[]", Date.now(), Date.now());
+  insertCloudAttempt.run("cont-stale", "cont-a3", "mbti", "{}", "[]", Date.now() - 40 * 86_400_000, Date.now() - 40 * 86_400_000);
+
+  journal.createJournalEntry("cont-none", { title: "无完成" });
+  journal.createJournalEntry("cont-today", { title: "当天完成" });
+  journal.createJournalEntry("cont-stale", { title: "过期完成" });
+  assert.equal(sqlite.prepare("SELECT COUNT(*) AS count FROM aggregate_events WHERE event_name = 'continuation_journal_draft'").get().count, 0, "no completion in the 1-28 day window means no continuation count");
+
+  journal.createJournalEntry("cont-old", { title: "第一篇草稿" });
+  assert.deepEqual(
+    sqlite.prepare("SELECT event_name, entity_type, entity_id, value, event_day, event_count FROM aggregate_events WHERE event_name = 'continuation_journal_draft'").all(),
+    [{ event_name: "continuation_journal_draft", entity_type: "continuation", entity_id: "", value: "", event_day: new Date().toISOString().slice(0, 10), event_count: 1 }],
+  );
+
+  journal.createJournalEntry("cont-old", { title: "第二篇草稿" });
+  assert.equal(sqlite.prepare("SELECT event_count FROM aggregate_events WHERE event_name = 'continuation_journal_draft'").get().event_count, 1, "the continuation count is deduped per account per day");
+
   const secret = process.env.TURNSTILE_SECRET_KEY;
   delete process.env.TURNSTILE_SECRET_KEY;
   await assert.rejects(() => journal.createJournalUploadBatch("owner", draft.id, "token", "127.0.0.1"), (error) => error.code === "TURNSTILE_NOT_CONFIGURED");
@@ -518,7 +545,8 @@ try {
   assert.equal(sqlite.prepare("SELECT status FROM content_complaints WHERE id = ?").get(complaint.id).status, "resolved");
 
   journal.recordAggregateEvent({ event: "quiz_visual_helpfulness", quizId: "animal-personality", visualKey: "type:quiet", helpful: true });
-  assert.equal(sqlite.prepare("SELECT event_count FROM aggregate_events").get().event_count, 1);
+  assert.equal(sqlite.prepare("SELECT event_count FROM aggregate_events WHERE event_name = 'quiz_visual_helpfulness'").get().event_count, 1);
+  assert.equal(sqlite.prepare("SELECT COUNT(*) AS count FROM aggregate_events WHERE event_name = 'quiz_visual_helpfulness'").get().count, 1);
   assert.equal(sqlite.prepare("PRAGMA table_info(aggregate_events)").all().some((column) => /user|ip|attempt|result/i.test(column.name)), false);
 
   journal.prepareJournalUserDeletion("owner");

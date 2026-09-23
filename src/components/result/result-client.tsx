@@ -15,7 +15,7 @@ import { ResultDetails } from "@/components/result/result-details";
 import { QuizVisualFrame } from "@/components/quiz/quiz-visual";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { getAttemptById, getLatestAttempt } from "@/lib/storage";
-import { pingResultRead } from "@/lib/metrics";
+import { pingContinuationResultRevisit, pingResultRead } from "@/lib/metrics";
 import { copyOrShare } from "@/lib/share";
 /**
  * The composer is a form, an upload and a preview that only a minority of
@@ -379,6 +379,9 @@ export default function ResultClient({ paper, topic }: { paper: QuizPaper; topic
         setResult(stored.result);
         setAttemptId(stored.id);
         setAttemptAnswers(stored.answers.length > 0 ? stored.answers : null);
+        // P1 continuation: opening an attempt completed on an earlier day
+        // within the 28-day window is a revisit; today's fresh result is not.
+        pingContinuationResultRevisit(stored.timestamp);
       } else {
         setResult(null);
         setAttemptId(null);

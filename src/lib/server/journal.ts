@@ -310,10 +310,14 @@ export function createJournalEntry(userId: string, value: unknown) {
   const now = Date.now();
   const entryId = id("journal");
   const language = text(input.contentLanguage ?? "zh", 16, true);
+  // Judged before the insert so the draft being created cannot count as the
+  // user's own "first draft of the day" dedup anchor.
+  const draftContinuation = journalDraftContinuationEligible(userId, now);
   getDatabase().prepare(`
     INSERT INTO journal_entries (id, user_id, title, body, content_language, allow_comments, status, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, 'draft', ?, ?)
   `).run(entryId, userId, text(input.title, JOURNAL_LIMITS.title), text(input.body, JOURNAL_LIMITS.body), language, bool(input.allowComments, true) ? 1 : 0, now, now);
+  if (draftContinuation) recordInternalAggregateEvent("continuation_journal_draft");
   return getOwnedJournalEntry(userId, entryId);
 }
 
@@ -1208,6 +1212,14 @@ function aggregateEventDimensions(input: Record<string, unknown>) {
     return { eventName, entityType: "cohort", entityId: "", value: metricValue };
   }
 
+  // The three client-side P1 continuation signals (METRICS.md §5). The
+  // server-recorded continuation_journal_draft is deliberately absent: clients
+  // must never be able to post it, it is counted inside the draft action.
+  if (eventName === "continuation_history" || eventName === "continuation_result_revisit" || eventName === "continuation_bookmark") {
+    if (!metricValue || !METRIC_LANG_DEVICE.test(metricValue)) throw new JournalError("维度值无效");
+    return { eventName, entityType: "continuation", entityId: "", value: metricValue };
+  }
+
   throw new JournalError("事件类型无效");
 }
 
@@ -1220,6 +1232,35 @@ export function recordAggregateEvent(value: unknown) {
     DO UPDATE SET event_count = event_count + 1
   `).run(dimensions.eventName, dimensions.entityType, dimensions.entityId, dimensions.value, day());
   return { ok: true };
+}
+
+/**
+ * The P1 continuation judgment for journal drafts (METRICS.md §5): the only
+ * server-recorded continuation signal. A draft counts when the account
+ * already holds a cloud completion from an earlier day within the 28-day
+ * window, and at most once per account per day — both judgments read rows
+ * this business action already owns, so nothing person-identifying is linked
+ * and the stored row stays an anonymous day-grained +1. The event carries no
+ * value dimension because the server never learns language or device class.
+ */
+function journalDraftContinuationEligible(userId: string, now: number) {
+  const sqlite = getDatabase();
+  const completedAt = asRow(sqlite.prepare("SELECT MAX(completed_at) AS latest FROM quiz_attempts WHERE user_id = ?").get(userId))?.latest;
+  if (typeof completedAt !== "number") return false;
+  const todayStart = Date.parse(day(now));
+  const attemptAgeDays = Math.round((todayStart - Date.parse(day(completedAt))) / 86_400_000);
+  if (attemptAgeDays < 1 || attemptAgeDays > 28) return false;
+  const draftsToday = Number(asRow(sqlite.prepare("SELECT COUNT(*) AS count FROM journal_entries WHERE user_id = ? AND created_at >= ?").get(userId, todayStart))?.count ?? 0);
+  return draftsToday === 0;
+}
+
+function recordInternalAggregateEvent(eventName: string) {
+  getDatabase().prepare(`
+    INSERT INTO aggregate_events (event_name, entity_type, entity_id, value, event_day, event_count)
+    VALUES (?, ?, ?, ?, ?, 1)
+    ON CONFLICT(event_name, entity_type, entity_id, value, event_day)
+    DO UPDATE SET event_count = event_count + 1
+  `).run(eventName, "continuation", "", "", day());
 }
 
 export function assertJournalAdmin(userId: string) {

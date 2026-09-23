@@ -71,6 +71,22 @@ try {
     ];
   }]);
 
+  sections.push(["有意延续（滚动 28 天，P1）", () => {
+    const completions = sum(byEvent("quiz_complete"), windowFrom28);
+    const continuationNames = ["continuation_history", "continuation_result_revisit", "continuation_bookmark", "continuation_journal_draft"];
+    const lines = [];
+    let total = 0;
+    for (const name of continuationNames) {
+      const week = sum(byEvent(name), windowFrom7);
+      const month = sum(byEvent(name), windowFrom28);
+      total += month;
+      lines.push(`  ${name}: ${week} / ${month}`);
+    }
+    lines.push(`  完成 → 有意延续：${ratio(total, completions)}（延续 ${total} / 完成 ${completions}）`);
+    lines.push("  口径：四类延续信号之和 ÷ 完成数（METRICS.md §6）；延续窗口前置判定在设备端与服务端草稿动作内完成");
+    return lines;
+  }]);
+
   sections.push(["北极星（滚动 28 天）", () => {
     const cohort = sum(byEvent("baseline_cohort"), windowFrom28);
     const returns = sum(byEvent("baseline_return"), windowFrom28);
@@ -84,7 +100,7 @@ try {
     return [
       `  有意义回访率 ≈ ${northStar}（回访 ${returns} / 进组 ${cohort}）`,
       `  回访间隔分布：1 天 ${buckets["1d"]} · 2–7 天 ${buckets["2-7d"]} · 8–28 天 ${buckets["8-28d"]}`,
-      "  口径：P0 严格版（另一日期又完成一次测评）；比率按设备一次性计数近似",
+      "  口径：北极星分子维持 P0 严格版（另一日期又完成一次测评），P1 延续率另见上一节；比率按设备一次性计数近似",
     ];
   }]);
 

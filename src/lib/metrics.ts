@@ -69,6 +69,20 @@ export function questionCountBucket(questionCount: number): LengthBucket {
  * records the distance to the most recent qualifying completion.
  */
 export function completionReturnBucket(priorAttempts: QuizAttempt[], now = Date.now()): ReturnBucket | null {
+  const latest = latestReturnWindowCompletion(priorAttempts, now);
+  if (latest === null) return null;
+  const distance = localDayDistance(latest, now);
+  if (distance <= 1) return "1d";
+  if (distance <= 7) return "2-7d";
+  return "8-28d";
+}
+
+/**
+ * The most recent completion that sits on an earlier calendar day within the
+ * 28-day window — the shared P1 prerequisite. Same-day completions never
+ * qualify: a continuation must follow the completion day, not share it.
+ */
+export function latestReturnWindowCompletion(priorAttempts: QuizAttempt[], now = Date.now()): number | null {
   let latest: number | null = null;
   for (const attempt of priorAttempts) {
     const distance = localDayDistance(attempt.timestamp, now);
@@ -76,11 +90,17 @@ export function completionReturnBucket(priorAttempts: QuizAttempt[], now = Date.
       if (latest === null || attempt.timestamp > latest) latest = attempt.timestamp;
     }
   }
-  if (latest === null) return null;
-  const distance = localDayDistance(latest, now);
-  if (distance <= 1) return "1d";
-  if (distance <= 7) return "2-7d";
-  return "8-28d";
+  return latest;
+}
+
+/**
+ * A revisited result only counts as a P1 continuation when the underlying
+ * attempt was completed on an earlier day within the 28-day window —
+ * re-reading today's fresh result is not a return.
+ */
+export function resultRevisitQualifies(completedAt: number, now = Date.now()) {
+  const distance = localDayDistance(completedAt, now);
+  return distance >= 1 && distance <= RETURN_WINDOW_DAYS;
 }
 
 function deviceClass(): "mobile" | "desktop" {
@@ -194,4 +214,25 @@ export function pingQuizCompletion(testId: string, questionCount: number, priorA
   pingOnce("baseline_cohort", { value: metricDimensions() }, "baseline_cohort", "per-device");
   const returnBucket = completionReturnBucket(priorAttempts);
   if (returnBucket) pingOnce("baseline_return", { value: `completion:${returnBucket}` }, "baseline_return", "per-device");
+}
+
+/**
+ * The P1 continuation signals (METRICS.md §5). Each one silently no-ops unless
+ * the device already holds a completion from an earlier day within the
+ * 28-day window — the same person-level judgment the P0 return uses, made
+ * here on the device. The server only ever receives the anonymous +1.
+ */
+export function pingContinuationHistory(priorAttempts: QuizAttempt[]) {
+  if (latestReturnWindowCompletion(priorAttempts) === null) return;
+  pingOnce("continuation_history", { value: metricDimensions() }, "continuation_history", "per-day");
+}
+
+export function pingContinuationBookmark(priorAttempts: QuizAttempt[]) {
+  if (latestReturnWindowCompletion(priorAttempts) === null) return;
+  pingOnce("continuation_bookmark", { value: metricDimensions() }, "continuation_bookmark", "per-day");
+}
+
+export function pingContinuationResultRevisit(completedAt: number) {
+  if (!resultRevisitQualifies(completedAt)) return;
+  pingOnce("continuation_result_revisit", { value: metricDimensions() }, "continuation_result_revisit", "per-day");
 }

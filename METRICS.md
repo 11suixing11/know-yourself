@@ -1,6 +1,6 @@
 # 基线指标方案 · 认识你自己 | Know Yourself
 
-> 起草：2026-09-17 ｜ 状态：已批准（2026-09-17）· **P0 已实施（2026-09-17）**：白名单扩展、客户端 P0 事件、/privacy 同步、`npm run metrics:report` 与 `npm run test:metrics`（已挂进 `npm test` 链尾）均已落地；P1 延续信号次周补齐
+> 起草：2026-09-17 ｜ 状态：已批准（2026-09-17）· **P0 已实施（2026-09-17）**：白名单扩展、客户端 P0 事件、/privacy 同步、`npm run metrics:report` 与 `npm run test:metrics`（已挂进 `npm test` 链尾）均已落地 · **P1 已实施（2026-09-23）**：四个延续信号全部落地（第五节实施注记），报告脚本新增延续率读数，/privacy 枚举已同步
 > 关联：PRODUCT.md（北极星与基线指标原文定义）、MARKET_RESEARCH.md（决策依据）、ROADMAP.md
 > 原则一句话：**所有"人"的判断都在浏览器本地完成，服务器只接收 +1。**
 
@@ -62,6 +62,8 @@ PRODUCT.md 原文：28 天内在**至少两个不同日期**完成"有意义反�
 | `ai_insight` | quiz_ai | quizId（实验期仅 `attachment-style`） | requested / generated / failed / helpful / not_helpful | 实验位：结果页「另一个视角」卡片的点击、生成成败与好评计数，走同一聚合计数接口 |
 
 **P1 追加的延续信号**（均带"本机 28 天内有过完成"的前置判定，判定不成立就静默不发）：`continuation_history`、`continuation_result_revisit`（重看完成日 ≠ 今天的旧结果）、`continuation_bookmark`、`continuation_journal_draft`（登录用户此事件由服务端在创建草稿时自记，不经客户端）。
+
+> **P1 实施注记（2026-09-23）**：三个客户端信号的 28 天窗口判定在浏览器本地完成（`latestReturnWindowCompletion`：完成日须早于今天且 ≤28 天，与 P0 回访判定同窗口同口径），经同一 ping 账本按"每设备每事件每天最多一次"去重，事件维度为 `continuation` 类型 + `lang:device` 值；`continuation_journal_draft` 在 `createJournalEntry` 服务端动作内判定——前置条件=账号云端的最近一次完成在 1–28 天窗口内（UTC 日距），去重=该账号当天还没有创建过草稿（读的是业务动作本就持有的行，不新增任何用户级状态），计数本身仍是无标识的日粒度 +1（value 留空，服务端不掌握语言/设备维度），且**不出现在公开事件白名单**，客户端永远无法伪造投递。`baseline_return` 维持 P0 严格口径（value 仅 `completion:*`），避免把服务端可记的信号混进客户端一次性账本造成口径不对称；P1 的延续率按第六节公式 Σ `continuation_*` ÷ Σ `quiz_complete` 独立读出。
 
 **本机 ping 账本**：独立 localStorage 键 `know-yourself:v3:metrics-pings`（不动 Storage v3 快照），结构 `{eventKey: lastDay}`。用途：① 同设备同日同事件去重（route_view、quiz_start 等，重开页面/换标签不重复计数）；② `baseline_cohort` / `baseline_return` 的设备一次性。账本内容永不外发。
 

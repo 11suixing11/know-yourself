@@ -84,6 +84,14 @@ try {
   assert.deepEqual(rowOf("baseline_cohort"), [{ event_name: "baseline_cohort", entity_type: "cohort", entity_id: "", value: "en:mobile", event_day: utcDay(), event_count: 1 }]);
   assert.deepEqual(rowOf("baseline_return"), [{ event_name: "baseline_return", entity_type: "cohort", entity_id: "", value: "completion:2-7d", event_day: utcDay(), event_count: 1 }]);
 
+  // --- The three client-side P1 continuation events write their documented shape.
+  journal.recordAggregateEvent({ event: "continuation_history", value: "zh:mobile" });
+  journal.recordAggregateEvent({ event: "continuation_result_revisit", value: "en:desktop" });
+  journal.recordAggregateEvent({ event: "continuation_bookmark", value: "zh:desktop" });
+  assert.deepEqual(rowOf("continuation_history"), [{ event_name: "continuation_history", entity_type: "continuation", entity_id: "", value: "zh:mobile", event_day: utcDay(), event_count: 1 }]);
+  assert.deepEqual(rowOf("continuation_result_revisit"), [{ event_name: "continuation_result_revisit", entity_type: "continuation", entity_id: "", value: "en:desktop", event_day: utcDay(), event_count: 1 }]);
+  assert.deepEqual(rowOf("continuation_bookmark"), [{ event_name: "continuation_bookmark", entity_type: "continuation", entity_id: "", value: "zh:desktop", event_day: utcDay(), event_count: 1 }]);
+
   // --- The existing image feedback keeps its shape and its pilot-only scope.
   journal.recordAggregateEvent({ event: "quiz_visual_helpfulness", quizId: "animal-personality", visualKey: "type:quiet", helpful: true });
   assert.deepEqual(rowOf("quiz_visual_helpfulness"), [{ event_name: "quiz_visual_helpfulness", entity_type: "quiz_visual", entity_id: "animal-personality", value: "type:quiet:helpful", event_day: utcDay(), event_count: 1 }]);
@@ -105,6 +113,9 @@ try {
   assert.throws(() => journal.recordAggregateEvent({ event: "baseline_cohort", value: "zh:mobile:short" }), /维度值无效/);
   assert.throws(() => journal.recordAggregateEvent({ event: "baseline_return", value: "history:1d" }), /维度值无效/);
   assert.throws(() => journal.recordAggregateEvent({ event: "baseline_return", value: "completion:9-28d" }), /维度值无效/);
+  assert.throws(() => journal.recordAggregateEvent({ event: "continuation_journal_draft", value: "zh:desktop" }), /事件类型无效/);
+  assert.throws(() => journal.recordAggregateEvent({ event: "continuation_history", value: "zh:desktop:short" }), /维度值无效/);
+  assert.throws(() => journal.recordAggregateEvent({ event: "continuation_bookmark" }), /维度值无效/);
 
   // --- Privacy: the counter table still stores nothing person-identifying.
   assert.equal(
@@ -156,6 +167,20 @@ try {
   assert.equal(metrics.completionReturnBucket([makeAttempt(localNoon(40)), makeAttempt(localNoon(3))], todayNoon), "2-7d", "the most recent qualifying attempt sets the bucket");
   assert.equal(metrics.completionReturnBucket([makeAttempt(localNoon(1)), makeAttempt(localNoon(3))], todayNoon), "1d");
 
+  // --- The shared P1 prerequisite: a completion from an earlier day within the window.
+  assert.equal(metrics.latestReturnWindowCompletion([], todayNoon), null);
+  assert.equal(metrics.latestReturnWindowCompletion([makeAttempt(todayNoon - 1)], todayNoon), null, "a same-day completion never satisfies the continuation prerequisite");
+  assert.equal(metrics.latestReturnWindowCompletion([makeAttempt(localNoon(1))], todayNoon), localNoon(1));
+  assert.equal(metrics.latestReturnWindowCompletion([makeAttempt(localNoon(28))], todayNoon), localNoon(28), "day 28 is still inside the window");
+  assert.equal(metrics.latestReturnWindowCompletion([makeAttempt(localNoon(29))], todayNoon), null, "day 29 falls outside the window");
+  assert.equal(metrics.latestReturnWindowCompletion([makeAttempt(localNoon(29)), makeAttempt(localNoon(3))], todayNoon), localNoon(3), "the most recent in-window completion wins");
+
+  // --- The revisit judgment: only attempts completed on an earlier day within the window count.
+  assert.equal(metrics.resultRevisitQualifies(todayNoon - 1, todayNoon), false, "today's fresh result is not a revisit");
+  assert.equal(metrics.resultRevisitQualifies(localNoon(1), todayNoon), true);
+  assert.equal(metrics.resultRevisitQualifies(localNoon(28), todayNoon), true);
+  assert.equal(metrics.resultRevisitQualifies(localNoon(29), todayNoon), false, "results older than 28 days do not count as revisits");
+
   // --- Ping ledger dedup: same claim twice is refused, a new claim wins.
   const ledger = {};
   assert.equal(metrics.claimLedgerSlot(ledger, "quiz_start:mbti", "2026-09-17"), true);
@@ -175,4 +200,4 @@ try {
   rmSync(directory, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }
 
-console.log("✓ Metrics whitelist, aggregate counters, and client-side baseline judgments behave as specified");
+console.log("✓ Metrics whitelist, aggregate counters, P1 continuation judgments, and client-side baseline decisions behave as specified");

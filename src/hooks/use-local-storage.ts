@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Lang } from "@/lib/types";
+import { pingContinuationBookmark } from "@/lib/metrics";
 import {
   STORAGE_EVENT,
   deleteAttempt,
@@ -62,7 +63,14 @@ export function useBookmarks() {
   useStorageSubscription(sync);
   return {
     bookmarks,
-    toggleBookmark: useCallback((id: string) => toggleBookmark(id), []),
+    // The P1 continuation judgment is made here on the device: only saving a
+    // new bookmark counts, and only when a completion from an earlier day
+    // within the 28-day window is already local (METRICS.md §5).
+    toggleBookmark: useCallback((id: string) => {
+      const added = !getBookmarks().includes(id);
+      toggleBookmark(id);
+      if (added) pingContinuationBookmark(getAttempts());
+    }, []),
     isBookmarked: useCallback((id: string) => bookmarks.includes(id), [bookmarks]),
   };
 }
