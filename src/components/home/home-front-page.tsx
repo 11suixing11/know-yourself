@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
@@ -60,7 +61,8 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
 
       {/* === HERO: the morning-light photo carries the question === */}
       <header className="press-home-lede home-lede">
-        <img src="/bg/morning-light.jpg" alt="" className="press-home-lede-photo" aria-hidden="true" />
+        {/* The unoptimized pipeline means Next cannot add LCP hints here; pass the fetch hint through so the hero stays the first thing the browser pulls. */}
+        <Image src="/bg/morning-light.jpg" alt="" aria-hidden="true" fill priority fetchPriority="high" sizes="100vw" className="press-home-lede-photo" />
         <p className="press-edition-line">{text ? "一个心理测评网站" : "A quiz site — with a community"}</p>
         <h1>{text ? "有点迷茫，还是就是无聊？🌙" : "A bit lost? Or just bored? 🌙"}</h1>
         <p>{text ? "来做个测评，看看结果；也看看大家发了什么，或者自己也发一个 ✍️" : "Take an assessment and see what it says — then read what others posted, or share something yourself ✍️"}</p>
@@ -144,7 +146,7 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
       <section className="press-home-facet home-facet press-home-facet--compact" aria-labelledby="home-facet-life">
         <div className="press-home-facet-compact-grid">
           <div>
-            <h2 id="home-facet-life">{f[3].emoji} {text ? f[3].zh : f[3].en}</h2>
+            <h2 id="home-facet-life"><span aria-hidden="true">{f[3].emoji} </span>{text ? f[3].zh : f[3].en}</h2>
             <p>{text ? f[3].descriptionZh : f[3].descriptionEn}</p>
             <p className="press-home-facet-entry press-home-facet-entry--compact">{text ? f[3].entryZh : f[3].entryEn}</p>
           </div>
