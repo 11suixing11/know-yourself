@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--
+  Design preview · Know Yourself — the skin-trial regression target.
+
+  What this is: a static catalog of the active design tokens and the press-*
+  component grammar, rendered once in the light theme and once in .dark, on one
+  page. It links the REAL stylesheets (tokens.css for the structural scale,
+  src/app/refactor.css for the active morning-light palette and components),
+  so a screenshot of this page is a fingerprint of the current skin.
+
+  It is NOT part of the app: no route, no build, no Tailwind. Font fidelity is
+  approximate — production serves Archivo and IBM Plex Mono through next/font;
+  here we fall back to whatever the OS offers, so compare colors, shapes,
+  rhythm, and hierarchy, not letterforms.
+
+  How to use (see DESIGN.md → Iteration guide):
+    1. Change tokens in src/app/refactor.css (:root / .dark).
+    2. Run  node scripts/check-palette-contrast.mjs
+    3. Screenshot BOTH themes with a FRESH Edge profile (a reused profile
+       serves cached bytes — byte-identical screenshots are fake renders):
+
+    & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" `
+      --headless=new --disable-gpu --hide-scrollbars `
+      --window-size=1440,4200 --virtual-time-budget=8000 `
+      --user-data-dir="$env:TEMP\pv-edge-fresh" `
+      --screenshot="preview.png" `
+      "file:///C:/Users/yuki/quiz-platform/design-preview.html"
+
+    4. Diff against the previous screenshot before accepting a skin change.
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>Design preview · 认识你自己</title>
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="src/app/refactor.css" />
+<style>
+  /* Preview-only scaffolding (pv-*). Never used by the app. */
+  :root {
+    --font-archivo: "Archivo", "Segoe UI", sans-serif;
+    --font-plex-mono: "IBM Plex Mono", "Cascadia Code", Consolas, monospace;
+  }
+  body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
+  .pv-theme { padding: 0 0 3.5rem; }
+  .pv-wrap { width: min(100%, 68rem); margin-inline: auto; padding: 2.5rem clamp(1rem, 3vw, 2.5rem) 0; }
+  .pv-kicker { margin: 0 0 0.6rem; color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+  .pv-page-title { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.15; color: var(--ink); }
+  .pv-note { margin: 0.8rem 0 0; max-width: 70ch; color: var(--muted-text); font-size: 0.78rem; line-height: 1.75; }
+  .pv-group { margin-top: 2.4rem; }
+  .pv-group > h3 { margin: 0 0 0.9rem; font-family: var(--font-display); font-size: var(--text-md); font-weight: 620; letter-spacing: var(--tracking-display); color: var(--ink); }
+  .pv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 0.75rem; }
+  .pv-swatch { border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper-strong); overflow: hidden; }
+  .pv-swatch-color { height: 3.25rem; }
+  .pv-swatch-label { padding: 0.45rem 0.6rem; font-size: 0.68rem; line-height: 1.45; color: var(--muted-text); }
+  .pv-swatch-label code { display: block; margin-top: 0.15rem; font-family: var(--font-code); font-size: 0.58rem; color: var(--ink); word-break: break-all; }
+  .pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+  .pv-stack { display: grid; gap: 1.1rem; }
+  .pv-h1 { margin: 0; font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.06; color: var(--ink); }
+  .pv-h2 { margin: 0; font-family: var(--font-display); font-size: var(--text-lg); font-weight: 620; letter-spacing: var(--tracking-display); line-height: 1.2; color: var(--ink); }
+  .pv-round { margin: 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; color: var(--ink); }
+  .pv-body { margin: 0.5rem 0 0; color: var(--muted-text); font-size: var(--text-sm); line-height: 1.75; }
+  .pv-mono { font-family: var(--font-code); font-size: var(--text-sm); color: var(--ink); }
+  .pv-label { color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+  .pv-meter { position: relative; height: 0.9rem; border: 1px solid var(--meter-rule); border-radius: 999px; background: var(--meter-track); max-width: 26rem; }
+  .pv-meter-fill { position: absolute; inset-block: 0; left: 0; width: 62%; border-radius: 999px; background: var(--meter-fill); }
+  .pv-meter-needle { position: absolute; top: -0.3rem; bottom: -0.3rem; left: calc(62% - 1px); width: 2px; background: var(--meter-needle); }
+  .pv-card-scope { display: block !important; padding-top: 0 !important; max-width: 22rem; }
+  .pv-sep { margin: 2.4rem 0 0; border: 0; border-top: 1px solid var(--line); }
+
+  /* Alias re-resolution shim. In the app, .dark sits on <html>, so the
+     :root aliases in tokens.css (--ink, --line, --meter-*, --shadow-*, …)
+     re-resolve against the dark palette ON that element. This page puts
+     .dark on a <section>, where those aliases arrive already frozen to the
+     light values — so they are re-declared here against the section-local
+     --color-* tokens. Mirrors tokens.css :root (alias block, shadows, meter).
+     --surface-contrast/-ink are intentionally absent: they are set directly
+     by the .dark blocks, which the section already inherits. */
+  .pv-theme.dark {
+    --background: var(--color-paper);
+    --foreground: var(--color-ink);
+    --paper: var(--color-paper);
+    --paper-strong: var(--color-paper-strong);
+    --ink: var(--color-ink);
+    --night: var(--color-night);
+    --accent: var(--color-accent);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-text);
+    --muted-text: var(--color-muted-text);
+    --sheet-wash: var(--color-sheet-wash);
+    --sheet-surface: var(--color-sheet-surface);
+    --sheet-ink: var(--color-sheet-ink);
+    --blue-wash: var(--color-blue-wash);
+    --danger: var(--color-danger);
+    --accent-wash: color-mix(in oklab, var(--accent) 11%, var(--paper));
+    --teal: var(--color-teal);
+    --teal-soft: var(--color-teal-soft);
+    --signal: var(--color-signal);
+    --signal-ink: var(--color-signal-ink);
+    --sky: var(--color-sky);
+    --topic-self: var(--color-topic-self);
+    --topic-emotion: var(--color-topic-emotion);
+    --topic-relationship: var(--color-topic-relationship);
+    --topic-life: var(--color-topic-life);
+    --line: color-mix(in oklab, var(--ink) 18%, transparent);
+    --soft-line: color-mix(in oklab, var(--ink) 11%, transparent);
+    --sheet-line: color-mix(in oklab, var(--sheet-ink) 22%, transparent);
+    --border: var(--soft-line);
+    --ring: var(--accent);
+    --meter-track: color-mix(in oklab, var(--ink) 7%, transparent);
+    --meter-rule: color-mix(in oklab, var(--ink) 20%, transparent);
+    --meter-fill: var(--accent);
+    --meter-needle: var(--signal);
+    --shadow-card-hover: 0 1.25rem 2.5rem color-mix(in oklab, var(--color-ink) 14%, transparent);
+    --shadow-feedback: 0 0.875rem 2rem color-mix(in oklab, var(--color-ink) 17%, transparent);
+    --shadow-dialog: 0 1.5rem 4rem color-mix(in oklab, var(--color-night) 26%, transparent);
+    --shadow-soft: 0 1.25rem 2.75rem color-mix(in oklab, var(--color-ink) 11%, transparent);
+    --shadow-lift: 0 1.75rem 3.5rem color-mix(in oklab, var(--color-ink) 16%, transparent);
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────────── page header (light context) ───────────────────────── -->
+<div class="pv-wrap">
+  <p class="pv-kicker">DESIGN PREVIEW · 回归靶</p>
+  <h1 class="pv-page-title">认识你自己 · 设计系统目录</h1>
+  <p class="pv-note">本页直连 tokens.css（结构层）与 src/app/refactor.css（morning-light 活动色板与 press-* 组件语法），下方依次渲染亮色与暗色两套主题。换肤、CSS 蒸馏、token 改动后，用 Edge headless 对本页截图对比（全新 user-data-dir，防缓存假渲染）。字体为系统近似，以色值/形状/节奏对比为准。</p>
+</div>
+
+<!-- ───────────────────────── LIGHT theme ───────────────────────── -->
+<section class="pv-theme" style="background: var(--color-paper); color: var(--color-ink)">
+  <div class="pv-wrap">
+    <p class="pv-kicker">THEME · LIGHT :root</p>
+    <div id="pv-catalog-body">
+
+    <div class="pv-group">
+      <h3>核心色 Core</h3>
+      <div class="pv-grid">
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-paper" style="background: var(--color-paper)"></div><div class="pv-swatch-label"><span>paper 纸</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-paper-strong" style="background: var(--color-paper-strong)"></div><div class="pv-swatch-label"><span>paper-strong 纸·厚</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-ink" style="background: var(--color-ink)"></div><div class="pv-swatch-label"><span>ink 墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-night" style="background: var(--color-night)"></div><div class="pv-swatch-label"><span>night 夜</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-night-ink" style="background: var(--color-night-ink)"></div><div class="pv-swatch-label"><span>night-ink 夜墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-muted-text" style="background: var(--color-muted-text)"></div><div class="pv-swatch-label"><span>muted-text 灰墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-muted" style="background: var(--color-muted)"></div><div class="pv-swatch-label"><span>muted 灰面</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-accent" style="background: var(--color-accent)"></div><div class="pv-swatch-label"><span>accent 陶土</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-accent-ink" style="background: var(--color-accent-ink)"></div><div class="pv-swatch-label"><span>accent-ink 陶土上墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-accent-soft" style="background: var(--color-accent-soft)"></div><div class="pv-swatch-label"><span>accent-soft 陶土洗</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-teal" style="background: var(--color-teal)"></div><div class="pv-swatch-label"><span>teal 鼠尾草</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-teal-soft" style="background: var(--color-teal-soft)"></div><div class="pv-swatch-label"><span>teal-soft 鼠尾草洗</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-signal" style="background: var(--color-signal)"></div><div class="pv-swatch-label"><span>signal 蜜金</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-signal-ink" style="background: var(--color-signal-ink)"></div><div class="pv-swatch-label"><span>signal-ink 蜜金上墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-danger" style="background: var(--color-danger)"></div><div class="pv-swatch-label"><span>danger 危险</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-sheet-wash" style="background: var(--color-sheet-wash)"></div><div class="pv-swatch-label"><span>sheet-wash 稿纸洗</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-sheet-surface" style="background: var(--color-sheet-surface)"></div><div class="pv-swatch-label"><span>sheet-surface 稿纸面</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-sheet-ink" style="background: var(--color-sheet-ink)"></div><div class="pv-swatch-label"><span>sheet-ink 稿纸墨</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--surface-contrast" style="background: var(--surface-contrast)"></div><div class="pv-swatch-label"><span>surface-contrast 反差面</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--surface-contrast-ink" style="background: var(--surface-contrast-ink)"></div><div class="pv-swatch-label"><span>surface-contrast-ink</span><code></code></div></div>
+      </div>
+    </div>
+
+    <div class="pv-group">
+      <h3>四个切面 Four topics</h3>
+      <div class="pv-grid">
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-topic-self" style="background: var(--color-topic-self)"></div><div class="pv-swatch-label"><span>topic-self 自我 · 陶土</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-topic-emotion" style="background: var(--color-topic-emotion)"></div><div class="pv-swatch-label"><span>topic-emotion 情绪 · 炭火</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-topic-relationship" style="background: var(--color-topic-relationship)"></div><div class="pv-swatch-label"><span>topic-relationship 关系 · 蜜土</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--color-topic-life" style="background: var(--color-topic-life)"></div><div class="pv-swatch-label"><span>topic-life 生活 · 鼠尾草</span><code></code></div></div>
+      </div>
+    </div>
+
+    <div class="pv-group">
+      <h3>线与刻度 Lines &amp; meter</h3>
+      <div class="pv-grid">
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--line" style="background: var(--line)"></div><div class="pv-swatch-label"><span>line 界线</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--soft-line" style="background: var(--soft-line)"></div><div class="pv-swatch-label"><span>soft-line 细线</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--meter-track" style="background: var(--meter-track)"></div><div class="pv-swatch-label"><span>meter-track 刻度槽</span><code></code></div></div>
+        <div class="pv-swatch"><div class="pv-swatch-color" data-token="--meter-fill" style="background: var(--meter-fill)"></div><div class="pv-swatch-label"><span>meter-fill 刻度针</span><code></code></div></div>
+      </div>
+      <div class="pv-meter" style="margin-top: 1rem">
+        <div class="pv-meter-fill"></div>
+        <div class="pv-meter-needle"></div>
+      </div>
+      <p class="pv-body"><span class="pv-mono">62 / 100</span> — 蜜金指针永远表示"你在这里"。</p>
+    </div>
+
+    <div class="pv-group">
+      <h3>字阶 Typography</h3>
+      <div class="pv-stack">
+        <div>
+          <p class="pv-label">DISPLAY · ARCHIVO 640</p>
+          <p class="pv-h1">把你的问题递给对的测评</p>
+        </div>
+        <div>
+          <p class="pv-label">SECTION · ARCHIVO 620</p>
+          <p class="pv-h2">先从性格和倾向开始，看清自己更常使用的反应方式。</p>
+        </div>
+        <div>
+          <p class="pv-label">QUESTION VOICE · 幼圆 500</p>
+          <p class="pv-round">最近总在问：我到底是什么样的人？</p>
+        </div>
+        <div>
+          <p class="pv-label">BODY · SYSTEM 400</p>
+          <p class="pv-body">正文样例：测评为读者服务，社区围绕答案生长。段落的度量在 65–75 字符之间，行高保持安静。</p>
+        </div>
+        <div>
+          <p class="pv-label">DATA · PLEX MONO</p>
+          <p class="pv-mono">score 62 · count 16 · date 2026-09-26 · Q07</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pv-group">
+      <h3>组件语法 Component grammar</h3>
+      <div class="pv-stack">
+        <div class="pv-row">
+          <a class="press-primary-action">做个测评</a>
+          <a class="press-secondary-action">看看社区</a>
+          <div class="press-home-catalog-cta" style="margin-top: 0"><a>全部 16 个测评都在这里 📚</a></div>
+        </div>
+
+        <div>
+          <p class="pv-label">FACET HEAD · 贴纸徽章（奇偶反向倾斜）</p>
+          <div class="press-home-facet">
+            <header class="press-home-facet-head">
+              <span class="press-home-facet-index" aria-hidden="true">🪞</span>
+              <div>
+                <h2>自我认知</h2>
+                <p>先从性格和倾向开始，看清自己更常使用的反应方式。</p>
+              </div>
+            </header>
+          </div>
+          <div class="press-home-facet">
+            <header class="press-home-facet-head">
+              <span class="press-home-facet-index" aria-hidden="true">⛅</span>
+              <div>
+                <h2>情绪与能量</h2>
+                <p>看见情绪如何流动，也看见你恢复能量的方式。</p>
+              </div>
+            </header>
+          </div>
+          <p class="press-home-facet-entry">我明明已经很累了，却还在撑着。<span>看看你如何理解、容纳和表达情绪。</span></p>
+        </div>
+
+        <div>
+          <p class="pv-label">INLINE PILLS · 关系切面</p>
+          <div class="press-home-facet--inline">
+            <div class="press-home-facet-inline-row">
+              <a class="press-home-facet-inline-pill" href="#"><span class="press-home-facet-link-title">依恋风格</span><span class="press-home-facet-link-meta">24 题</span></a>
+              <a class="press-home-facet-inline-pill" href="#"><span class="press-home-facet-link-title">沟通方式</span><span class="press-home-facet-link-meta">20 题</span></a>
+              <a class="press-home-facet-inline-pill" href="#"><span class="press-home-facet-link-title">边界感</span><span class="press-home-facet-link-meta">18 题</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="pv-label">LINK ROWS · 目录行</p>
+          <ul class="press-home-facet-links">
+            <li><a href="#"><span class="press-home-facet-link-title">MBTI 十六型人格</span><span class="press-home-facet-link-meta">93 题 · 15 分钟</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></li>
+            <li><a href="#"><span class="press-home-facet-link-title">大五人格</span><span class="press-home-facet-link-meta">50 题 · 12 分钟</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="pv-label">CARD + WASHI TAPE · 锚点卡</p>
+          <div class="press-home-facet-anchor">
+            <div class="press-feed-section pv-card-scope">
+              <article class="community-post">
+                <h3 style="margin: 0 0 0.4rem; font-family: var(--font-display); font-size: var(--text-md); font-weight: 620; color: var(--ink)">一段被共鸣的分享</h3>
+                <p class="pv-body" style="margin: 0">"原来不是只有我在深夜里怀疑自己适不适合现在的生活。"</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── DARK theme (catalog cloned from light) ───────────────────────── -->
+<section class="pv-theme dark" style="background: var(--color-paper); color: var(--color-ink)">
+  <div class="pv-wrap" id="pv-catalog-dark">
+    <p class="pv-kicker">THEME · DARK .dark</p>
+  </div>
+</section>
+
+<script>
+  // The dark catalog is an exact clone of the light catalog so both themes
+  // always show the same set of tokens and components.
+  const light = document.getElementById("pv-catalog-body");
+  const darkHost = document.getElementById("pv-catalog-dark");
+  darkHost.insertAdjacentHTML("beforeend", light.innerHTML);
+
+  // Resolve each swatch's live token value inside its theme context.
+  for (const el of document.querySelectorAll("[data-token]")) {
+    const value = getComputedStyle(el).getPropertyValue(el.dataset.token).trim();
+    const code = el.closest(".pv-swatch")?.querySelector("code");
+    if (code && value) code.textContent = value;
+  }
+</script>
+</body>
+</html>
