@@ -85,8 +85,8 @@ export function MascotRain() {
               className="press-mascot-sway"
               style={{ "--sway": `${s.sway}s` } as React.CSSProperties}
             >
-              {/* Tiny decorative sprites — the unoptimized pipeline makes
-                 next/image a plain <img> with no benefit here. */}
+              {/* Tiny decorative sprites — under the unoptimized pipeline
+                 next/image adds nothing over a plain image element here. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="press-mascot-wobble"
