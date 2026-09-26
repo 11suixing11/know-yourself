@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
-  <rect width="192" height="192" rx="32" fill="#FAFAF8"/>
-  <text x="96" y="115" text-anchor="middle" font-size="80" font-family="serif" fill="#2C2C2C">镜</text>
+  <rect width="192" height="192" rx="32" fill="#FBF8ED"/>
+  <text x="96" y="115" text-anchor="middle" font-size="80" font-family="serif" fill="#8C4922">镜</text>
 </svg>

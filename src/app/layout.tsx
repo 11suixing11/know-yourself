@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   other: { "apple-mobile-web-app-capable": "yes", "apple-mobile-web-app-status-bar-style": "default", "apple-mobile-web-app-title": "认识你自己" },
 };
 
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FAFBFD" }, { media: "(prefers-color-scheme: dark)", color: "#1B1C23" }], colorScheme: "light dark" };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FBF8ED" }, { media: "(prefers-color-scheme: dark)", color: "#191410" }], colorScheme: "light dark" };
 
 const jsonLd = {
   "@context": "https://schema.org",

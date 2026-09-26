@@ -1,21 +1,27 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">认识你自己 | Know Yourself</title>
-  <desc id="desc">A bilingual local-first self-reflection quiz platform.</desc>
-  <rect width="1200" height="630" fill="#f4f0e7"/>
-  <g fill="none" stroke="#2f6b5f" opacity=".18">
-    <circle cx="1018" cy="224" r="188" stroke-width="2"/>
-    <circle cx="1018" cy="224" r="145"/>
-    <circle cx="1018" cy="224" r="103"/>
+  <desc id="desc">A calm bilingual community for words, assessment results, and image posts.</desc>
+  <rect width="1200" height="630" fill="#fbf8ed"/>
+  <g fill="#8c4922" opacity=".05">
+    <circle cx="180" cy="520" r="3"/><circle cx="340" cy="470" r="2.4"/><circle cx="520" cy="545" r="2.8"/>
+    <circle cx="660" cy="480" r="2.2"/><circle cx="90" cy="380" r="2.6"/><circle cx="610" cy="120" r="2.4"/>
   </g>
-  <text x="86" y="112" fill="#2f6b5f" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="19" font-weight="700" letter-spacing="4">A QUIET PLACE TO NOTICE</text>
-  <text x="82" y="220" fill="#17221f" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="78" font-weight="700" letter-spacing="-4">Know Yourself</text>
-  <text x="86" y="285" fill="#5e6965" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="26">16 reviewed bilingual assessments.</text>
-  <text x="86" y="326" fill="#5e6965" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="26">Notice a pattern. Carry one useful question onward.</text>
-  <rect x="780" y="185" width="330" height="350" rx="24" fill="#ffffff" fill-opacity=".24" stroke="#17221f" stroke-opacity=".16"/>
-  <circle cx="945" cy="315" r="76" fill="#f2d7c5" fill-opacity=".82"/>
-  <circle cx="1038" cy="386" r="54" fill="#4f705f" fill-opacity=".78"/>
-  <path d="M820 482C864 436 908 450 937 412C968 372 1007 373 1090 438" fill="none" stroke="#2f6b5f" stroke-width="3"/>
-  <path d="M832 470C872 427 899 425 930 387C966 344 1004 346 1081 405" fill="none" stroke="#936451" stroke-opacity=".55" stroke-width="2"/>
-  <g fill="#2f6b5f" stroke="#f4f0e7" stroke-width="4"><circle cx="853" cy="455" r="9"/><circle cx="963" cy="365" r="9"/><circle cx="1062" cy="414" r="9"/></g>
-  <text x="86" y="574" fill="#17221f" fill-opacity=".44" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="2">认识你自己 / KNOW YOURSELF</text>
+  <g>
+    <rect x="760" y="150" width="350" height="360" rx="24" fill="#fefcf6" stroke="#281911" stroke-opacity=".12"/>
+    <circle cx="935" cy="252" r="92" fill="#d1a662" opacity=".14"/>
+    <circle cx="935" cy="252" r="58" fill="#d1a662" opacity=".22"/>
+    <line x1="935" y1="150" x2="935" y2="222" stroke="#281911" stroke-width="5"/>
+    <path d="M899 262 Q935 208 971 262 L962 282 H908 Z" fill="#8c4922"/>
+    <circle cx="935" cy="276" r="8" fill="#d1a662" opacity=".95"/>
+    <rect x="806" y="438" width="258" height="5" rx="2.5" fill="#281911" opacity=".8"/>
+    <rect x="848" y="404" width="26" height="30" rx="6" fill="#8c4922"/>
+    <rect x="920" y="400" width="30" height="34" rx="7" fill="#49624e"/>
+    <rect x="992" y="406" width="24" height="28" rx="6" fill="#904d49"/>
+  </g>
+  <text x="86" y="112" fill="#8c4922" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="19" font-weight="700" letter-spacing="4">A QUIET ROOM WITH PEOPLE IN IT</text>
+  <text x="82" y="220" fill="#281911" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="78" font-weight="700" letter-spacing="-4">Know Yourself</text>
+  <text x="86" y="285" fill="#625149" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="26">A calm bilingual community for words,</text>
+  <text x="86" y="326" fill="#625149" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="26">assessment results, and image posts.</text>
+  <rect x="86" y="368" width="120" height="6" rx="3" fill="#8c4922"/>
+  <text x="86" y="574" fill="#281911" fill-opacity=".44" font-family="Segoe UI, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" letter-spacing="2">认识你自己 / KNOW YOURSELF</text>
 </svg>

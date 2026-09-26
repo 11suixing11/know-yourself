@@ -6,16 +6,18 @@ const WIDTH = 1200;
 const HEIGHT = 900;
 const OUTPUT_ROOT = path.join(process.cwd(), "public", "quiz-media");
 
-/* Cyanotype. A blueprint is a monochrome object, so the four scene families are
- * four exposures of one blue rather than four different colours: 258 for the
- * self scenes, 232 for feeling, 205 for relating, 188 for living. Brass never
- * appears here -- in this product a warm pixel means "this is the number being
- * reported", and an illustration reports nothing. */
+/* Hearth-exposures over the morning-light skin. A lamplit room is one warm
+ * object, so the four scene families are four exposures of the product's warm
+ * topic hues rather than four different colours: clay 45 for the self scenes,
+ * ember 25 for feeling, honey-earth 70 for relating, sage 140 for living. The
+ * palettes stay mid and deep -- the meter needle's light honey (the one "you
+ * are here" gold in the interface) never appears in an illustration, so a
+ * bright golden pixel still reports a value and nothing else. */
 const palettes = {
-  forest: { paper: "#EBF1F8", sky: "#CDDAED", light: "#F8FAFE", soft: "#9FB3D0", ground: "#5B77A0", ink: "#14233A", accent: "#2A5695" },
-  water: { paper: "#E9F2F7", sky: "#C6DDEA", light: "#F6FBFD", soft: "#93B7CB", ground: "#477E99", ink: "#042736", accent: "#00608B" },
-  bridge: { paper: "#E7F3F4", sky: "#C3DFE2", light: "#F6FBFC", soft: "#8EBAC0", ground: "#3B828A", ink: "#00292E", accent: "#006775" },
-  table: { paper: "#E8F3F1", sky: "#C4E0DD", light: "#F6FBFB", soft: "#8FBBB7", ground: "#3D847E", ink: "#002A27", accent: "#006A62" },
+  forest: { paper: "#F8EFE2", sky: "#F1DECA", light: "#FEF9F0", soft: "#D9B896", ground: "#A97C50", ink: "#3A2A1B", accent: "#B0663A" },
+  water: { paper: "#F8EEE9", sky: "#F1DACC", light: "#FEF8F3", soft: "#DCB49E", ground: "#B07157", ink: "#3B211A", accent: "#A85540" },
+  bridge: { paper: "#F8F1DD", sky: "#F0E3C0", light: "#FDFAEC", soft: "#DCC48C", ground: "#B18F49", ink: "#3B2F14", accent: "#A87E2E" },
+  table: { paper: "#EFF3E9", sky: "#DEE8D2", light: "#FBFDF5", soft: "#BDCBA9", ground: "#7F9869", ink: "#22301E", accent: "#5E7C4B" },
 };
 
 

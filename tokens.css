@@ -1,19 +1,14 @@
-/* Cyanotype · pre-emit critique: P5 H5 E5 S5 R5 V5 · macrostructure: Index-First / Workbench / Split Studio · tone: measured instrument, read in daylight · anchor hue: prussian blue + brass
+/* Legacy token sheet · structural scale + orphan colours · 2026-09-25
  *
- * The palette is named for the blueprint process, and it is chosen against the
- * default this file used to hold: cream paper with a terracotta accent, the
- * cluster every generated interface lands in. Here the paper is mineral rather
- * than parchment -- barely blue, so it reads as cool white next to warm skin and
- * warm rooms -- and the single structural colour is prussian blue, which carries
- * both "this is a control" and "this is a measurement" without ever feeling
- * decorative. Brass is the only warm hue and it is rationed: it marks the
- * present value on a meter and nothing else, so a warm pixel always means
- * "you are here".
- *
- * Hues are fixed so the whole system rotates together: 250 for the blue axis
- * (ink, paper tint, accent), 78 for brass, 205 for the cyan support, 22 for
- * danger. Chroma stays low on surfaces and rises only on the four accents,
- * which is what keeps a page of text calm while a single meter reads loud. */
+ * The active colour palette lives in src/app/refactor.css (:root and .dark,
+ * "morning light" warm skin); this file keeps the structural scale (type,
+ * space, radius, motion) and now only owns the colour tokens refactor.css
+ * does not redefine: sky, blue-wash, overlay-ink, and the print family, plus
+ * a warm legacy fallback for everything else. Token names are contract — the
+ * MUI bridge (scripts/gen-mui-tokens.mjs -> src/theme/site-tokens.json)
+ * reads blue-wash and sky by name, so names may never be removed here.
+ * Values follow the morning-light warm axis: 85-92 paper family, 48-55 ink
+ * and clay, 78 honey, 150 sage, 25 danger. */
 :root {
   --color-paper: oklch(97% 0.007 250);
   --color-paper-strong: oklch(99.4% 0.003 250);
@@ -27,7 +22,7 @@
   --color-teal-soft: oklch(90% 0.034 205);
   --color-signal: oklch(74% 0.115 78);
   --color-signal-ink: oklch(26% 0.045 75);
-  --color-sky: oklch(80% 0.062 235);
+  --color-sky: oklch(85% 0.05 80);
   --color-muted: oklch(91.5% 0.013 250);
   --color-muted-text: oklch(46% 0.024 252);
   /* The sheet: one step off the page, for a card that holds a reading and for the
@@ -38,12 +33,12 @@
   --color-sheet-wash: oklch(91.5% 0.03 245);
   --color-sheet-surface: oklch(98.2% 0.011 245);
   --color-sheet-ink: oklch(45% 0.06 250);
-  --color-blue-wash: oklch(92% 0.032 250);
+  --color-blue-wash: oklch(92.5% 0.03 75);
   --color-danger: oklch(52% 0.16 22);
   --color-overlay-ink: oklch(100% 0 0);
   --color-print-paper: oklch(100% 0 0);
-  --color-print-ink: oklch(25% 0.03 252);
-  --color-print-muted: oklch(44% 0.018 250);
+  --color-print-ink: oklch(25% 0.03 48);
+  --color-print-muted: oklch(44% 0.02 50);
 
   /* The four public topics need to be told apart, and the obvious way -- one hue
    * per topic, red for feelings, green for life -- would spend the whole palette
@@ -52,10 +47,10 @@
    * from prussian to cyan to a cyan-green, with chroma falling as hue turns so
    * none of the four shouts louder than another. A cyanotype print is a
    * monochrome object; these are four exposures of it. */
-  --color-topic-self: oklch(42% 0.128 258);
-  --color-topic-emotion: oklch(47% 0.112 232);
-  --color-topic-relationship: oklch(50% 0.092 205);
-  --color-topic-life: oklch(46% 0.070 188);
+  --color-topic-self: oklch(46% 0.105 45);
+  --color-topic-emotion: oklch(50% 0.09 25);
+  --color-topic-relationship: oklch(51% 0.07 70);
+  --color-topic-life: oklch(47% 0.06 140);
 
   --background: var(--color-paper);
   --foreground: var(--color-ink);
@@ -161,17 +156,17 @@
   --color-teal-soft: oklch(28% 0.045 205);
   --color-signal: oklch(81% 0.11 80);
   --color-signal-ink: oklch(22% 0.035 78);
-  --color-sky: oklch(74% 0.055 235);
-  --color-muted: oklch(28% 0.034 250);
+  --color-sky: oklch(76% 0.045 78);
+  --color-muted: oklch(28% 0.016 55);
   --color-muted-text: oklch(75.5% 0.016 245);
   --color-sheet-wash: oklch(29% 0.038 248);
   --color-sheet-surface: oklch(23.5% 0.03 250);
   --color-sheet-ink: oklch(78% 0.055 245);
-  --color-blue-wash: oklch(27.5% 0.042 250);
-  --color-topic-self: oklch(74.5% 0.112 258);
-  --color-topic-emotion: oklch(77% 0.094 232);
-  --color-topic-relationship: oklch(79% 0.078 205);
-  --color-topic-life: oklch(77.5% 0.060 188);
+  --color-blue-wash: oklch(28% 0.03 60);
+  --color-topic-self: oklch(74.5% 0.1 45);
+  --color-topic-emotion: oklch(77% 0.09 25);
+  --color-topic-relationship: oklch(79% 0.07 70);
+  --color-topic-life: oklch(77.5% 0.055 140);
   --color-danger: oklch(74% 0.12 22);
   /* Light mode inverts to ink for its loudest surface. Dark mode has nothing
    * darker than the page to invert to, so the contrast surface becomes the

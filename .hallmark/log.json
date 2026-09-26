@@ -18,5 +18,15 @@
     "vibe": "lucid editorial reflection workspace",
     "enrichment": "local assessment and journal imagery",
     "brief": "Rebuild the full frontend surface while preserving routes, authentication, sync, assessment, result, journal, and community behavior"
+  },
+  {
+    "date": "2026-09-25",
+    "scope": "app",
+    "macrostructure": "Unified Feed / Workbench / Long Document",
+    "theme": "custom",
+    "theme_axes": "warm-paper / system-sans / clay-terracotta",
+    "vibe": "lamplit morning-light community broadsheet",
+    "enrichment": "local warm-exposure assessment and journal imagery",
+    "brief": "Complete the morning-light warm identity across every surface the 2026-09-19 skin did not reach: warm topic exposures (clay/ember/honey-earth/sage, light in refactor.css and dark formerly only in tokens.css), a deepened clay accent restoring the 5.4:1 contrast floor the lighter skin accent broke, warm legacy orphan tokens (sky, blue-wash, print) without renaming any token the MUI bridge reads, regenerated warm assessment visuals, and warm og-image, og-template, manifest, PWA icons, and viewport themeColor"
   }
 ]
