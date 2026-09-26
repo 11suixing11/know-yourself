@@ -2,48 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
 import { TestCard } from "@/components/TestCard";
 import { CommunityVoiceSection } from "@/components/community/community-voice-section";
+import { MascotRain } from "@/components/home/mascot-rain";
 import { HOME_FACETS } from "@/lib/home-facets";
 import { useLanguage } from "@/hooks/use-local-storage";
 import type { PublicQuizCard } from "@/core/quiz";
 
 /**
  * The front page. Four facets, four different editorial rhythms — no two
- * sections share the same layout family. The hero photo carries the first
- * impression. LiquidDistort gives the whole page a water-surface quality:
- * mouse movement stirs gentle ripples across everything.
+ * sections share the same layout family. The baked watercolor washes carry
+ * the first impression.
  */
 export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
   const { language } = useLanguage();
   const text = language === "zh";
   const byId = new Map(cards.map((card) => [card.id, card]));
-  const pageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = pageRef.current;
-    if (!el) return;
-    let effect: { destroy: () => void } | undefined;
-    let cancelled = false;
-    import("liquid-distort").then(({ LiquidDistort }) => {
-      if (cancelled || !pageRef.current) return;
-      effect = new LiquidDistort(el, {
-        mode: "ripple",
-        strength: 15,
-        radius: 250,
-        follow: 0.92,
-        decay: 1.2,
-        resolution: 0.25,
-      });
-    });
-    return () => {
-      cancelled = true;
-      effect?.destroy();
-    };
-  }, []);
 
   const f = HOME_FACETS;
   const self = byId.get(f[0].entryTestId);
@@ -55,14 +31,16 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
   const lifeAnchor = byId.get(f[3].entryTestId);
   const lifeRest = f[3].ids.filter((id) => id !== f[3].entryTestId).map((id) => byId.get(id)).filter((x): x is PublicQuizCard => !!x);
 
-  return <div ref={pageRef} className="press-page atlas-page min-h-screen">
+  return <div className="press-page atlas-page min-h-screen">
     <AppHeader />
     <PageContainer className="press-home-page home-page">
 
-      {/* === HERO: the morning-light photo carries the question === */}
+      {/* === HERO: baked watercolor washes carry the question === */}
       <header className="press-home-lede home-lede">
-        {/* The unoptimized pipeline means Next cannot add LCP hints here; pass the fetch hint through so the hero stays the first thing the browser pulls. */}
-        <Image src="/bg/morning-light.jpg" alt="" aria-hidden="true" fill priority fetchPriority="high" sizes="100vw" className="press-home-lede-photo" />
+        {/* The washes are baked by scripts/generate-hero-wash.mjs; the dark variant is swapped purely by CSS. The unoptimized pipeline means Next cannot add LCP hints here; pass the fetch hint through so the hero stays the first thing the browser pulls. */}
+        <Image src="/bg/hero-wash-light.webp" alt="" aria-hidden="true" fill priority fetchPriority="high" sizes="100vw" className="press-home-lede-wash" data-wash="light" />
+        <Image src="/bg/hero-wash-dark.webp" alt="" aria-hidden="true" fill sizes="100vw" className="press-home-lede-wash" data-wash="dark" />
+        <MascotRain />
         <p className="press-edition-line">{text ? "一个心理测评网站" : "A quiz site — with a community"}</p>
         <h1>{text ? "有点迷茫，还是就是无聊？🌙" : "A bit lost? Or just bored? 🌙"}</h1>
         <p>{text ? "来做个测评，看看结果；也看看大家发了什么，或者自己也发一个 ✍️" : "Take an assessment and see what it says — then read what others posted, or share something yourself ✍️"}</p>

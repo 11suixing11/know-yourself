@@ -6,6 +6,7 @@ import "./globals.css";
 import "./rebuild.css";
 import "./refactor.css";
 import { MobileNav, PreferenceSync } from "@/components/shell/app-shell";
+import { RouteEnterEffect } from "@/components/shell/route-enter-effect";
 import { MetricsRoutePing } from "@/components/metrics-route-ping";
 import { AccountProvider } from "@/components/account-provider";
 import { OG_IMAGE_URL, serializeJsonLd, SITE_DESCRIPTION, SITE_DESCRIPTION_EN, SITE_NAME, SITE_URL, siteUrl } from "@/lib/site-config";
@@ -59,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN" className={`${archivo.variable} ${plexMono.variable} h-full antialiased`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head><link rel="apple-touch-icon" href="/icons/icon-192.svg" /><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} /></head>
-      <body className="min-h-full bg-paper font-sans text-ink dark:bg-night dark:text-white"><a className="skip-link" href="#main-content">跳到主要内容 / Skip to main content</a><AppRouterCacheProvider><AppThemeProvider><AccountProvider><PreferenceSync /><MetricsRoutePing />{children}<MobileNav /></AccountProvider></AppThemeProvider></AppRouterCacheProvider></body>
+      <body className="min-h-full bg-paper font-sans text-ink dark:bg-night dark:text-white"><a className="skip-link" href="#main-content">跳到主要内容 / Skip to main content</a><AppRouterCacheProvider><AppThemeProvider><AccountProvider><PreferenceSync /><MetricsRoutePing /><RouteEnterEffect />{children}<MobileNav /></AccountProvider></AppThemeProvider></AppRouterCacheProvider></body>
     </html>
   );
 }

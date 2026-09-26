@@ -6,28 +6,32 @@
  */
 
 :root {
-  --color-paper: oklch(97.8% 0.015 92);
-  --color-paper-strong: oklch(99.2% 0.008 92);
-  --color-ink: oklch(23% 0.028 48);
-  --color-night: oklch(19.5% 0.012 55);
-  --color-night-ink: oklch(91% 0.016 82);
-  --color-accent: oklch(56% 0.09 50);
-  --color-accent-ink: oklch(99% 0.008 85);
-  --color-accent-soft: oklch(91% 0.042 55);
-  --color-teal: oklch(47% 0.045 150);
-  --color-teal-soft: oklch(92% 0.022 140);
-  --color-signal: oklch(75% 0.1 78);
-  --color-signal-ink: oklch(29% 0.038 62);
-  --color-muted: oklch(94% 0.017 90);
-  --color-muted-text: oklch(45% 0.026 50);
-  --color-sheet-wash: oklch(92.5% 0.028 85);
-  --color-sheet-surface: oklch(98.4% 0.016 90);
-  --color-sheet-ink: oklch(45% 0.05 48);
-  --color-danger: oklch(50% 0.15 25);
-  --color-topic-self: oklch(46% 0.12 268);
-  --color-topic-emotion: oklch(50% 0.1 232);
-  --color-topic-relationship: oklch(48% 0.08 205);
-  --color-topic-life: oklch(47% 0.07 185);
+  --color-paper: oklch(99.1% 0.005 85);
+  --color-paper-strong: oklch(99.4% 0.003 85);
+  --color-ink: oklch(25% 0.012 55);
+  --color-night: oklch(21% 0.008 60);
+  --color-night-ink: oklch(92% 0.01 85);
+  --color-accent: oklch(52% 0.1 45);
+  --color-accent-ink: oklch(99% 0.006 85);
+  --color-accent-soft: oklch(93% 0.025 60);
+  --color-teal: oklch(48% 0.05 155);
+  --color-teal-soft: oklch(94% 0.015 150);
+  --color-signal: oklch(78% 0.09 85);
+  --color-signal-ink: oklch(30% 0.035 70);
+  --color-muted: oklch(95.5% 0.008 85);
+  --color-muted-text: oklch(47% 0.014 60);
+  --color-sheet-wash: oklch(94.5% 0.012 85);
+  --color-sheet-surface: oklch(98.8% 0.008 87);
+  --color-sheet-ink: oklch(46% 0.028 55);
+  --color-danger: oklch(52% 0.14 25);
+  /* The four topics are four lighter, less saturated exposures of the same
+   * room — apricot coral for the self, rose for feeling, honey for relating,
+   * mint for living. Fresh, never muddy. Dark-mode topics live in
+   * tokens.css .dark, which this file does not redefine. */
+  --color-topic-self: oklch(50% 0.08 45);
+  --color-topic-emotion: oklch(51% 0.07 25);
+  --color-topic-relationship: oklch(51% 0.055 70);
+  --color-topic-life: oklch(49% 0.05 150);
   --header-height: 5rem;
   --radius-control: 0.875rem;
   --radius-panel: 1.375rem;
@@ -38,30 +42,49 @@
 
 .dark {
   --color-paper: var(--color-night);
-  --color-paper-strong: oklch(23.5% 0.016 55);
+  --color-paper-strong: oklch(25% 0.01 60);
   --color-ink: var(--color-night-ink);
-  --color-accent: oklch(75% 0.085 65);
-  --color-accent-ink: oklch(21% 0.03 50);
-  --color-accent-soft: oklch(30% 0.04 58);
-  --color-teal: oklch(73% 0.05 145);
-  --color-teal-soft: oklch(29% 0.03 140);
-  --color-signal: oklch(80% 0.1 80);
-  --color-muted: oklch(28% 0.016 55);
-  --color-muted-text: oklch(74% 0.014 75);
-  --color-sheet-wash: oklch(28% 0.022 60);
-  --color-sheet-surface: oklch(23% 0.018 58);
-  --color-sheet-ink: oklch(80% 0.04 75);
-  --color-danger: oklch(72% 0.13 25);
-  --surface-contrast: oklch(28% 0.018 55);
+  --color-accent: oklch(74% 0.075 65);
+  --color-accent-ink: oklch(20% 0.02 55);
+  --color-accent-soft: oklch(28% 0.03 60);
+  --color-teal: oklch(72% 0.045 150);
+  --color-teal-soft: oklch(27% 0.02 150);
+  --color-signal: oklch(80% 0.09 82);
+  --color-muted: oklch(28% 0.01 60);
+  --color-muted-text: oklch(76% 0.012 85);
+  --color-sheet-wash: oklch(27% 0.014 65);
+  --color-sheet-surface: oklch(24% 0.01 62);
+  --color-sheet-ink: oklch(80% 0.028 85);
+  --color-danger: oklch(72% 0.12 25);
+  --color-topic-self: oklch(75% 0.09 45);
+  --color-topic-emotion: oklch(78% 0.08 25);
+  --color-topic-relationship: oklch(80% 0.06 70);
+  --color-topic-life: oklch(78% 0.05 150);
+  --surface-contrast: oklch(27% 0.012 60);
   --surface-contrast-ink: var(--color-night-ink);
 }
 
 html { scrollbar-color: color-mix(in oklab, var(--accent) 55%, transparent) var(--paper); }
 
-/* Morning-light background: the photo lives inside the page wrapper as a
- * soft-light blend over the warm paper — the warmth of the window light
- * seeps through without overwhelming the surface. */
+/* Morning-light background: the paper itself, warm and quiet. */
 body { background: var(--paper); color: var(--ink); caret-color: var(--accent); }
+
+/* Site-wide paper tooth: a tileable grain laid OVER every surface at a
+ * whisper (baked by scripts/generate-paper-grain.mjs). The 2026-09-19
+ * full-bleed attempts all failed because the texture lived UNDER the page
+ * surfaces; this overlay sits above them, so solid page backgrounds cannot
+ * hide it and no blend mode is needed. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("/bg/paper-grain.png");
+  background-size: 256px 256px;
+  opacity: 0.02;
+}
+html.dark body::after { opacity: 0.03; }
 
 ::selection { background: var(--accent); color: var(--color-accent-ink); }
 
@@ -1936,11 +1959,37 @@ html[lang="zh-CN"] .press-journal-page .journal-title-input {
 
 /* Homepage front page: four facets, four different editorial rhythms.
  * Taste-skill dials: VARIANCE 8 / MOTION 3 / DENSITY 3.
- * Hero lede: the morning-light photo carries the first impression. */
+ * Hero lede: baked watercolor washes carry the first impression. */
 .press-home-lede { border-bottom: 1px solid var(--line); padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 6vw, 5rem); position: relative; margin-inline: calc(-1 * clamp(1rem, 3vw, 2.5rem)); overflow: hidden; }
-.press-home-lede-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-.press-home-lede::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, color-mix(in oklab, var(--paper) 88%, transparent) 0%, color-mix(in oklab, var(--paper) 55%, transparent) 40%, color-mix(in oklab, var(--paper) 30%, transparent) 70%, color-mix(in oklab, var(--paper) 8%, transparent) 100%); }
+.press-home-lede-wash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+html:not(.dark) .press-home-lede-wash[data-wash="dark"] { display: none; }
+html.dark .press-home-lede-wash[data-wash="light"] { display: none; }
+.press-home-lede::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, color-mix(in oklab, var(--paper) 62%, transparent) 0%, color-mix(in oklab, var(--paper) 30%, transparent) 45%, color-mix(in oklab, var(--paper) 8%, transparent) 75%, transparent 100%); }
 .press-home-lede > * { position: relative; z-index: 1; }
+
+/* ── Mascot rain: stickers drift through the hero's morning sky ──
+ * Lanes are invisible vertical rails; the sprite rides its lane down with a
+ * vh-based transform (GPU), sways side to side, and tilts gently — never a
+ * full spin, the mascots must not hang upside down. The hero's overflow
+ * hides and the paper scrim fades sprites near the bottom into depth.
+ * Randomness is client-only (see components/home/mascot-rain.tsx); under
+ * reduced motion no sprite exists. The container overrides the
+ * `.press-home-lede > *` position rule by specificity. */
+/* z stack inside the lede: wash (0) < scrim (1) < rain (2) < text (3).
+ * The rain must ride ABOVE the paper scrim — pastel sprites under a 8–62%
+ * paper veil wash out to nothing — while the question stays topmost. */
+.press-home-lede > .press-mascot-rain { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.press-home-lede > .press-edition-line, .press-home-lede > h1, .press-home-lede > p { z-index: 3; }
+.press-mascot-lane { position: absolute; top: 0; left: var(--x, 50%); height: 100%; width: 0; }
+.press-mascot-sprite { position: absolute; top: 0; animation: press-mascot-fall var(--fall, 13s) linear var(--delay, 0s) infinite; will-change: transform; }
+.press-mascot-sway { display: block; animation: press-mascot-sway var(--sway, 3.4s) ease-in-out infinite alternate; }
+.press-mascot-wobble { display: block; width: var(--size, 48px); height: var(--size, 48px); max-width: none; animation: press-mascot-wobble var(--wobble, 4s) ease-in-out infinite alternate; filter: drop-shadow(0 2px 5px color-mix(in oklab, var(--ink) 26%, transparent)); }
+@media (prefers-reduced-motion: reduce) {
+  .press-mascot-sprite, .press-mascot-sway, .press-mascot-wobble { animation: none; }
+}
+@keyframes press-mascot-fall { from { transform: translateY(-22vh); } to { transform: translateY(122vh); } }
+@keyframes press-mascot-sway { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
+@keyframes press-mascot-wobble { from { transform: rotate(calc(-1 * var(--tilt, 10deg))); } to { transform: rotate(var(--tilt, 10deg)); } }
 .press-home-lede h1 { max-width: 12ch; margin: 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem); font-style: normal; font-weight: 500; letter-spacing: 0.02em; line-height: 1.1; text-wrap: balance; }
 html[lang="zh-CN"] .press-home-lede h1 { max-width: 11em; line-height: 1.14; }
 .press-home-lede > p:last-child { max-width: 58ch; margin: 2rem 0 0; color: var(--muted-text); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.8; }
@@ -2012,3 +2061,85 @@ html[lang="zh-CN"] .press-home-facet-head h2 { letter-spacing: 0.02em; }
 .press-home-catalog-cta { display: flex; justify-content: center; margin-top: clamp(2rem, 5vw, 3.5rem); }
 .press-home-catalog-cta a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.9rem; padding: 0.6rem 1.4rem; border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent); border-radius: var(--radius-pill, 999px); color: var(--accent); font-weight: 600; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out); }
 .press-home-catalog-cta a:hover { background: var(--accent); color: var(--color-accent-ink); }
+
+/* ── Route arrival vocabulary: five gestures, each bound to a meaning ──
+ * Gate: html.route-entering--{letter|turn|focus|curl|rise} is set by
+ * components/shell/route-enter-effect for the moment after a client-side
+ * navigation (hard loads never animate). The destination picks the gesture:
+ * result = letter, test = turn, quiz = focus, journal piece = curl,
+ * everything else = rise. All are disabled under reduced motion. The
+ * wrappers cover every page shell: press-page, press-quiz-page,
+ * press-journal-page, and the legacy atlas-page. */
+@media (prefers-reduced-motion: no-preference) {
+  html.route-entering--letter .press-page,
+  html.route-entering--letter .press-quiz-page,
+  html.route-entering--letter .press-journal-page,
+  html.route-entering--letter .atlas-page {
+    animation: press-route-letter 420ms var(--ease-out) both;
+    -webkit-mask-image: linear-gradient(90deg, #000, #000), linear-gradient(90deg, #000, #000);
+    -webkit-mask-position: left, right;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: linear-gradient(90deg, #000, #000), linear-gradient(90deg, #000, #000);
+    mask-position: left, right;
+    mask-repeat: no-repeat;
+  }
+  html.route-entering--turn .press-page,
+  html.route-entering--turn .press-quiz-page,
+  html.route-entering--turn .press-journal-page,
+  html.route-entering--turn .atlas-page {
+    animation: press-route-turn 460ms var(--ease-out) both;
+    transform-origin: left center;
+  }
+  html.route-entering--focus .press-page,
+  html.route-entering--focus .press-quiz-page,
+  html.route-entering--focus .press-journal-page,
+  html.route-entering--focus .atlas-page {
+    animation: press-route-focus 480ms var(--ease-out) both;
+  }
+  html.route-entering--curl .press-page,
+  html.route-entering--curl .press-quiz-page,
+  html.route-entering--curl .press-journal-page,
+  html.route-entering--curl .atlas-page {
+    animation: press-route-curl 500ms var(--ease-out) both;
+    transform-origin: 100% 100%;
+  }
+  html.route-entering--rise .press-page,
+  html.route-entering--rise .press-quiz-page,
+  html.route-entering--rise .press-journal-page,
+  html.route-entering--rise .atlas-page {
+    animation: press-route-rise 260ms var(--ease-out) both;
+  }
+}
+
+/* letter: two strips of the answer page grow inward from the edges and
+ * settle at the center — a letter opening. */
+@keyframes press-route-letter {
+  from { -webkit-mask-size: 0.5% 100%, 0.5% 100%; mask-size: 0.5% 100%, 0.5% 100%; }
+  to { -webkit-mask-size: 51% 100%, 51% 100%; mask-size: 51% 100%, 51% 100%; }
+}
+
+/* turn: the next page swings in from its left edge and lies flat. */
+@keyframes press-route-turn {
+  from { transform: perspective(1400px) rotateY(-14deg) translateX(-2.5%); }
+  to { transform: none; }
+}
+
+/* focus: the viewport closes in — content blooms out of one point.
+ * Viewport units keep the bloom inside the first screen even on long pages. */
+@keyframes press-route-focus {
+  from { clip-path: circle(0% at 50% 30vh); }
+  to { clip-path: circle(150% at 50% 30vh); }
+}
+
+/* curl: a journal piece peels open from the screen's bottom-right corner
+ * (vw/vh, not % — the page box can be much taller than the viewport). */
+@keyframes press-route-curl {
+  from { clip-path: polygon(100vw 100vh, 100vw 100vh, 100vw 100vh, 100vw 100vh); }
+  to { clip-path: polygon(0 0, 100vw 0, 100vw 100vh, 0 100vh); }
+}
+
+/* rise: the quiet default — settle up half a step and fade in. */
+@keyframes press-route-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}

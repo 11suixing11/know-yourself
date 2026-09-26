@@ -18,6 +18,8 @@
         "metrics:report": "node scripts/metrics-report.mjs",
         "theme:tokens": "node scripts/gen-mui-tokens.mjs",
         "design:tokens": "node scripts/gen-design-tokens.mjs",
+        "hero:wash": "node scripts/generate-hero-wash.mjs",
+        "paper:grain": "node scripts/generate-paper-grain.mjs",
         "media:generate": "node scripts/generate-quiz-media.mjs",
         "test:scoring": "node scripts/smoke-score-tests.mjs",
         "test:quiz-media": "node scripts/test-quiz-media.mjs",
