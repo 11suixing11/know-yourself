@@ -26,10 +26,10 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { JournalArticle } from "@/components/journal/journal-article";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { TurnstileWidget } from "@/components/turnstile-widget";
+import { TurnstileWidget } from "@/components/account/turnstile-widget";
 import { useLanguage } from "@/hooks/use-local-storage";
 import {
   createJournalDraft,

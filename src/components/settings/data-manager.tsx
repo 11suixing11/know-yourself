@@ -6,7 +6,7 @@ import type { Lang } from "@/core/quiz";
 import { STORAGE_EVENT } from "@/lib/storage";
 import { clearAllData, exportAllData, getDataSummary, importData, type ImportMode } from "@/lib/data-manager";
 import { cn } from "@/lib/utils";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 
 const copy = {
   zh: { summary: "当前摘要", records: "结果记录", bookmarks: "收藏", storage: "占用空间", export: "导出备份", exportDesc: "下载包含结果、收藏、偏好和当前账号个人资料的 JSON 文件。", import: "导入备份", importDesc: "只接受本应用生成的 v3 JSON 备份。", merge: "合并", mergeDesc: "保留当前记录并添加新记录", replace: "替换", replaceDesc: "用备份完全替换当前数据", drop: "拖入 JSON 文件，或点击选择", choose: "选择文件", clear: "清空本地数据", clearDesc: "删除当前游客或当前登录账号在此浏览器中的记录、收藏、会话、偏好和个人资料副本。云端数据不会删除；保持登录时，同步数据会重新下载。", confirm: "再次确认清空", cancel: "取消", success: "操作完成", noData: "当前没有可导出的数据", imported: "条记录已导入", invalid: "无法读取这个备份" },

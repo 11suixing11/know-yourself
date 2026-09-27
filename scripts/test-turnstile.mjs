@@ -53,7 +53,7 @@ try {
 
   const accountSource = readFileSync(path.join(root, "src/app/account/page.tsx"), "utf8");
   const journalSource = readFileSync(path.join(root, "src/components/journal/journal-editor.tsx"), "utf8");
-  const widgetSource = readFileSync(path.join(root, "src/components/turnstile-widget.tsx"), "utf8");
+  const widgetSource = readFileSync(path.join(root, "src/components/account/turnstile-widget.tsx"), "utf8");
 
   assert.doesNotMatch(accountSource, /NEXT_PUBLIC_TURNSTILE_SITE_KEY/);
   assert.doesNotMatch(journalSource, /NEXT_PUBLIC_TURNSTILE_SITE_KEY/);

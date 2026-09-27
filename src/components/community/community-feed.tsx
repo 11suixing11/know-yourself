@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowRight, ClipboardList, Heart, History, ImagePlus, Images, MessageCircle, MessageSquarePlus, Reply, ShieldAlert, Trash2, X } from "lucide-react";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import {
   addCommunityComment,
   deleteCommunityComment,

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Check, LockKeyhole, X } from "lucide-react";
 import { useState } from "react";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import { CommunityApiError, publishCommunityPost } from "@/lib/community";
 import { submitCloudQuiz } from "@/lib/account";
 import { replaceAttempt } from "@/lib/storage";

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Check, ImagePlus, LockKeyhole, MessageSquarePlus, X } from "lucide-react";
 import { useState } from "react";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import { publishCommunityPost } from "@/lib/community";
 import type { Lang } from "@/core/quiz";
 

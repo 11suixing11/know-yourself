@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { ArrowLeft, ClipboardList, History, House, Languages, Moon, Settings, Sun, UserRound } from "lucide-react";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import { useLanguage, useTheme } from "@/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 

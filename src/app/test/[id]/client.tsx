@@ -7,7 +7,7 @@ import { getQuizEntry, QUIZ_CATALOG, type QuizMedia, type QuizQuestion } from "@
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
 import { CategoryMark } from "@/components/quiz/category-mark";
 import { QuizVisualFrame } from "@/components/quiz/quiz-visual";
-import { TestCard } from "@/components/TestCard";
+import { TestCard } from "@/components/assessments/test-card";
 import { useBookmarks, useLanguage } from "@/hooks/use-local-storage";
 
 type SampleQuestion = Pick<QuizQuestion, "id" | "prompt">;

@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Check, CircleHelp, RotateCcw } from "lucide-reac
 import { useRouter } from "next/navigation";
 import type { QuizQuestionSet } from "@/core/quiz";
 import { FocusHeader } from "@/components/shell/app-shell";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { submitCloudQuiz } from "@/lib/account";
 import { clearQuizSession, getAttempts, getQuizSession, saveAttempt, saveQuizSession } from "@/lib/storage";

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, FileImage, ImagePlus, LockKeyhole, LogIn, RefreshCw, ShieldCheck } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { getJournalLibrary, journalImageSource, type JournalLibraryResponse, type JournalStatus, type JournalSummary } from "@/lib/journal";

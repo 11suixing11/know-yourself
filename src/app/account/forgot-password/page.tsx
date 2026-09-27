@@ -4,7 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { KeyRound, MailCheck, RefreshCw } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { TurnstileWidget, type TurnstileConfigurationStatus } from "@/components/turnstile-widget";
+import { TurnstileWidget, type TurnstileConfigurationStatus } from "@/components/account/turnstile-widget";
 import { useLanguage } from "@/hooks/use-local-storage";
 import { AccountApiError, getAccountCapabilities, requestPasswordReset } from "@/lib/account";
 import { SITE_URL } from "@/lib/site-config";

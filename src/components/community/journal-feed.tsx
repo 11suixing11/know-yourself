@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowRight, Images, NotebookPen } from "lucide-react";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import { journalImageSource, type JournalImage } from "@/lib/journal";
 import type { Lang } from "@/core/quiz";
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowRight, ImagePlus, MessageSquarePlus } from "lucide-react";
 import { CommunityFeed } from "@/components/community/community-feed";
 import { CommunityTextComposer } from "@/components/community/community-text-composer";
-import { useAccountIdentity } from "@/components/account-provider";
+import { useAccountIdentity } from "@/components/account/account-provider";
 import type { Lang } from "@/core/quiz";
 
 /**

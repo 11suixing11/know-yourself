@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArchiveX, Check, RefreshCw, Search, ShieldCheck } from "lucide-react";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
 import { useLanguage } from "@/hooks/use-local-storage";
 

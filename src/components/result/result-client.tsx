@@ -6,7 +6,7 @@ import Link from "next/link";
 import { AlertTriangle, ArrowRight, Award, Check, Cloud, RefreshCw, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getQuizVisualSelection, getResultKey, getResultScore, getScoreBand } from "@/core/quiz/scoring";
-import { useAccountActions, useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountActions, useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { AppHeader, FocusHeader, PageContainer } from "@/components/shell/app-shell";
 import { AiInsightSection } from "@/components/result/ai-insight-section";
 import { NarrativeSection } from "@/components/result/narrative-section";

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Clock3, Trash2 } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { useAttempts, useLanguage } from "@/hooks/use-local-storage";
 import { getQuizEntry, getResultKey, getResultScore, getScoreBand, loadQuizDefinition, type QuizDefinition, type QuizResult } from "@/core/quiz";
 import { clearCloudAttempts, deleteCloudAttempt } from "@/lib/account";

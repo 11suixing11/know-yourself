@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Check, Moon, Monitor, Sun, UserRound } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { DataManager } from "@/components/data-manager";
+import { DataManager } from "@/components/settings/data-manager";
 import { useLanguage, useTheme } from "@/hooks/use-local-storage";
 import type { Lang } from "@/core/quiz";
 import { cn } from "@/lib/utils";

@@ -49,7 +49,7 @@ Node 主进程（Next.js 应用，systemd 守护，端口 3333）
 | 位置 | 是什么 |
 |---|---|
 | `src/app/` | 页面 + 接口，URL 与文件夹一一对应（assessments / test / quiz / result / journal / community / account / history / bookmarks / settings / admin / complaints / api） |
-| `src/components/` | UI 零件，分 shell / quiz / result / journal / community 五组 |
+| `src/components/` | UI 零件，按域分组：account / assessments / community / home / journal / metrics / quiz / result / settings / shell / theme（2026-09-27 九个根组件归位，根目录不再散落文件） |
 | `src/core/quiz/` | **评分引擎**：纯逻辑，不懂界面；type / dimensions / score 三类算法 |
 | `src/lib/test-registry.ts` | 193 个测评模块的唯一元数据入口 |
 | `src/lib/storage.ts` | 浏览器本地库（游客测评数据住这里） |

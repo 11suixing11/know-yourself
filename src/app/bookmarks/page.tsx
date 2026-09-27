@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BookmarkX, ListFilter } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { TestCard } from "@/components/TestCard";
+import { TestCard } from "@/components/assessments/test-card";
 import { QUIZ_CATALOG } from "@/core/quiz";
 import { useBookmarks, useLanguage } from "@/hooks/use-local-storage";
 

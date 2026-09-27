@@ -13,12 +13,12 @@ import {
   ShieldCheck,
   UserPlus,
 } from "lucide-react";
-import { useAccountIdentity, useAccountSync, useAccountActions } from "@/components/account-provider";
-import { ProfileEditor } from "@/components/profile-editor";
+import { useAccountIdentity, useAccountSync, useAccountActions } from "@/components/account/account-provider";
+import { ProfileEditor } from "@/components/account/profile-editor";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import type { TurnstileConfigurationStatus } from "@/components/turnstile-widget";
+import type { TurnstileConfigurationStatus } from "@/components/account/turnstile-widget";
 /** Only registration renders a captcha, so only registration pays for it. */
-const TurnstileWidget = dynamic(() => import("@/components/turnstile-widget").then((mod) => mod.TurnstileWidget), { ssr: false });
+const TurnstileWidget = dynamic(() => import("@/components/account/turnstile-widget").then((mod) => mod.TurnstileWidget), { ssr: false });
 import { useLanguage } from "@/hooks/use-local-storage";
 import { AccountApiError, changePassword, deleteAccount, getAccountCapabilities, loginAccount, registerAccount, sendVerificationEmail } from "@/lib/account";
 import { clearSyncBaseline } from "@/lib/account-sync";

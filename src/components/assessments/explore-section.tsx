@@ -5,7 +5,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { QUIZ_CATALOG } from "@/core/quiz";
 import type { Lang } from "@/lib/types";
 import { CORE_TEST_GROUPS, type CoreTestGroupId } from "@/lib/core-tests";
-import { TestCard } from "@/components/TestCard";
+import { TestCard } from "@/components/assessments/test-card";
 import { cn } from "@/lib/utils";
 
 type LengthFilter = "all" | "short" | "medium" | "long";

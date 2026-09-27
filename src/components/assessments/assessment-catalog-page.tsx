@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Bookmark, History, ShieldCheck } from "lucide-react";
-import ExploreSection from "@/components/ExploreSection";
+import ExploreSection from "@/components/assessments/explore-section";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
 import { useAttempts, useLanguage } from "@/hooks/use-local-storage";
 import { getQuizEntry } from "@/core/quiz";

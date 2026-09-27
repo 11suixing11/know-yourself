@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, FileImage, LogIn, RefreshCw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useAccountIdentity, useAccountSync } from "@/components/account-provider";
+import { useAccountIdentity, useAccountSync } from "@/components/account/account-provider";
 import { JournalArticle } from "@/components/journal/journal-article";
 import { JournalInteractions } from "@/components/journal/journal-interactions";
 import { FocusHeader, PageContainer } from "@/components/shell/app-shell";

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } fro
 import Link from "next/link";
 import NextImage from "next/image";
 import { Camera, Check, Pencil, Plus, Trash2, X } from "lucide-react";
-import { useAccountIdentity, useAccountActions } from "@/components/account-provider";
+import { useAccountIdentity, useAccountActions } from "@/components/account/account-provider";
 import { getRemoteBadges, saveRemoteBadgeVisibility, saveRemoteWornBadges, type CollectedBadge } from "@/lib/account";
 import type { LocalProfile } from "@/lib/local-profile";
 import { cn } from "@/lib/utils";

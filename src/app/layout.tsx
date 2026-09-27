@@ -1,7 +1,7 @@
 ﻿import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
-import { AppThemeProvider } from "@/components/theme-provider";
+import { AppThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 import "./rebuild.css";
 // Domain modules split from the old refactor.css, imported in the original
@@ -17,8 +17,8 @@ import "./styles/home.css";
 import "./styles/motion.css";
 import { MobileNav, PreferenceSync } from "@/components/shell/app-shell";
 import { RouteEnterEffect } from "@/components/shell/route-enter-effect";
-import { MetricsRoutePing } from "@/components/metrics-route-ping";
-import { AccountProvider } from "@/components/account-provider";
+import { MetricsRoutePing } from "@/components/metrics/metrics-route-ping";
+import { AccountProvider } from "@/components/account/account-provider";
 import { OG_IMAGE_URL, serializeJsonLd, SITE_DESCRIPTION, SITE_DESCRIPTION_EN, SITE_NAME, SITE_URL, siteUrl } from "@/lib/site-config";
 
 /* Archivo sets every heading and IBM Plex Mono every number the product

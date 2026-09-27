@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { AppHeader, PageContainer } from "@/components/shell/app-shell";
-import { TestCard } from "@/components/TestCard";
+import { TestCard } from "@/components/assessments/test-card";
 import { CommunityVoiceSection } from "@/components/community/community-voice-section";
 import { MascotRain } from "@/components/home/mascot-rain";
 import { HOME_FACETS } from "@/lib/home-facets";
