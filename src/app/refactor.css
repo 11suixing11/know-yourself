@@ -6,6 +6,11 @@
  */
 
 :root {
+  /* Soft accent wash for selected/active surfaces. Declared here because
+   * nine refactor.css rules consume it; before 2026-09-27 it was never
+   * declared and every active/selected state rendered transparent — users
+   * reported the affected surfaces as "not loading". */
+  --accent-soft: var(--color-accent-soft);
   --color-paper: oklch(99.1% 0.005 85);
   --color-paper-strong: oklch(99.4% 0.003 85);
   --color-ink: oklch(25% 0.012 55);

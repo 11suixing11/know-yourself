@@ -290,12 +290,13 @@ Each ban names the default it blocks and the do that replaces it.
 
 ## Known gaps
 
-- `--accent-soft` is referenced by nine `refactor.css` rules (sticker badge,
-  active toolbar buttons, and friends) but declared nowhere in the cascade —
-  those wash backgrounds currently compute to transparent. The shipped
-  sticker badge reads as a white ring on bare paper, which is the look that
-  was approved. Declaring the token would change approved visuals — owner
-  decision, not a silent fix.
+- Resolved 2026-09-27: `--accent-soft` is now declared as
+  `var(--color-accent-soft)`. It had been referenced by nine `refactor.css`
+  rules (selected quiz answers, active toolbar buttons, mobile-nav state,
+  sticker badge) while declared nowhere, so every selected/active surface
+  rendered transparent — production users read the missing states as
+  "parts of the page not loading". The sticker badge gains the soft wash
+  that was originally written for it.
 - Homepage micro-interactions use literal 160/200ms while the motion tokens
   (`--duration-short` 180ms, `--duration-medium` 280ms) sit unused by them.
 - The round question voice depends on a system font; devices without YouYuan
