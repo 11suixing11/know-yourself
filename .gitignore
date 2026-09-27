@@ -61,3 +61,4 @@ components.json
 # IDE
 .vscode/
 .idea/
+scripts/tmp-*
