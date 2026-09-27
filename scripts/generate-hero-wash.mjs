@@ -20,8 +20,8 @@
 import { mkdir } from "node:fs/promises";
 import sharp from "sharp";
 
-const W = 1920;
-const H = 1080;
+const W = 1600;
+const H = 900;
 const OUT_DIR = "public/bg";
 
 /** One bloom. profile "wash" = watercolor (pigment pools at the rim);
@@ -107,7 +107,10 @@ ${gradients}
 
 async function bake(variant, out, displacementScale) {
   const svg = Buffer.from(buildSvg(variant, displacementScale));
-  const info = await sharp(svg).webp({ quality: 84, alphaQuality: 90 }).toFile(`${OUT_DIR}/${out}`);
+  // quality 65: these are soft gradient washes, not photographs — the extra
+  // fidelity of 84 doubled the weight (306KB) and slowed first paint on weak
+  // networks, which users read as the hero "not loading".
+  const info = await sharp(svg).webp({ quality: 65, alphaQuality: 85 }).toFile(`${OUT_DIR}/${out}`);
   console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
 }
 
