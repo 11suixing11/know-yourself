@@ -517,48 +517,17 @@ textarea {
   padding-top: clamp(1.5rem, 3vw, 3rem);
 }
 
-.home-hero {
-  display: grid;
-  align-items: end;
-  gap: clamp(var(--space-lg), 6vw, var(--space-2xl));
-  padding-bottom: clamp(var(--space-lg), 5vw, var(--space-2xl));
-}
+.home-hero 
 
-.home-hero-copy {
-  position: relative;
-  container-type: inline-size;
-  max-width: 34rem;
-  padding-left: clamp(1rem, 2vw, 2rem);
-}
+.home-hero-copy 
 
-.home-hero-copy::before {
-  position: absolute;
-  top: 0.25rem;
-  bottom: 0;
-  left: 0;
-  width: 0.25rem;
-  background: var(--color-accent);
-  content: "";
-}
+.home-hero-copy::before 
 
-.home-hero-copy h1 {
-  color: var(--ink);
-  font-size: 3.8rem;
-  font-weight: 820;
-  line-height: 0.98;
-}
+.home-hero-copy h1 
 
-.home-hero-copy h1 span {
-  color: var(--color-teal);
-}
+.home-hero-copy h1 span 
 
-.home-hero-lede {
-  max-width: 31rem;
-  margin-top: 2rem;
-  color: color-mix(in oklab, var(--ink) 71%, transparent);
-  font-size: 1rem;
-  line-height: 1.7;
-}
+.home-hero-lede 
 
 /* Two ways in, and they are peers: a structured assessment and an open-ended
  * journal, not a primary and a secondary. So the columns are equal and the cards
@@ -567,53 +536,20 @@ textarea {
  * be either obvious or absent: at 54/46 it is too close to equal to read as
  * hierarchy and too far off for any edge to line up, so all the eye registers is
  * that two things which should match do not. */
-.home-paths {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
-  gap: clamp(var(--space-xs), 2vw, var(--space-md));
-}
+.home-paths 
 
-.home-path {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--ink) 22%, transparent);
-  border-radius: var(--radius-panel);
-  background: var(--paper-strong);
-  color: var(--ink);
-  box-shadow: var(--shadow-soft);
-  transition: transform var(--duration-medium) var(--ease-out), box-shadow var(--duration-medium) var(--ease-out), border-color var(--duration-medium) var(--ease-out);
-}
+.home-path 
 
-@media (hover: hover) {
-  .home-path:hover {
-    border-color: var(--color-teal);
-    box-shadow: var(--shadow-lift);
-    transform: translateY(-0.45rem);
-  }
-}
+@media (hover: hover) 
 
 /* The image band is a fixed proportion of the card rather than a function of
  * whichever file it holds. `QuizVisualFrame` writes the image's intrinsic ratio
  * inline on the frame, so the frame is stretched to this band instead -- with
  * both insets set its own ratio no longer applies -- and the two cards keep one
  * shared horizon even if a future cover is not 4:3. */
-.home-path-media {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-bottom: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
-  background: var(--color-teal-soft);
-}
+.home-path-media 
 
-.home-path-visual {
-  position: absolute;
-  border: 0;
-  border-radius: 0;
-  inset: 0;
-}
+.home-path-visual 
 
 .home-path-visual,
 .home-path-visual .quiz-visual-image {
@@ -635,204 +571,61 @@ textarea {
 
 /* One chip per card: the card's only label sits in the top-left corner of the
  * image, over the column its body copy starts in. */
-.home-path-media-label {
-  position: absolute;
-  z-index: 2;
-  top: var(--space-xs);
-  left: var(--space-xs);
-  display: inline-flex;
-  min-height: 1.8rem;
-  align-items: center;
-  border-radius: var(--radius-media);
-  background: var(--paper);
-  padding: var(--space-3xs) var(--space-2xs);
-  color: var(--ink);
-  font-family: var(--font-code);
-  font-size: 0.62rem;
-  font-weight: 700;
-}
+.home-path-media-label 
 
 /* The body absorbs whatever height the taller card sets, so the two "browse /
  * open" actions sit on one line instead of each floating under its own text. */
-.home-path-body {
-  display: flex;
-  min-height: 11.5rem;
-  flex: 1;
-  flex-direction: column;
-  padding: clamp(var(--space-sm), 2.2vw, var(--space-lg));
-}
+.home-path-body 
 
-.home-path-body h2 {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1;
-}
+.home-path-body h2 
 
-.home-path-body p {
-  max-width: 31rem;
-  margin-top: var(--space-xs);
-  color: color-mix(in oklab, var(--ink) 62%, transparent);
-  font-size: 0.82rem;
-  line-height: 1.7;
-}
+.home-path-body p 
 
-.home-path-action {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  margin-top: auto;
-  padding-top: 1.5rem;
-  color: var(--color-teal);
-  font-size: 0.73rem;
-  font-weight: 800;
-}
+.home-path-action 
 
-.home-path-action svg {
-  width: 1rem;
-  height: 1rem;
-  transition: transform var(--duration-short) var(--ease-out);
-}
+.home-path-action svg 
 
-@media (hover: hover) {
-  .home-path:hover .home-path-action svg {
-    transform: translate(0.15rem, -0.15rem);
-  }
-}
+@media (hover: hover) 
 
-.home-continue-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-top: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
-  padding-block: 1rem;
-}
+.home-continue-strip 
 
 .home-continue-label,
 .home-continue-strip nav,
-.home-continue-strip nav a {
-  display: flex;
-  align-items: center;
-}
+.home-continue-strip nav a 
 
-.home-continue-label {
-  gap: var(--space-2xs);
-  color: var(--color-accent);
-  font-size: 0.7rem;
-  font-weight: 800;
-}
+.home-continue-label 
 
-.home-continue-label svg {
-  width: 1rem;
-  height: 1rem;
-}
+.home-continue-label svg 
 
-.home-continue-strip nav {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: var(--space-3xs) var(--space-sm);
-}
+.home-continue-strip nav 
 
-.home-continue-strip nav a {
-  gap: var(--space-2xs);
-  min-height: 2.5rem;
-  color: color-mix(in oklab, var(--ink) 67%, transparent);
-  font-size: 0.72rem;
-  font-weight: 750;
-  white-space: nowrap;
-}
+.home-continue-strip nav a 
 
-@media (hover: hover) {
-  .home-continue-strip nav a:hover {
-    color: var(--color-teal);
-  }
-}
+@media (hover: hover) 
 
-.home-continue-strip nav svg {
-  width: 0.95rem;
-  height: 0.95rem;
-}
+.home-continue-strip nav svg 
 
-.home-principles {
-  display: grid;
-  gap: 2rem;
-  padding-top: clamp(var(--space-xl), 8vw, var(--space-3xl));
-}
+.home-principles 
 
-.home-principles-intro h2 {
-  max-width: 35rem;
-  font-size: 2rem;
-  font-weight: 780;
-  line-height: 0.98;
-}
+.home-principles-intro h2 
 
-.home-principle-list {
-  border-top: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
-}
+.home-principle-list 
 
-.home-principle-list > div {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: 1rem;
-  border-bottom: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
-  padding-block: var(--space-sm);
-}
+.home-principle-list > div 
 
-.home-principle-list span {
-  color: var(--color-accent);
-  font-family: var(--font-code);
-  font-size: 0.68rem;
-  font-weight: 700;
-}
+.home-principle-list span 
 
-.home-principle-list p {
-  max-width: 42rem;
-  color: color-mix(in oklab, var(--ink) 70%, transparent);
-  font-size: 0.9rem;
-}
+.home-principle-list p 
 
-.home-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  width: min(100%, var(--layout-max));
-  margin: 0 auto;
-  border-top: 1px solid color-mix(in oklab, var(--ink) 20%, transparent);
-  padding: var(--space-sm) clamp(var(--space-sm), 4vw, var(--space-xl)) var(--space-lg);
-  color: color-mix(in oklab, var(--ink) 58%, transparent);
-  font-size: 0.68rem;
-}
+.home-footer 
 
-.home-footer > div {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-}
+.home-footer > div 
 
-.home-footer > div span:first-child {
-  color: var(--ink);
-  font-weight: 800;
-}
+.home-footer > div span:first-child 
 
-.home-footer a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3xs);
-  /* The 0.68rem footer type gives this link an 18px line box. Pad it out so it
-   * is still a comfortable target on a phone. */
-  min-height: 2.75rem;
-  padding-inline: 0.25rem;
-  color: var(--color-teal);
-  font-weight: 800;
-  white-space: nowrap;
-}
+.home-footer a 
 
-.home-footer a svg {
-  width: 0.9rem;
-  height: 0.9rem;
-}
+.home-footer a svg 
 
 /* Assessment index */
 .assessment-catalog-page .atlas-page-container {
@@ -1631,9 +1424,7 @@ textarea {
   box-shadow: var(--shadow-soft);
 }
 
-.atlas-score-readout {
-  border-bottom-color: color-mix(in oklab, var(--ink) 18%, transparent);
-}
+.atlas-score-readout 
 
 /* Journal and community surfaces */
 .journal-library-page .atlas-page-container,
@@ -2281,10 +2072,7 @@ html[lang="zh-CN"] .community-intro h1 {
  * 264px at 320px, 283px where the two-column layout opens, 334px at full width.
  * 21cqi leaves headroom up to a 4.76x ratio, and `normal` wrapping means a face
  * wider than that would push its line rather than break the word in half. */
-html[lang="en"] .home-hero-copy h1 {
-  font-size: min(4.5rem, 21cqi);
-  overflow-wrap: normal;
-}
+html[lang="en"] .home-hero-copy h1 
 
 /* The two-column hero opens at 961px with only 278px of copy width, where even
  * the han display overflows its line: 你自己 needs 288px at 6rem and broke to
