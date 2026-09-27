@@ -1,0 +1,95 @@
+/* Motion layer: quiet micro-interactions only. */
+@media (prefers-reduced-motion: no-preference) {
+  .press-home-facet-links a { transition: color 160ms var(--ease-out), transform 160ms var(--ease-out); }
+  .press-home-facet-links a:hover { transform: translateX(2px); }
+  .press-home-facet-links a:hover svg { transform: translateX(2px); transition: transform 160ms var(--ease-out); }
+  .press-home-facet-anchor .press-test-card { transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+  .press-home-facet-anchor .press-test-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+}
+
+.press-home-catalog-cta { display: flex; justify-content: center; margin-top: clamp(2rem, 5vw, 3.5rem); }
+.press-home-catalog-cta a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.9rem; padding: 0.6rem 1.4rem; border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent); border-radius: var(--radius-pill, 999px); color: var(--accent); font-weight: 600; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out); }
+.press-home-catalog-cta a:hover { background: var(--accent); color: var(--color-accent-ink); }
+
+/* ── Route arrival vocabulary: five gestures, each bound to a meaning ──
+ * Gate: html.route-entering--{letter|turn|focus|curl|rise} is set by
+ * components/shell/route-enter-effect for the moment after a client-side
+ * navigation (hard loads never animate). The destination picks the gesture:
+ * result = letter, test = turn, quiz = focus, journal piece = curl,
+ * everything else = rise. All are disabled under reduced motion. The
+ * wrappers cover every page shell: press-page, press-quiz-page,
+ * press-journal-page, and the legacy atlas-page. */
+@media (prefers-reduced-motion: no-preference) {
+  html.route-entering--letter .press-page,
+  html.route-entering--letter .press-quiz-page,
+  html.route-entering--letter .press-journal-page,
+  html.route-entering--letter .atlas-page {
+    animation: press-route-letter 420ms var(--ease-out) both;
+    -webkit-mask-image: linear-gradient(90deg, #000, #000), linear-gradient(90deg, #000, #000);
+    -webkit-mask-position: left, right;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: linear-gradient(90deg, #000, #000), linear-gradient(90deg, #000, #000);
+    mask-position: left, right;
+    mask-repeat: no-repeat;
+  }
+  html.route-entering--turn .press-page,
+  html.route-entering--turn .press-quiz-page,
+  html.route-entering--turn .press-journal-page,
+  html.route-entering--turn .atlas-page {
+    animation: press-route-turn 460ms var(--ease-out) both;
+    transform-origin: left center;
+  }
+  html.route-entering--focus .press-page,
+  html.route-entering--focus .press-quiz-page,
+  html.route-entering--focus .press-journal-page,
+  html.route-entering--focus .atlas-page {
+    animation: press-route-focus 480ms var(--ease-out) both;
+  }
+  html.route-entering--curl .press-page,
+  html.route-entering--curl .press-quiz-page,
+  html.route-entering--curl .press-journal-page,
+  html.route-entering--curl .atlas-page {
+    animation: press-route-curl 500ms var(--ease-out) both;
+    transform-origin: 100% 100%;
+  }
+  html.route-entering--rise .press-page,
+  html.route-entering--rise .press-quiz-page,
+  html.route-entering--rise .press-journal-page,
+  html.route-entering--rise .atlas-page {
+    animation: press-route-rise 260ms var(--ease-out) both;
+  }
+}
+
+/* letter: two strips of the answer page grow inward from the edges and
+ * settle at the center — a letter opening. */
+@keyframes press-route-letter {
+  from { -webkit-mask-size: 0.5% 100%, 0.5% 100%; mask-size: 0.5% 100%, 0.5% 100%; }
+  to { -webkit-mask-size: 51% 100%, 51% 100%; mask-size: 51% 100%, 51% 100%; }
+}
+
+/* turn: the next page swings in from its left edge and lies flat. */
+@keyframes press-route-turn {
+  from { transform: perspective(1400px) rotateY(-14deg) translateX(-2.5%); }
+  to { transform: none; }
+}
+
+/* focus: the viewport closes in — content blooms out of one point.
+ * Viewport units keep the bloom inside the first screen even on long pages. */
+@keyframes press-route-focus {
+  from { clip-path: circle(0% at 50% 30vh); }
+  to { clip-path: circle(150% at 50% 30vh); }
+}
+
+/* curl: a journal piece peels open from the screen's bottom-right corner
+ * (vw/vh, not % — the page box can be much taller than the viewport). */
+@keyframes press-route-curl {
+  from { clip-path: polygon(100vw 100vh, 100vw 100vh, 100vw 100vh, 100vw 100vh); }
+  to { clip-path: polygon(0 0, 100vw 0, 100vw 100vh, 0 100vh); }
+}
+
+/* rise: the quiet default — settle up half a step and fade in. */
+@keyframes press-route-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+

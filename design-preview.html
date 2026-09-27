@@ -5,8 +5,8 @@
   What this is: a static catalog of the active design tokens and the press-*
   component grammar, rendered once in the light theme and once in .dark, on one
   page. It links the REAL stylesheets (tokens.css for the structural scale,
-  src/app/refactor.css for the active morning-light palette and components),
-  so a screenshot of this page is a fingerprint of the current skin.
+  src/app/styles/base.css for the active palette and components), so a
+  screenshot of this page is a fingerprint of the current skin.
 
   It is NOT part of the app: no route, no build, no Tailwind. Font fidelity is
   approximate — production serves Archivo and IBM Plex Mono through next/font;
@@ -14,7 +14,7 @@
   rhythm, and hierarchy, not letterforms.
 
   How to use (see DESIGN.md → Iteration guide):
-    1. Change tokens in src/app/refactor.css (:root / .dark).
+    1. Change tokens in src/app/styles/base.css (:root / .dark).
     2. Run  node scripts/check-palette-contrast.mjs
     3. Screenshot BOTH themes with a FRESH Edge profile (a reused profile
        serves cached bytes — byte-identical screenshots are fake renders):
@@ -33,7 +33,14 @@
 <meta charset="utf-8" />
 <title>Design preview · 认识你自己</title>
 <link rel="stylesheet" href="tokens.css" />
-<link rel="stylesheet" href="src/app/refactor.css" />
+<link rel="stylesheet" href="src/app/styles/base.css" />
+<link rel="stylesheet" href="src/app/styles/shell.css" />
+<link rel="stylesheet" href="src/app/styles/assessments.css" />
+<link rel="stylesheet" href="src/app/styles/quiz.css" />
+<link rel="stylesheet" href="src/app/styles/result.css" />
+<link rel="stylesheet" href="src/app/styles/journal.css" />
+<link rel="stylesheet" href="src/app/styles/home.css" />
+<link rel="stylesheet" href="src/app/styles/motion.css" />
 <style>
   /* Preview-only scaffolding (pv-*). Never used by the app. */
   :root {
@@ -124,7 +131,7 @@
 <div class="pv-wrap">
   <p class="pv-kicker">DESIGN PREVIEW · 回归靶</p>
   <h1 class="pv-page-title">认识你自己 · 设计系统目录</h1>
-  <p class="pv-note">本页直连 tokens.css（结构层）与 src/app/refactor.css（morning-light 活动色板与 press-* 组件语法），下方依次渲染亮色与暗色两套主题。换肤、CSS 蒸馏、token 改动后，用 Edge headless 对本页截图对比（全新 user-data-dir，防缓存假渲染）。字体为系统近似，以色值/形状/节奏对比为准。</p>
+  <p class="pv-note">本页直连 tokens.css（结构层）与 src/app/styles/*.css（base 色板与 press-* 组件语法），下方依次渲染亮色与暗色两套主题。换肤、CSS 蒸馏、token 改动后，用 Edge headless 对本页截图对比（全新 user-data-dir，防缓存假渲染）。字体为系统近似，以色值/形状/节奏对比为准。</p>
 </div>
 
 <!-- ───────────────────────── LIGHT theme ───────────────────────── -->

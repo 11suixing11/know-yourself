@@ -1,0 +1,456 @@
+/* Journal: the writer's desk and the reading column. journal.css is imported
+ * by the nested layout after this layer, so every override keeps a press
+ * scope to stay ahead in the cascade. */
+.press-journal-page .journal-library-container,
+.press-journal-page .journal-editor-container,
+.press-journal-page .journal-reading-container {
+  --journal-rule: var(--line);
+}
+
+.press-journal-page .journal-library-header {
+  padding: 1.5rem 0 2.25rem;
+}
+
+.press-journal-page .journal-library-header .atlas-section-kicker {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.press-journal-page .journal-library-header h1 {
+  max-width: 14ch;
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-weight: 640;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.08;
+}
+
+html[lang="zh-CN"] .press-journal-page .journal-library-header h1 {
+  letter-spacing: 0;
+  line-height: 1.14;
+}
+
+.press-journal-page .journal-library-header p:not(.atlas-section-kicker) {
+  max-width: 46rem;
+  color: var(--muted-text);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.press-journal-page .journal-library-toolbar {
+  min-height: 3.6rem;
+  gap: 0.3rem;
+}
+
+.press-journal-page .journal-library-toolbar button {
+  border-radius: var(--radius-control);
+  color: var(--muted-text);
+}
+
+.press-journal-page .journal-library-toolbar button:hover {
+  background: none;
+  color: var(--ink);
+}
+
+.press-journal-page .journal-library-toolbar button.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.press-journal-page .journal-library-toolbar button span {
+  min-width: 1.3rem;
+  height: 1.3rem;
+  border-radius: var(--radius-control);
+  font-family: var(--font-code);
+  font-size: 0.62rem;
+}
+
+.press-journal-page .journal-library-toolbar button.is-active span {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+
+.press-journal-page .journal-library-toolbar > p {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+  font-size: 0.64rem;
+}
+
+.press-journal-page .journal-library-grid {
+  padding-top: 1.4rem;
+}
+
+.press-journal-page .journal-library-card {
+  border: 1px solid var(--soft-line);
+  border-radius: var(--radius-panel);
+  background: var(--paper-strong);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 4%, transparent);
+  transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+}
+
+.press-journal-page .journal-library-card:hover {
+  border-color: color-mix(in oklab, var(--accent) 30%, var(--soft-line));
+  box-shadow: var(--shadow-soft);
+  transform: none;
+}
+
+.press-journal-page .journal-library-cover {
+  border-bottom: 1px solid var(--soft-line);
+  background: var(--sheet-wash);
+}
+
+.press-journal-page .journal-library-copy {
+  padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.press-journal-page .journal-library-meta {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+  font-size: 0.63rem;
+}
+
+.press-journal-page .journal-library-copy h2 {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 640;
+  letter-spacing: var(--tracking-title);
+  line-height: 1.2;
+}
+
+html[lang="zh-CN"] .press-journal-page .journal-library-copy h2 {
+  letter-spacing: 0;
+}
+
+.press-journal-page .journal-library-copy > p {
+  color: var(--muted-text);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+.press-journal-page .journal-library-card-footer {
+  border-top: 1px solid var(--soft-line);
+}
+
+.press-journal-page .journal-library-card-footer > span {
+  color: var(--muted-text);
+  font-size: 0.64rem;
+}
+
+.press-journal-page .journal-state,
+.press-journal-page .journal-access-state,
+.press-journal-page .journal-empty-state {
+  border-bottom: 0;
+}
+
+.press-journal-page .journal-state h1,
+.press-journal-page .journal-state h2,
+.press-journal-page .journal-access-state h1,
+.press-journal-page .journal-access-state h2,
+.press-journal-page .journal-empty-state h2 {
+  font-family: var(--font-display);
+  font-weight: 620;
+  letter-spacing: var(--tracking-title);
+}
+
+html[lang="zh-CN"] .press-journal-page .journal-state h1,
+html[lang="zh-CN"] .press-journal-page .journal-state h2,
+html[lang="zh-CN"] .press-journal-page .journal-access-state h1,
+html[lang="zh-CN"] .press-journal-page .journal-access-state h2,
+html[lang="zh-CN"] .press-journal-page .journal-empty-state h2 {
+  letter-spacing: 0;
+}
+
+.press-journal-page .journal-empty-mark {
+  border-radius: var(--radius-control);
+}
+
+/* Journal article: the shared reading surface for private and public pages. */
+.press-journal-article .journal-preview-banner {
+  margin-bottom: 2rem;
+  border-block: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+  color: var(--accent);
+}
+
+.press-journal-article .journal-preview-banner.is-private {
+  color: var(--teal);
+  border-color: color-mix(in oklab, var(--teal) 30%, transparent);
+}
+
+.press-journal-article .journal-article-header {
+  padding: 1rem 0 2.75rem;
+}
+
+.press-journal-article .journal-article-meta {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+  font-size: 0.66rem;
+}
+
+.press-journal-article .journal-article-meta span:first-child {
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 620;
+}
+
+.press-journal-article .journal-article-header h1 {
+  max-width: 20ch;
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 640;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.12;
+}
+
+html[lang="zh-CN"] .press-journal-article .journal-article-header h1 {
+  max-width: 14em;
+  letter-spacing: 0;
+  line-height: 1.18;
+}
+
+.press-journal-article .journal-article-lead {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.press-journal-article .journal-article-figure + .journal-article-figure {
+  margin-top: 3rem;
+}
+
+.press-journal-article .journal-article-image {
+  border-radius: var(--radius-media);
+  background: var(--sheet-wash);
+}
+
+.press-journal-article .journal-article-figure figcaption {
+  color: var(--muted-text);
+  font-size: 0.78rem;
+}
+
+/* Journal responses: resonances and notes on ruled paper. */
+.press-journal-interactions .journal-interaction-toolbar button.is-active {
+  color: var(--accent);
+}
+
+.press-journal-interactions .journal-interaction-toolbar span span,
+.press-journal-interactions .journal-interaction-toolbar button span,
+.press-journal-interactions .journal-interaction-toolbar a span {
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+}
+
+.press-journal-interactions .journal-interaction-notice {
+  color: var(--teal);
+}
+
+.press-journal-interactions .journal-comments-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 620;
+  letter-spacing: var(--tracking-title);
+}
+
+html[lang="zh-CN"] .press-journal-interactions .journal-comments-header h2 {
+  letter-spacing: 0;
+}
+
+.press-journal-interactions .journal-comments-header span {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+}
+
+.press-journal-interactions .journal-comment {
+  border-bottom: 1px solid var(--line);
+}
+
+.press-journal-interactions .journal-comment-meta span {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+  font-size: 0.62rem;
+}
+
+.press-journal-interactions .journal-comment > p {
+  color: var(--ink);
+}
+
+.press-journal-interactions .journal-comment-replies {
+  border-left: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+.press-journal-interactions .journal-comment-form textarea {
+  border-radius: var(--radius-control);
+}
+
+.press-journal-interactions .journal-signin-response {
+  color: var(--teal);
+}
+
+/* Report dialog: the one lifted surface, as an overlay. */
+.press-journal-dialog {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-dialog);
+}
+
+.press-journal-dialog h2 {
+  font-family: var(--font-display);
+  font-weight: 620;
+  letter-spacing: var(--tracking-title);
+}
+
+html[lang="zh-CN"] .press-journal-dialog h2 {
+  letter-spacing: 0;
+}
+
+.press-journal-dialog select,
+.press-journal-dialog textarea {
+  border-radius: var(--radius-control);
+}
+
+/* Journal editor: the writer's desk. */
+.press-journal-page .journal-editor-header h1 {
+  font-family: var(--font-display);
+  font-weight: 620;
+  letter-spacing: var(--tracking-title);
+}
+
+html[lang="zh-CN"] .press-journal-page .journal-editor-header h1 {
+  letter-spacing: 0;
+}
+
+.press-journal-page .journal-editor-status {
+  color: var(--muted-text);
+}
+
+.press-journal-page .journal-save-indicator {
+  color: var(--muted-text);
+}
+
+.press-journal-page .journal-save-indicator.is-saved {
+  color: var(--accent);
+}
+
+.press-journal-page .journal-mode-switch button {
+  border-radius: var(--radius-control);
+  color: var(--muted-text);
+}
+
+.press-journal-page .journal-mode-switch button:hover {
+  background: none;
+  color: var(--ink);
+}
+
+.press-journal-page .journal-mode-switch button.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.press-journal-page .journal-recovery-note {
+  border-block: 1px solid var(--line);
+  color: var(--teal);
+}
+
+.press-journal-page .journal-section-heading > span {
+  border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+  border-radius: var(--radius-control);
+  color: var(--accent);
+  font-family: var(--font-code);
+}
+
+.press-journal-page .journal-section-heading p {
+  color: var(--muted-text);
+  font-family: var(--font-code);
+  font-size: 0.63rem;
+}
+
+.press-journal-page .journal-editor-section input,
+.press-journal-page .journal-editor-section textarea,
+.press-journal-page .journal-image-fields textarea,
+.press-journal-page .journal-publish-rail select {
+  border-color: var(--line);
+  border-radius: var(--radius-control);
+  background: var(--paper-strong);
+}
+
+.press-journal-page .journal-title-input {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-title);
+}
+
+html[lang="zh-CN"] .press-journal-page .journal-title-input {
+  letter-spacing: 0;
+}
+
+.press-journal-page .journal-upload-zone {
+  border-block: 1px solid var(--line);
+  background: transparent;
+}
+
+.press-journal-page .journal-upload-button {
+  border: 1px dashed color-mix(in oklab, var(--accent) 40%, transparent);
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--ink);
+}
+
+.press-journal-page .journal-upload-button:hover {
+  border-style: solid;
+  background: color-mix(in oklab, var(--accent) 5%, transparent);
+}
+
+.press-journal-page .journal-image-editor {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--paper-strong);
+}
+
+.press-journal-page .journal-image-toolbar {
+  border-bottom: 1px solid var(--line);
+}
+
+.press-journal-page .journal-image-toolbar > span {
+  color: var(--accent);
+  font-family: var(--font-code);
+}
+
+.press-journal-page .journal-image-preview {
+  border-right: 1px solid var(--line);
+  background: var(--sheet-wash);
+}
+
+.press-journal-page .journal-publish-rail {
+  border-left: 1px solid var(--line);
+}
+
+.press-journal-page .journal-toggle {
+  border-block: 1px solid var(--line);
+}
+
+.press-journal-page .journal-publish-checks div {
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.press-journal-page .journal-publish-checks div.is-ready {
+  color: var(--teal);
+}
+
+.press-journal-page .journal-private-change {
+  color: var(--accent);
+}
+
+.press-journal-page .journal-delete-action {
+  border-radius: var(--radius-control);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press-journal-page .journal-library-card {
+    transition: none;
+  }
+}
+

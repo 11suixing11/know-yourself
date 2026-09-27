@@ -1,0 +1,141 @@
+/* Morning-light background: the paper itself, warm and quiet. */
+body { background: var(--paper); color: var(--ink); caret-color: var(--accent); }
+
+/* Site-wide paper tooth: a tileable grain laid OVER every surface at a
+ * whisper (baked by scripts/generate-paper-grain.mjs). The 2026-09-19
+ * full-bleed attempts all failed because the texture lived UNDER the page
+ * surfaces; this overlay sits above them, so solid page backgrounds cannot
+ * hide it and no blend mode is needed. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("/bg/paper-grain.png");
+  background-size: 256px 256px;
+  opacity: 0.02;
+}
+html.dark body::after { opacity: 0.03; }
+
+::selection { background: var(--accent); color: var(--color-accent-ink); }
+
+.press-page { min-height: 100dvh; background: linear-gradient(var(--soft-line), var(--soft-line)) top / 100% 1px no-repeat, var(--paper); }
+.press-header { position: sticky; top: 0; z-index: 40; min-height: var(--header-height); border: 0; border-bottom: 1px solid var(--line); background: color-mix(in oklab, var(--paper) 94%, transparent); color: var(--ink); box-shadow: none; backdrop-filter: blur(14px); }
+.press-header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; width: min(100%, var(--layout-max)); min-height: var(--header-height); margin-inline: auto; padding-inline: clamp(1rem, 3vw, 2.5rem); }
+.press-header-inner--focus { grid-template-columns: minmax(0, 1fr) auto; max-width: 58rem; }
+.press-header-brand { display: flex; min-width: 0; align-items: center; gap: 1rem; }
+.press-wordmark { gap: 0.7rem; color: var(--ink); }
+.press-wordmark-seal { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--accent); border-radius: var(--radius-control); background: var(--accent); color: var(--color-accent-ink); font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; }
+.press-wordmark-seal::before { display: none; }
+.press-wordmark-seal span { position: static; width: auto; height: auto; background: none; }
+.press-wordmark-copy strong { color: var(--ink); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.02em; }
+.press-wordmark-copy small { color: var(--muted-text); font-family: var(--font-code); font-size: 0.55rem; letter-spacing: 0.12em; }
+.press-header .atlas-desktop-nav { display: flex; justify-self: center; margin: 0; gap: 1.4rem; }
+.press-header .atlas-desktop-nav a { position: relative; min-height: 2.75rem; padding: 0.7rem 0; border-radius: 0; background: none; color: var(--muted-text); font-size: 0.72rem; }
+.press-header .atlas-desktop-nav a::after { position: absolute; right: 0; bottom: 0.35rem; left: 0; height: 2px; background: var(--accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform 180ms var(--ease-out); }
+.press-header .atlas-desktop-nav a:hover, .press-header .atlas-desktop-nav a[aria-current="page"] { background: none; color: var(--ink); }
+.press-header .atlas-desktop-nav a:hover::after, .press-header .atlas-desktop-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.press-header .atlas-header-actions { justify-self: end; }
+.press-header .atlas-icon-link, .press-header .atlas-preference-control { border-color: var(--soft-line); border-radius: var(--radius-control); color: var(--muted-text); }
+.press-header .atlas-icon-link:hover, .press-header .atlas-preference-control:hover { border-color: var(--accent); background: var(--accent-wash); color: var(--accent); }
+.press-page-container { width: min(100%, var(--layout-max)); margin-inline: auto; padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1rem, 3vw, 2.5rem) 8rem; }
+.press-community-page { max-width: var(--layout-max); }
+.press-community-intro { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(15rem, 0.7fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; border-bottom: 1px solid var(--line); padding-bottom: clamp(2.5rem, 6vw, 5rem); }
+.press-community-statement { max-width: 58rem; }
+.press-edition-line { margin: 0 0 1.4rem; color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+.press-community-intro h1 { max-width: 12ch; margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-style: normal; font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.06; text-wrap: balance; }
+html[lang="zh-CN"] .press-community-intro h1 { max-width: 9em; letter-spacing: 0; line-height: 1.08; }
+.press-community-statement > p:last-child { max-width: 58ch; margin: 2rem 0 0; color: var(--muted-text); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.8; }
+.press-community-note { border-top: 1px solid var(--line); padding-top: 1rem; }
+.press-community-note > span { color: var(--accent); font-size: 0.72rem; font-weight: 800; }
+.press-community-note p { margin: 0.8rem 0 0; color: var(--muted-text); font-size: 0.82rem; line-height: 1.75; }
+.press-inline-link { justify-content: flex-start; margin-top: 0.75rem; padding-inline: 0; }
+.press-create-desk { display: grid; grid-template-columns: minmax(15rem, 1fr) auto auto; align-items: center; gap: 0.75rem; margin: 0; padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
+.press-create-copy { display: flex; min-width: 0; flex-direction: column; gap: 0.25rem; }
+.press-create-copy strong { font-size: 0.9rem; }
+.press-create-copy span { color: var(--muted-text); font-size: 0.72rem; }
+.press-primary-action, .press-secondary-action { min-height: 2.9rem; border-radius: var(--radius-control); padding-inline: 1rem; transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+.press-primary-action { background: var(--accent); color: var(--color-accent-ink); box-shadow: 0 1px 2px color-mix(in oklab, var(--accent) 32%, transparent); }
+.press-primary-action:hover { background: color-mix(in oklab, var(--accent) 88%, var(--ink)); }
+.press-secondary-action { border-color: var(--line); background: var(--paper-strong); color: var(--ink); }
+.press-secondary-action:hover { border-color: var(--accent); color: var(--accent); }
+.press-create-desk .community-create-meta { grid-column: 1 / -1; display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; min-height: 0; }
+.press-feed-section { display: grid; grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr); gap: clamp(2rem, 5vw, 5rem); padding-top: clamp(3rem, 7vw, 6rem); }
+.press-feed-heading { align-self: start; position: sticky; top: calc(var(--header-height) + 2rem); }
+.press-feed-heading h2 { max-width: 10em; margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 640; line-height: 1.08; }
+.press-feed-heading p { max-width: 28ch; margin: 1rem 0 0; color: var(--muted-text); font-size: 0.8rem; line-height: 1.7; }
+.press-feed-section > :not(.press-feed-heading) { min-width: 0; }
+.press-feed-section .community-toolbar { margin-top: 0; padding: 0 0 1rem; border-bottom: 1px solid var(--line); }
+.press-feed-section .community-toolbar button { border-radius: var(--radius-control); }
+.press-feed-section .community-toolbar button.is-active { background: var(--accent-soft); color: var(--accent); }
+.press-feed-section .community-post { border: 1px solid var(--soft-line); border-radius: var(--radius-panel); background: var(--paper-strong); padding: 1.4rem 1.5rem 1.6rem; box-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 4%, transparent); transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+.press-feed-section .community-post + .community-post { margin-top: 0.9rem; }
+.press-feed-section .community-post:hover { transform: none; border-color: color-mix(in oklab, var(--accent) 30%, var(--soft-line)); box-shadow: var(--shadow-soft); }
+.press-feed-section .community-post-kind { border-radius: var(--radius-control); }
+.press-feed-section .community-image-link { border-radius: var(--radius-media); }
+.press-mobile-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 50; display: none; padding: 0.45rem 0.6rem calc(0.45rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: color-mix(in oklab, var(--paper) 96%, transparent); backdrop-filter: blur(14px); }
+.press-mobile-nav-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(100%, 30rem); margin-inline: auto; }
+.press-mobile-nav-link { display: flex; min-height: 3.4rem; flex-direction: column; align-items: center; justify-content: center; gap: 0.25rem; border-radius: var(--radius-control); color: var(--muted-text); font-size: 0.62rem; font-weight: 620; white-space: nowrap; }
+.press-mobile-nav-link.is-active { background: var(--accent-soft); color: var(--accent); }
+@media (max-width: 900px) {
+  .press-header-inner { grid-template-columns: minmax(0, 1fr) auto; }
+  .press-header .atlas-desktop-nav { display: none; }
+  .press-community-intro { grid-template-columns: 1fr; align-items: start; }
+  .press-community-note { max-width: 34rem; }
+  .press-feed-section { grid-template-columns: 1fr; }
+  .press-feed-heading { position: static; display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.6fr); gap: 1.5rem; align-items: end; }
+  .press-feed-heading p { margin: 0; }
+}
+@media (max-width: 640px) {
+  .press-header { min-height: 4.25rem; }
+  .press-header-inner { min-height: 4.25rem; padding-inline: 1rem; }
+  .press-wordmark-copy small { display: none; }
+  .press-header .atlas-header-actions { gap: 0.2rem; }
+  .press-header .atlas-icon-link, .press-header .atlas-preference-control { min-width: 2.75rem; padding-inline: 0.55rem; }
+  .press-page-container { padding: 2.5rem 1rem 7rem; }
+  .press-community-intro h1 { font-size: clamp(2.7rem, 14vw, 4.2rem); }
+  .press-create-desk { grid-template-columns: 1fr 1fr; }
+  .press-create-copy { grid-column: 1 / -1; }
+  .press-create-desk .community-create-meta { justify-content: flex-start; flex-wrap: wrap; }
+  .press-feed-heading { display: block; }
+  .press-feed-heading p { margin-top: 0.8rem; }
+  .press-mobile-nav { display: block; }
+}
+@media (max-width: 380px) {
+  .press-wordmark-copy strong { font-size: 0.74rem; }
+  .press-create-desk { grid-template-columns: 1fr; }
+  .press-create-copy, .press-create-desk .community-create-meta { grid-column: auto; }
+  .press-primary-action, .press-secondary-action { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .press-header .atlas-desktop-nav a::after { transition: none; } }
+
+/* Migration overrides: the legacy atlas layer is still loaded for routes that
+ * have not moved yet. Keep the rebuilt surfaces authoritative until that layer
+ * is removed. */
+.press-page .press-header,
+.press-page.atlas-page .atlas-header {
+  background: color-mix(in oklab, var(--paper) 94%, transparent);
+  color: var(--ink);
+}
+
+.press-page .community-intro aside {
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  padding: 1rem 0 0;
+}
+
+.press-page .community-intro aside p {
+  margin: 0.8rem 0 0;
+  color: var(--muted-text);
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+.press-page .community-intro aside .atlas-text-link {
+  margin-top: 0.75rem;
+  padding-inline: 0;
+}
+

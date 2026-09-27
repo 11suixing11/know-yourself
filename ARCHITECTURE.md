@@ -54,8 +54,8 @@ Node 主进程（Next.js 应用，systemd 守护，端口 3333）
 | `src/lib/test-registry.ts` | 193 个测评模块的唯一元数据入口 |
 | `src/lib/storage.ts` | 浏览器本地库（游客测评数据住这里） |
 | `src/lib/server/` | 服务端重活：database（SQLite 门面）、journal、governance、email、badges、ai-insight（实验位：结果页 AI 组装卡，key 留空即隐藏） |
-| `tokens.css` + `globals/rebuild/refactor.css` | 视觉系统：tokens 是配色字典，三个 css 是三个年代的皮肤层（待蒸馏为一层） |
-| `scripts/` | 14 个测试套件 + 媒体 worker + 打包脚本 |
+| `tokens.css` + `globals.css` + `styles/*.css`（base/shell/assessments/quiz/result/journal/home/motion 八个功能域模块）+ `rebuild.css`（待蒸馏旧皮） | 视觉系统：tokens 是结构尺度，styles/base.css 是配色字典，其余模块是各域的组件语法（2026-09-27 由 refactor.css 按域切分） |
+| `scripts/` | 14 个测试套件 + 媒体 worker + 打包脚本 + 烘焙脚本（hero 水彩/纸纹/设计 tokens）+ 生产验证 sweep |
 | `deploy/` | 生产部署的单元与运维说明 |
 
 ## 数据的「本地优先」双工

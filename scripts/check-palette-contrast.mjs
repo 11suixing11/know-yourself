@@ -1,5 +1,5 @@
 /* Palette contrast audit for the live cascade: tokens.css :root/.dark then
- * src/app/refactor.css :root/.dark (later files win, matching the CSS import
+ * src/app/styles/base.css :root/.dark (later files win, matching the CSS import
  * order in src/app/layout.tsx). Every foreground/background pair the interface
  * relies on must clear the design-system floor (5.4:1). The script resolves
  * var() chains across the merged cascade, converts oklch to sRGB, and reports
@@ -12,7 +12,7 @@ import path from "node:path";
 const FLOOR = 5.4;
 const SOURCES = [
   path.join(process.cwd(), "tokens.css"),
-  path.join(process.cwd(), "src/app/refactor.css"),
+  path.join(process.cwd(), "src/app/styles/base.css"),
 ];
 
 function parseBlocks(css, file) {

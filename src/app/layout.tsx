@@ -4,7 +4,17 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { AppThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import "./rebuild.css";
-import "./refactor.css";
+// Domain modules split from the old refactor.css, imported in the original
+// file's section order so the cascade is unchanged: base (palette) → shell →
+// assessments → quiz → result → journal → home → motion.
+import "./styles/base.css";
+import "./styles/shell.css";
+import "./styles/assessments.css";
+import "./styles/quiz.css";
+import "./styles/result.css";
+import "./styles/journal.css";
+import "./styles/home.css";
+import "./styles/motion.css";
 import { MobileNav, PreferenceSync } from "@/components/shell/app-shell";
 import { RouteEnterEffect } from "@/components/shell/route-enter-effect";
 import { MetricsRoutePing } from "@/components/metrics-route-ping";
