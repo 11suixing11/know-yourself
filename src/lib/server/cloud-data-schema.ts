@@ -36,7 +36,7 @@ const jsonObject = z.record(z.string(), z.json()).refine(
 
 const preferencesSchema = z.strictObject({
   lang: z.enum(["zh", "en"]),
-  theme: z.enum(["system", "light", "dark"]),
+  theme: z.enum(["system", "light", "dark", "fresh"]),
 });
 
 const revisionSchema = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);

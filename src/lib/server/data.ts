@@ -70,7 +70,7 @@ function rowString(row: Record<string, unknown>, key: string) {
 function normalizeStoredPreferences(row: Record<string, unknown> | null): StoragePreferences {
   return {
     lang: row?.lang === "en" ? "en" : DEFAULT_PREFERENCES.lang,
-    theme: row?.theme === "light" || row?.theme === "dark" ? row.theme : DEFAULT_PREFERENCES.theme,
+    theme: row?.theme === "light" || row?.theme === "dark" || row?.theme === "fresh" ? row.theme : DEFAULT_PREFERENCES.theme,
   };
 }
 
@@ -422,7 +422,7 @@ export function setUserPreferences(userId: string, preferences: StoragePreferenc
   return withTransaction(() => {
     writePreferences(userId, {
       lang: preferences.lang === "en" ? "en" : "zh",
-      theme: preferences.theme === "light" || preferences.theme === "dark" ? preferences.theme : "system",
+      theme: preferences.theme === "light" || preferences.theme === "dark" || preferences.theme === "fresh" ? preferences.theme : "system",
     }, Date.now());
     return bumpSyncRevision(userId);
   });

@@ -97,7 +97,7 @@ export function readSyncBaseline(userId: string): SyncBaseline | null {
     if (!value || value.version !== 1 || !value.preferences || !Array.isArray(value.attempts) || !Array.isArray(value.bookmarks) || !value.sessions || typeof value.sessions !== "object" || Array.isArray(value.sessions)) return null;
     const preferences: StoragePreferences = {
       lang: value.preferences.lang === "en" ? "en" : "zh",
-      theme: value.preferences.theme === "light" || value.preferences.theme === "dark" ? value.preferences.theme : "system",
+      theme: value.preferences.theme === "light" || value.preferences.theme === "dark" || value.preferences.theme === "fresh" ? value.preferences.theme : "system",
     };
     const strings = (items: unknown[]) => items.filter((item): item is string => typeof item === "string");
     return {
