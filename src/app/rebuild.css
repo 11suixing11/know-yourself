@@ -517,18 +517,6 @@ textarea {
   padding-top: clamp(1.5rem, 3vw, 3rem);
 }
 
-.home-hero 
-
-.home-hero-copy 
-
-.home-hero-copy::before 
-
-.home-hero-copy h1 
-
-.home-hero-copy h1 span 
-
-.home-hero-lede 
-
 /* Two ways in, and they are peers: a structured assessment and an open-ended
  * journal, not a primary and a secondary. So the columns are equal and the cards
  * stretch to a single height. This replaced a 1.08/0.92 split with the journal
@@ -536,20 +524,15 @@ textarea {
  * be either obvious or absent: at 54/46 it is too close to equal to read as
  * hierarchy and too far off for any edge to line up, so all the eye registers is
  * that two things which should match do not. */
-.home-paths 
 
-.home-path 
-
-@media (hover: hover) 
+@media (hover: hover) {
+}
 
 /* The image band is a fixed proportion of the card rather than a function of
  * whichever file it holds. `QuizVisualFrame` writes the image's intrinsic ratio
  * inline on the frame, so the frame is stretched to this band instead -- with
  * both insets set its own ratio no longer applies -- and the two cards keep one
  * shared horizon even if a future cover is not 4:3. */
-.home-path-media 
-
-.home-path-visual 
 
 .home-path-visual,
 .home-path-visual .quiz-visual-image {
@@ -571,61 +554,15 @@ textarea {
 
 /* One chip per card: the card's only label sits in the top-left corner of the
  * image, over the column its body copy starts in. */
-.home-path-media-label 
 
 /* The body absorbs whatever height the taller card sets, so the two "browse /
  * open" actions sit on one line instead of each floating under its own text. */
-.home-path-body 
 
-.home-path-body h2 
+@media (hover: hover) {
+}
 
-.home-path-body p 
-
-.home-path-action 
-
-.home-path-action svg 
-
-@media (hover: hover) 
-
-.home-continue-strip 
-
-.home-continue-label,
-.home-continue-strip nav,
-.home-continue-strip nav a 
-
-.home-continue-label 
-
-.home-continue-label svg 
-
-.home-continue-strip nav 
-
-.home-continue-strip nav a 
-
-@media (hover: hover) 
-
-.home-continue-strip nav svg 
-
-.home-principles 
-
-.home-principles-intro h2 
-
-.home-principle-list 
-
-.home-principle-list > div 
-
-.home-principle-list span 
-
-.home-principle-list p 
-
-.home-footer 
-
-.home-footer > div 
-
-.home-footer > div span:first-child 
-
-.home-footer a 
-
-.home-footer a svg 
+@media (hover: hover) {
+}
 
 /* Assessment index */
 .assessment-catalog-page .atlas-page-container {
@@ -1424,8 +1361,6 @@ textarea {
   box-shadow: var(--shadow-soft);
 }
 
-.atlas-score-readout 
-
 /* Journal and community surfaces */
 .journal-library-page .atlas-page-container,
 .community-page,
@@ -1817,36 +1752,6 @@ html[lang="zh-CN"] .community-intro h1 {
     display: none;
   }
 
-  .home-hero {
-    grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
-  }
-
-  .home-hero-copy h1 {
-    font-size: 6rem;
-  }
-
-  .home-hero-lede {
-    font-size: 1.15rem;
-  }
-
-  .home-path-body h2 {
-    font-size: 2rem;
-  }
-
-  .home-principles {
-    grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
-    align-items: start;
-    /* The section stops widening at 80rem, so a 7vw gutter keeps eating into the
-     * intro column past that point: its text width fell from 347px at 1280 to
-     * 328px at 1920, which pushed the heading to three lines on the widest
-     * screens. Cap the gutter where the container caps. */
-    gap: clamp(var(--space-lg), 7vw, var(--space-2xl));
-  }
-
-  .home-principles-intro h2 {
-    font-size: 3.5rem;
-  }
-
   .assessment-catalog-intro {
     grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
     align-items: end;
@@ -1908,25 +1813,6 @@ html[lang="zh-CN"] .community-intro h1 {
 }
 
 @media (min-width: 800px) and (max-width: 960px) {
-  .home-hero {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .home-hero-copy h1 {
-    font-size: 4.5rem;
-  }
-
-  .home-hero-lede {
-    font-size: 1.05rem;
-  }
-
-  .home-path-body h2 {
-    font-size: 1.75rem;
-  }
-
-  .home-principles-intro h2 {
-    font-size: 2.5rem;
-  }
 
   .assessment-catalog-intro h1 {
     font-size: 3.5rem;
@@ -2015,24 +1901,6 @@ html[lang="zh-CN"] .community-intro h1 {
     padding-inline: var(--space-2xs);
   }
 
-  .home-hero-copy h1 {
-    font-size: 5rem;
-  }
-
-  .home-continue-strip,
-  .home-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .home-continue-strip nav {
-    justify-content: flex-start;
-  }
-
-  .home-footer {
-    padding-bottom: var(--space-3xl);
-  }
-
   .assessment-return {
     align-items: flex-start;
     flex-direction: column;
@@ -2053,9 +1921,6 @@ html[lang="zh-CN"] .community-intro h1 {
 }
 
 @media (max-width: 360px) {
-  .home-hero-copy h1 {
-    font-size: 4.2rem;
-  }
 
   .assessment-catalog-intro h1 {
     font-size: 2.45rem;
@@ -2072,16 +1937,12 @@ html[lang="zh-CN"] .community-intro h1 {
  * 264px at 320px, 283px where the two-column layout opens, 334px at full width.
  * 21cqi leaves headroom up to a 4.76x ratio, and `normal` wrapping means a face
  * wider than that would push its line rather than break the word in half. */
-html[lang="en"] .home-hero-copy h1 
 
 /* The two-column hero opens at 961px with only 278px of copy width, where even
  * the han display overflows its line: 你自己 needs 288px at 6rem and broke to
  * 你自 / 己, stranding a glyph through the compound 自己. Chinese still steps down
  * for that band; English is handled by the container rule above at every width. */
 @media (min-width: 961px) and (max-width: 1099px) {
-  html[lang="zh-CN"] .home-hero-copy h1 {
-    font-size: 5.5rem;
-  }
 }
 
 /* The principles heading shares the hero's problem one section down: the intro
@@ -2091,9 +1952,6 @@ html[lang="en"] .home-hero-copy h1
  * short, stranding 多。 on a third line. Hold 3rem until the column can carry
  * the larger size. */
 @media (min-width: 961px) and (max-width: 1159px) {
-  .home-principles-intro h2 {
-    font-size: 3rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
