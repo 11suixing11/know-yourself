@@ -19,7 +19,7 @@ html.dark .press-home-lede-wash[data-wash="light"] { display: none; }
 /* z stack inside the lede: wash (0) < scrim (1) < rain (2) < text (3).
  * The rain must ride ABOVE the paper scrim — pastel sprites under a 8–62%
  * paper veil wash out to nothing — while the question stays topmost. */
-.press-home-lede > .press-mascot-rain { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.press-home-lede > .press-mascot-rain { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; opacity: 0.72; }
 .press-home-lede > .press-edition-line, .press-home-lede > h1, .press-home-lede > p { z-index: 3; }
 .press-mascot-lane { position: absolute; top: 0; left: var(--x, 50%); height: 100%; width: 0; }
 .press-mascot-sprite { position: absolute; top: 0; animation: press-mascot-fall var(--fall, 13s) linear var(--delay, 0s) infinite; will-change: transform; }
@@ -32,7 +32,7 @@ html.dark .press-home-lede-wash[data-wash="light"] { display: none; }
 @keyframes press-mascot-sway { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
 @keyframes press-mascot-wobble { from { transform: rotate(calc(-1 * var(--tilt, 10deg))); } to { transform: rotate(var(--tilt, 10deg)); } }
 .press-home-lede h1 { max-width: 12ch; margin: 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem); font-style: normal; font-weight: 500; letter-spacing: 0.02em; line-height: 1.1; text-wrap: balance; }
-html[lang="zh-CN"] .press-home-lede h1 { max-width: 11em; line-height: 1.14; }
+html[lang="zh-CN"] .press-home-lede h1 { max-width: 11em; line-height: 1.14; word-break: keep-all; }
 .press-home-lede > p:last-child { max-width: 58ch; margin: 2rem 0 0; color: var(--muted-text); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.8; }
 
 .press-home-facet-head { display: flex; align-items: baseline; gap: 1rem; }

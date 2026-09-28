@@ -63,7 +63,7 @@ export function MascotRain() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Wrapped in a frame callback: the random layout is generated after the
     // first paint, off the synchronous effect path.
-    const raf = window.requestAnimationFrame(() => setSprites(makeSprites(12)));
+    const raf = window.requestAnimationFrame(() => setSprites(makeSprites(8)));
     return () => window.cancelAnimationFrame(raf);
   }, []);
 

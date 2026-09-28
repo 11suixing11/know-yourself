@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // The API routes use Node.js runtime features (cookies and SQLite), so the
   // application must be deployed as a self-hosted Node server.
   output: "standalone",
+  // Keep the local preview visually clean. Compile and runtime errors still
+  // surface through Next.js itself when they occur.
+  devIndicators: false,
   // Keep the native SQLite package outside the webpack bundle. Output file
   // tracing then copies its JavaScript loader and native addon into the
   // standalone release.
