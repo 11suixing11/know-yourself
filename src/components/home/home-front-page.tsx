@@ -40,6 +40,7 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
         {/* The washes are baked by scripts/generate-hero-wash.mjs; the dark variant is swapped purely by CSS. The unoptimized pipeline means Next cannot add LCP hints here; pass the fetch hint through so the hero stays the first thing the browser pulls. */}
         <Image src="/bg/hero-wash-light.webp" alt="" aria-hidden="true" fill priority fetchPriority="high" sizes="100vw" className="press-home-lede-wash" data-wash="light" />
         <Image src="/bg/hero-wash-dark.webp" alt="" aria-hidden="true" fill sizes="100vw" className="press-home-lede-wash" data-wash="dark" />
+        <Image src="/bg/hero-wash-fresh.webp" alt="" aria-hidden="true" fill sizes="100vw" className="press-home-lede-wash" data-wash="fresh" />
         <MascotRain />
         <p className="press-edition-line">{text ? "一个心理测评网站" : "A quiz site — with a community"}</p>
         <h1>{text ? "有点迷茫，还是就是无聊？🌙" : "A bit lost? Or just bored? 🌙"}</h1>

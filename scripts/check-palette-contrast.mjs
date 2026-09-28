@@ -17,7 +17,7 @@ const SOURCES = [
 
 function parseBlocks(css, file) {
   const blocks = {};
-  for (const name of [":root", ".dark"]) {
+  for (const name of [":root", ".dark", "html.fresh"]) {
     const at = css.indexOf(`${name} {`);
     if (at === -1) continue;
     let depth = 0;
@@ -42,11 +42,14 @@ function parseBlocks(css, file) {
   return blocks;
 }
 
-const cascade = { root: {}, dark: {} };
+const cascade = { root: {}, dark: {}, fresh: {} };
 for (const file of SOURCES) {
   const blocks = parseBlocks(readFileSync(file, "utf8"), file);
   Object.assign(cascade.root, blocks[":root"]);
   Object.assign(cascade.dark, blocks[".dark"] ?? {});
+  // The fresh skin layers its overrides on top of the light scope, exactly
+  // like html.fresh does in the browser (base :root first, fresh last).
+  Object.assign(cascade.fresh, cascade.root, blocks["html.fresh"] ?? {});
 }
 
 function resolve(map, name, depth = 0) {
@@ -102,8 +105,7 @@ function toHex([r, g, b]) {
 }
 
 const PAIRS = {
-  light: [
-    ["color-ink", "color-paper"],
+  light: [    ["color-ink", "color-paper"],
     ["color-ink", "color-paper-strong"],
     ["color-accent-ink", "color-accent"],
     ["color-accent", "color-paper"],
@@ -135,12 +137,29 @@ const PAIRS = {
     ["color-topic-relationship", "color-paper-strong"],
     ["color-topic-life", "color-paper-strong"],
   ],
+  fresh: [
+    ["color-ink", "color-paper"],
+    ["color-ink", "color-paper-strong"],
+    ["color-accent-ink", "color-accent"],
+    ["color-accent", "color-paper"],
+    ["color-accent", "color-paper-strong"],
+    ["color-muted-text", "color-paper"],
+    ["color-muted-text", "color-paper-strong"],
+    ["color-danger", "color-paper"],
+    ["color-signal-ink", "color-signal"],
+    ["color-sheet-ink", "color-sheet-surface"],
+    ["color-teal", "color-paper"],
+    ["color-topic-self", "color-paper-strong"],
+    ["color-topic-emotion", "color-paper-strong"],
+    ["color-topic-relationship", "color-paper-strong"],
+    ["color-topic-life", "color-paper-strong"],
+  ],
 };
 
 let failures = 0;
 const anchors = {};
 for (const [mode, pairs] of Object.entries(PAIRS)) {
-  const map = mode === "light" ? cascade.root : { ...cascade.root, ...cascade.dark };
+  const map = mode === "light" ? cascade.root : { ...cascade.root, ...(mode === "fresh" ? cascade.fresh : cascade.dark) };
   console.log(`\n${mode}`);
   for (const [fg, bg] of pairs) {
     const fgRgb = oklchToSrgb(parseOklch(resolve(map, fg)));

@@ -37,11 +37,11 @@ export function useLanguage() {
 }
 
 export function useTheme() {
-  const [theme, setThemeState] = useState<"system" | "light" | "dark">("system");
+  const [theme, setThemeState] = useState<"system" | "light" | "dark" | "fresh">("system");
   const sync = useCallback(() => setThemeState(getPreferences().theme), []);
   useEffect(() => { const timer = window.setTimeout(sync, 0); return () => window.clearTimeout(timer); }, [sync]);
   useStorageSubscription(sync);
-  const setTheme = useCallback((next: "system" | "light" | "dark") => setPreference("theme", next), []);
+  const setTheme = useCallback((next: "system" | "light" | "dark" | "fresh") => setPreference("theme", next), []);
   return { theme, setTheme };
 }
 

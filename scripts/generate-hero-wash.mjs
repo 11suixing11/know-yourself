@@ -90,6 +90,14 @@ const DARK = [
   { ref: "h4", color: "#d9bd85", alpha: 0.15, cx: 0.56, cy: 0.90, rx: 0.11, ry: 0.08, rotate: -6, profile: "lamp" },
 ];
 
+const FRESH = [
+  { ref: "w0", color: "#cfe0f2", alpha: 0.15, cx: 0.74, cy: 0.30, rx: 0.30, ry: 0.34, rotate: -12 }, // sky haze, upper right
+  { ref: "w1", color: "#b8d4ec", alpha: 0.17, cx: 0.88, cy: 0.66, rx: 0.22, ry: 0.20, rotate: 8 },   // blue wash, lower right
+  { ref: "w2", color: "#c9e8d2", alpha: 0.15, cx: 0.16, cy: 0.84, rx: 0.28, ry: 0.24, rotate: 0 },   // mint wash, bottom left
+  { ref: "w3", color: "#d5d8ef", alpha: 0.12, cx: 0.10, cy: 0.22, rx: 0.15, ry: 0.13, rotate: 14 },  // pale periwinkle, far left
+  { ref: "w4", color: "#f2e3c2", alpha: 0.10, cx: 0.56, cy: 0.92, rx: 0.13, ry: 0.10, rotate: -6 },  // pale sand touch, bottom center
+];
+
 function buildSvg(variant, displacementScale = 120) {
   const gradients = variant.map((v) => bloomGradient(v.ref, v.color, v.alpha, v.profile)).join("\n");
   const blooms = variant.map((v) => bloom(v.ref, v.cx, v.cy, v.rx, v.ry, v.rotate)).join("\n");
@@ -120,3 +128,4 @@ await mkdir(OUT_DIR, { recursive: true });
 // turns a 96px bright core into gray fog), and lamp glow is smooth by nature.
 await bake(LIGHT, "hero-wash-light.webp", 120);
 await bake(DARK, "hero-wash-dark.webp", 0);
+await bake(FRESH, "hero-wash-fresh.webp", 120);

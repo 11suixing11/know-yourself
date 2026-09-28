@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { ArrowLeft, ClipboardList, History, House, Languages, Moon, Settings, Sun, UserRound } from "lucide-react";
+import { ArrowLeft, ClipboardList, CloudSun, History, House, Languages, Moon, Settings, Sun, UserRound } from "lucide-react";
 import { useAccountIdentity } from "@/components/account/account-provider";
 import { useLanguage, useTheme } from "@/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
-type Theme = "system" | "light" | "dark";
+type Theme = "system" | "light" | "dark" | "fresh";
 type AvatarSize = "sm" | "md";
 
 // The small avatar is a 1.25rem circle in the mobile nav. Two Han glyphs are
@@ -49,9 +49,13 @@ function isNavItemActive(routePath: string, href: string) {
 
 export function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;
+  // "fresh" is a self-contained light skin: it never follows the system dark
+  // preference, so selecting it pins the site to the cool daylight look.
   const dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark", dark);
-  document.documentElement.style.colorScheme = dark ? "dark" : "light";
+  const fresh = theme === "fresh";
+  document.documentElement.classList.toggle("dark", dark && !fresh);
+  document.documentElement.classList.toggle("fresh", fresh);
+  document.documentElement.style.colorScheme = dark && !fresh ? "dark" : "light";
 }
 
 export function PreferenceSync() {
@@ -82,14 +86,14 @@ export function LanguageToggle() {
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const { language } = useLanguage();
-  const next: Theme = theme === "system" ? "light" : theme === "light" ? "dark" : "system";
-  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : Settings;
+  const next: Theme = theme === "system" ? "light" : theme === "light" ? "dark" : theme === "dark" ? "fresh" : "system";
+  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : theme === "fresh" ? CloudSun : Settings;
   const label = language === "zh"
-    ? (theme === "dark" ? "切换为跟随系统" : theme === "light" ? "切换为深色主题" : "切换为浅色主题")
-    : (theme === "dark" ? "Use system theme" : theme === "light" ? "Use dark theme" : "Use light theme");
+    ? (theme === "dark" ? "切换为跟随系统" : theme === "light" ? "切换为深色主题" : theme === "fresh" ? "切换为浅色主题" : "切换为清新主题")
+    : (theme === "dark" ? "Use system theme" : theme === "light" ? "Use dark theme" : theme === "fresh" ? "Use fresh theme" : "Use light theme");
   const visibleLabel = language === "zh"
-    ? (theme === "dark" ? "深色" : theme === "light" ? "浅色" : "跟随系统")
-    : (theme === "dark" ? "Dark" : theme === "light" ? "Light" : "System");
+    ? (theme === "dark" ? "深色" : theme === "light" ? "浅色" : theme === "fresh" ? "清新" : "跟随系统")
+    : (theme === "dark" ? "Dark" : theme === "light" ? "Light" : theme === "fresh" ? "Fresh" : "System");
   return (
     <button type="button" onClick={() => setTheme(next)} className="atlas-preference-control atlas-preference-control-compact" aria-label={label}>
       <Icon className="size-3.5" strokeWidth={1.8} />

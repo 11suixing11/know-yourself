@@ -20,7 +20,7 @@ export interface QuizAttempt {
 
 export interface StoragePreferences {
   lang: Lang;
-  theme: "system" | "light" | "dark";
+  theme: "system" | "light" | "dark" | "fresh";
 }
 
 export interface QuizSession {
@@ -136,7 +136,7 @@ export function parseStorageSnapshot(value: unknown): StorageSnapshot | null {
 
   const language = input.preferences?.lang === "en" ? "en" : "zh";
   const rawTheme = input.preferences?.theme;
-  const theme = rawTheme === "light" || rawTheme === "dark" ? rawTheme : "system";
+  const theme = rawTheme === "light" || rawTheme === "dark" || rawTheme === "fresh" ? rawTheme : "system";
   const attempts = Array.isArray(input.attempts)
     ? input.attempts.map(normalizeAttempt).filter((item): item is QuizAttempt => Boolean(item))
     : [];
@@ -257,7 +257,7 @@ function readGuestImportBaseline(userId: string): GuestImportBaseline | null {
       version: 1,
       preferences: {
         lang: value.preferences.lang === "en" ? "en" : "zh",
-        theme: value.preferences.theme === "light" || value.preferences.theme === "dark" ? value.preferences.theme : "system",
+        theme: value.preferences.theme === "light" || value.preferences.theme === "dark" || value.preferences.theme === "fresh" ? value.preferences.theme : "system",
       },
       attempts,
       bookmarks: Array.from(new Set(value.bookmarks.filter((item): item is string => typeof item === "string" && Boolean(item)))),

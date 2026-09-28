@@ -15,6 +15,7 @@ import "./styles/result.css";
 import "./styles/journal.css";
 import "./styles/home.css";
 import "./styles/motion.css";
+import "./styles/fresh.css";
 import { MobileNav, PreferenceSync } from "@/components/shell/app-shell";
 import { RouteEnterEffect } from "@/components/shell/route-enter-effect";
 import { MetricsRoutePing } from "@/components/metrics/metrics-route-ping";
@@ -64,7 +65,7 @@ const jsonLd = {
   inLanguage: ["zh-CN", "en"],
 };
 
-const preferenceScript = `(function(){try{var raw=localStorage.getItem('know-yourself:v3');var data=raw?JSON.parse(raw):null;var p=data&&data.version===3?data.preferences:null;var theme=p&&p.theme?p.theme:'system';var dark=theme==='dark'||(theme==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',dark);document.documentElement.style.colorScheme=dark?'dark':'light';document.documentElement.lang=p&&p.lang==='en'?'en':'zh-CN';}catch(e){}})();`;
+const preferenceScript = `(function(){try{var raw=localStorage.getItem('know-yourself:v3');var data=raw?JSON.parse(raw):null;var p=data&&data.version===3?data.preferences:null;var theme=p&&p.theme?p.theme:'system';var dark=theme==='dark'||(theme==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);var fresh=theme==='fresh';document.documentElement.classList.toggle('dark',dark&&!fresh);document.documentElement.classList.toggle('fresh',!!fresh);document.documentElement.style.colorScheme=dark&&!fresh?'dark':'light';document.documentElement.lang=p&&p.lang==='en'?'en':'zh-CN';}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
