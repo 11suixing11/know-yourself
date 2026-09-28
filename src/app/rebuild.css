@@ -281,7 +281,6 @@ textarea {
 .atlas-secondary-action:focus-visible,
 .atlas-danger-action:focus-visible,
 .atlas-text-link:focus-visible,
-.atlas-inline-action:focus-visible,
 .atlas-text-button:focus-visible {
   outline-color: var(--color-accent);
 }
@@ -364,7 +363,6 @@ textarea {
 .atlas-danger-action:disabled,
 .atlas-danger-action[aria-disabled="true"],
 .atlas-text-link:disabled,
-.atlas-inline-action:disabled,
 .atlas-text-button:disabled,
 .atlas-filter:disabled,
 .atlas-card-save:disabled {
@@ -375,7 +373,6 @@ textarea {
 }
 
 .atlas-text-link,
-.atlas-inline-action,
 .atlas-text-button {
   min-height: 2.75rem;
   color: var(--color-teal);
@@ -387,7 +384,6 @@ textarea {
 }
 
 .atlas-text-link:active,
-.atlas-inline-action:active,
 .atlas-text-button:active {
   color: color-mix(in oklab, var(--color-accent) 82%, var(--ink));
 }
@@ -401,8 +397,6 @@ textarea {
 .atlas-header-actions .atlas-icon-link,
 .atlas-header-actions .atlas-preference-control,
 .atlas-mobile-nav-link,
-.home-path,
-.home-continue-strip nav a,
 .assessment-catalog-intro-copy nav a,
 .atlas-filter,
 .atlas-test-card,
@@ -418,8 +412,6 @@ textarea {
 .atlas-header-actions .atlas-icon-link:focus-visible,
 .atlas-header-actions .atlas-preference-control:focus-visible,
 .atlas-mobile-nav-link:focus-visible,
-.home-path:focus-visible,
-.home-continue-strip nav a:focus-visible,
 .assessment-catalog-intro-copy nav a:focus-visible,
 .atlas-filter:focus-visible,
 .atlas-test-card:focus-visible,
@@ -433,8 +425,6 @@ textarea {
 .atlas-header-actions .atlas-icon-link:active,
 .atlas-header-actions .atlas-preference-control:active,
 .atlas-mobile-nav-link:active,
-.home-path:active,
-.home-continue-strip nav a:active,
 .assessment-catalog-intro-copy nav a:active,
 .atlas-filter:active,
 .atlas-test-card:active,
@@ -451,7 +441,6 @@ textarea {
 
 @media (hover: hover) {
   .atlas-text-link:hover,
-  .atlas-inline-action:hover,
   .atlas-text-button:hover {
     color: var(--color-accent);
   }
@@ -513,9 +502,6 @@ textarea {
 }
 
 /* Home: split studio with a strong editorial index */
-.reflection-home-page .atlas-page-container {
-  padding-top: clamp(1.5rem, 3vw, 3rem);
-}
 
 /* Two ways in, and they are peers: a structured assessment and an open-ended
  * journal, not a primary and a secondary. So the columns are equal and the cards
@@ -525,44 +511,17 @@ textarea {
  * hierarchy and too far off for any edge to line up, so all the eye registers is
  * that two things which should match do not. */
 
-@media (hover: hover) {
-}
-
 /* The image band is a fixed proportion of the card rather than a function of
  * whichever file it holds. `QuizVisualFrame` writes the image's intrinsic ratio
  * inline on the frame, so the frame is stretched to this band instead -- with
  * both insets set its own ratio no longer applies -- and the two cards keep one
  * shared horizon even if a future cover is not 4:3. */
 
-.home-path-visual,
-.home-path-visual .quiz-visual-image {
-  width: 100%;
-}
-
-.home-path-visual .quiz-visual-image {
-  display: block;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.55s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .home-path:hover .quiz-visual-image {
-    transform: scale(1.035);
-  }
-}
-
 /* One chip per card: the card's only label sits in the top-left corner of the
  * image, over the column its body copy starts in. */
 
 /* The body absorbs whatever height the taller card sets, so the two "browse /
  * open" actions sit on one line instead of each floating under its own text. */
-
-@media (hover: hover) {
-}
-
-@media (hover: hover) {
-}
 
 /* Assessment index */
 .assessment-catalog-page .atlas-page-container {
@@ -1379,8 +1338,6 @@ textarea {
 /* CJK display tier: han glyphs fill the em box edge to edge, so Latin display
  * leading reads as touching lines. Loosen the display sizes, and let breaks
  * follow kinsoku rules rather than the global `anywhere`. */
-html[lang="zh-CN"] .home-hero-copy h1,
-html[lang="zh-CN"] .home-principles-intro h2,
 html[lang="zh-CN"] .assessment-catalog-intro h1,
 html[lang="zh-CN"] .assessment-detail-enter h1,
 html[lang="zh-CN"] .atlas-section-title,
@@ -1391,7 +1348,6 @@ html[lang="zh-CN"] .community-intro h1 {
 }
 
 /* CJK mid and card tier: smaller sizes need more leading, not less */
-html[lang="zh-CN"] .home-path-body h2,
 html[lang="zh-CN"] .catalog-explorer-heading h2,
 html[lang="zh-CN"] .atlas-assessment-brief-heading h2,
 html[lang="zh-CN"] .quiz-main-title,
@@ -1414,7 +1370,6 @@ html[lang="zh-CN"] h4 {
 }
 
 /* Short CJK headings otherwise strand a single character on the last line */
-html[lang="zh-CN"] .home-path-body h2,
 html[lang="zh-CN"] .atlas-test-card-body h3,
 html[lang="zh-CN"] .journal-library-copy h2,
 html[lang="zh-CN"] .atlas-section-title,
@@ -1648,7 +1603,6 @@ html[lang="zh-CN"] .community-intro h1 {
 }
 
 /* Cards and panels sit one step up from the page. */
-.dark .home-path,
 .dark .atlas-test-card,
 .dark .atlas-result-panel,
 .dark .atlas-resume-panel,
@@ -1691,8 +1645,6 @@ html[lang="zh-CN"] .community-intro h1 {
   color: var(--surface-contrast-ink);
 }
 
-.dark .home-hero-copy h1,
-.dark .home-path-body h2,
 .dark .atlas-test-card-body h3,
 .dark .atlas-section-title,
 .dark .quiz-main-title,
@@ -1702,13 +1654,10 @@ html[lang="zh-CN"] .community-intro h1 {
   color: var(--ink);
 }
 
-.dark .home-hero-copy h1 span,
 .dark .atlas-card-category {
   color: var(--color-teal);
 }
 
-.dark .home-hero-lede,
-.dark .home-path-body p,
 .dark .atlas-test-card-body p,
 .dark .journal-library-header p,
 .dark .community-intro > div > p {
@@ -1725,9 +1674,6 @@ html[lang="zh-CN"] .community-intro h1 {
   color: var(--ink);
 }
 
-.dark .home-footer,
-.dark .home-continue-strip,
-.dark .home-principle-list > div,
 .dark .catalog-explorer-heading,
 .dark .catalog-filter-bar,
 .dark .atlas-assessment-brief,
@@ -1854,7 +1800,6 @@ html[lang="zh-CN"] .community-intro h1 {
     padding-inline: var(--space-sm);
   }
 
-  .home-paths,
   .atlas-catalog-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1942,8 +1887,6 @@ html[lang="zh-CN"] .community-intro h1 {
  * the han display overflows its line: 你自己 needs 288px at 6rem and broke to
  * 你自 / 己, stranding a glyph through the compound 自己. Chinese still steps down
  * for that band; English is handled by the container rule above at every width. */
-@media (min-width: 961px) and (max-width: 1099px) {
-}
 
 /* The principles heading shares the hero's problem one section down: the intro
  * column is 294px wide when the two-column layout opens and only reaches 352px
@@ -1951,8 +1894,6 @@ html[lang="zh-CN"] .community-intro h1 {
  * of them per line -- 336px at 3.5rem -- and the band between fell one glyph
  * short, stranding 多。 on a third line. Hold 3rem until the column can carry
  * the larger size. */
-@media (min-width: 961px) and (max-width: 1159px) {
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -1967,9 +1908,6 @@ html[lang="zh-CN"] .community-intro h1 {
   }
 
   .atlas-wordmark,
-  .home-path,
-  .home-path-visual .quiz-visual-image,
-  .home-path-action svg,
   .atlas-test-card,
   .atlas-test-card-visual .quiz-visual-image,
   .quiz-answer-list .atlas-answer-option {
@@ -1977,9 +1915,6 @@ html[lang="zh-CN"] .community-intro h1 {
   }
 
   .atlas-wordmark:hover,
-  .home-path:hover,
-  .home-path:hover .quiz-visual-image,
-  .home-path:hover .home-path-action svg,
   .atlas-test-card:hover,
   .atlas-test-card:hover .atlas-test-card-visual .quiz-visual-image,
   .quiz-answer-list .atlas-answer-option:hover,
@@ -1990,7 +1925,6 @@ html[lang="zh-CN"] .community-intro h1 {
   .atlas-back-link:active,
   .atlas-desktop-nav a:active,
   .atlas-mobile-nav-link:active,
-  .home-path:active,
   .atlas-filter:active,
   .atlas-test-card:active,
   .atlas-card-save:active,
