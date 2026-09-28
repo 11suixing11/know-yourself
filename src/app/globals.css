@@ -88,9 +88,9 @@
 .atlas-primary-action:hover { background: color-mix(in srgb, var(--accent) 86%, black); }
 .atlas-secondary-action { border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); color: color-mix(in srgb, var(--ink) 78%, transparent); }
 .atlas-secondary-action:hover { border-color: var(--accent); color: var(--accent); }
-.atlas-data-row, .atlas-data-summary { border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); border-radius: var(--radius-panel); background: color-mix(in srgb, var(--paper) 86%, white 14%); }
-.dark .atlas-data-row, .dark .atlas-data-summary { background: color-mix(in srgb, var(--night) 88%, white 5%); }
-.atlas-text-link { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .3rem; color: var(--accent); font-size: .72rem; font-weight: 750; white-space: nowrap; }
+.atlas-return-strip, .atlas-support-panel, .atlas-data-row, .atlas-data-summary { border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); border-radius: var(--radius-panel); background: color-mix(in srgb, var(--paper) 86%, white 14%); }
+.dark .atlas-return-strip, .dark .atlas-support-panel, .dark .atlas-data-row, .dark .atlas-data-summary { background: color-mix(in srgb, var(--night) 88%, white 5%); }
+.atlas-inline-action, .atlas-text-link { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .3rem; color: var(--accent); font-size: .72rem; font-weight: 750; white-space: nowrap; }
 .atlas-text-link { min-width: 2.75rem; justify-content: center; padding: .55rem .25rem; color: color-mix(in srgb, var(--ink) 52%, transparent); }
 .atlas-text-link:hover { color: var(--accent); }
 .atlas-index, .atlas-progress-count, .atlas-question-index { color: color-mix(in srgb, var(--ink) 42%, transparent); font-family: var(--font-mono); font-size: .67rem; letter-spacing: 0; }
@@ -203,10 +203,11 @@
   html { scroll-behavior: auto; }
   .atlas-loading-orbit, .atlas-test-card { animation: none; }
   .atlas-test-card { opacity: 1; transform: none; }
-  .atlas-primary-action, .atlas-secondary-action, .atlas-answer-option, .atlas-card-save, .atlas-icon-button, .atlas-icon-link, .atlas-filter, .atlas-text-button, .atlas-text-link, .atlas-danger-action, .atlas-desktop-nav a, .atlas-preference-control { transition: none; }
-  .atlas-primary-action:hover, .atlas-secondary-action:hover, .atlas-answer-option:hover, .atlas-test-card:hover { transform: none; }
+  .atlas-primary-action, .atlas-secondary-action, .atlas-answer-option, .atlas-support-panel, .atlas-card-save, .atlas-icon-button, .atlas-icon-link, .atlas-filter, .atlas-text-button, .atlas-text-link, .atlas-danger-action, .atlas-desktop-nav a, .atlas-preference-control { transition: none; }
+  .atlas-primary-action:hover, .atlas-secondary-action:hover, .atlas-answer-option:hover, .atlas-test-card:hover, .atlas-support-panel:hover { transform: none; }
   .skip-link { transition: none; }
 }
+@media (max-width: 640px) { }
 @media (max-width: 640px) { .profile-summary { gap: 1rem; } .profile-avatar { width: 4.5rem; height: 4.5rem; } .profile-summary .atlas-secondary-action { width: 100%; justify-content: center; margin-top: .9rem; } }
 @media (min-width: 800px) { .atlas-desktop-nav { display: flex; } .atlas-mobile-nav { display: none; } }
 
@@ -239,7 +240,7 @@
 .wellness-footer { border-top: 1px solid var(--soft-line); padding: 2rem 1.25rem 5rem; }
 
 /* Shared task surfaces: more like a quiet assessment sheet, less like an AI dashboard. */
-.atlas-detail-panel, .atlas-result-panel, .atlas-resume-panel, .atlas-data-row, .atlas-data-summary { background: var(--paper-strong); box-shadow: none; }
+.atlas-detail-panel, .atlas-result-panel, .atlas-resume-panel, .atlas-return-strip, .atlas-support-panel, .atlas-data-row, .atlas-data-summary { background: var(--paper-strong); box-shadow: none; }
 .atlas-detail-grid { opacity: .12; background-image: none; }
 .atlas-test-card { min-height: 16rem; background: var(--paper-strong); box-shadow: none; animation: none; contain: content; }
 .atlas-test-card:hover { box-shadow: var(--shadow-card-hover); }
@@ -294,7 +295,7 @@
 .atlas-result-details-quote { margin-top: 1rem; border-top: 1px solid var(--soft-line); padding-top: 1rem; color: var(--ink); font-size: .88rem; line-height: 1.8; }
 .atlas-dimension-description { color: var(--muted-text); font-size: .72rem; line-height: 1.55; }
 .atlas-dimension-value { color: var(--muted-text); font-family: var(--font-mono); font-size: .78rem; font-variant-numeric: tabular-nums; }
-.atlas-result-section-title { color: var(--ink); font-size: 1rem; font-weight: 750; letter-spacing: 0; }
+.atlas-result-reading-path-heading h2, .atlas-result-section-title { color: var(--ink); font-size: 1rem; font-weight: 750; letter-spacing: 0; }
 .atlas-result-scenes { border-top: 1px solid var(--sheet-line); border-bottom: 1px solid var(--sheet-line); background: transparent; padding: 1rem 0; }
 .atlas-result-scenes h3 { color: var(--ink); font-size: .8rem; font-weight: 750; }
 .atlas-result-scenes ul { display: grid; gap: .65rem; margin-top: .75rem; }
@@ -306,8 +307,8 @@
 
 @media (max-width: 640px) {
   .wellness-footer { padding-bottom: 6rem; }
-  .atlas-assessment-brief-heading { align-items: flex-start; flex-direction: column; }
-  .atlas-assessment-brief-grid { grid-template-columns: 1fr; }
+  .atlas-assessment-brief-heading, .atlas-result-reading-path-heading { align-items: flex-start; flex-direction: column; }
+  .atlas-assessment-brief-grid, .atlas-result-reading-path-list { grid-template-columns: 1fr; }
 .atlas-result-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .atlas-result-summary-item:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
 .atlas-result-summary-item:nth-child(n + 3) { border-top: 1px solid var(--soft-line); padding-top: .75rem; }
@@ -395,6 +396,8 @@
 }
 @media (max-width: 360px) {
   .atlas-mobile-nav-link { font-size: .55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
 }
 
 /* Hallmark · genre: modern-minimal · macrostructure: Catalogue Index · design-system: DESIGN.md · designed-as-app */
