@@ -20,7 +20,7 @@ html.fresh {
   --color-teal: oklch(48% 0.05 180);
   --color-teal-soft: oklch(94% 0.015 180);
   --color-signal: oklch(70% 0.11 280);
-  --color-signal-ink: oklch(28% 0.06 280);
+  --color-signal-ink: oklch(26% 0.06 280);
   --color-muted: oklch(94.5% 0.006 235);
   --color-muted-text: oklch(44% 0.02 250);
   --color-sheet-wash: oklch(93.5% 0.01 235);
@@ -28,9 +28,9 @@ html.fresh {
   --color-sheet-ink: oklch(42% 0.025 250);
   --color-danger: oklch(50% 0.14 25);
   --color-topic-self: oklch(50% 0.09 280);
-  --color-topic-emotion: oklch(54% 0.08 300);
-  --color-topic-relationship: oklch(55% 0.06 230);
-  --color-topic-life: oklch(52% 0.05 170);
+  --color-topic-emotion: oklch(49% 0.08 300);
+  --color-topic-relationship: oklch(49% 0.06 230);
+  --color-topic-life: oklch(48% 0.05 170);
   --surface-contrast: oklch(26% 0.015 250);
   --surface-contrast-ink: oklch(93% 0.008 235);
   color-scheme: light;
