@@ -84,10 +84,10 @@ export default function ModerationPage() {
     try {
       const response = await fetch("/api/journal/admin/moderation", { credentials: "include", cache: "no-store", headers: { Accept: "application/json" } });
       const payload = await response.json().catch(() => null) as (ModerationDashboard & { error?: string }) | null;
-      if (!response.ok) throw new Error(payload?.error || (language === "zh" ? "无法读取治理后台" : "Unable to load moderation"));
+      if (!response.ok) throw new Error(payload?.error || (language === "zh" ? "无法读取内容治理后台" : "Unable to load moderation"));
       setData({ ...EMPTY_DASHBOARD, ...payload });
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : (language === "zh" ? "无法读取治理后台" : "Unable to load moderation"));
+      setError(cause instanceof Error ? cause.message : (language === "zh" ? "无法读取内容治理后台" : "Unable to load moderation"));
     } finally {
       setLoading(false);
     }
@@ -166,7 +166,7 @@ export default function ModerationPage() {
       </header>
 
       {!user && !loading ? <div className="community-state"><ShieldCheck className="mx-auto size-7" aria-hidden="true" /><h2>{language === "zh" ? "需要管理员账号" : "Admin account required"}</h2><Link href="/account/" className="atlas-primary-action">{language === "zh" ? "登录" : "Sign in"}</Link></div> : <>
-        <div className="mt-7 grid grid-cols-4 rounded-lg border border-ink/12 p-1 dark:border-white/12" role="tablist" aria-label={language === "zh" ? "治理视图" : "Moderation views"}>
+        <div className="mt-7 grid grid-cols-4 rounded-lg border border-ink/12 p-1 dark:border-white/12" role="tablist" aria-label={language === "zh" ? "内容治理视图" : "Moderation views"}>
           {(["queue", "complaints", "accounts", "audit"] as const).map((item) => <button key={item} type="button" role="tab" aria-selected={tab === item} onClick={() => setTab(item)} className={`min-h-11 rounded-md px-2 text-xs font-semibold sm:text-sm ${tab === item ? "bg-ink text-paper" : "text-ink/55 dark:text-white/55"}`}>{item === "queue" ? (language === "zh" ? `隐藏内容 ${queue.length}` : `Hidden ${queue.length}`) : item === "complaints" ? (language === "zh" ? `投诉 ${data.complaints.length}` : `Complaints ${data.complaints.length}`) : item === "accounts" ? (language === "zh" ? "账号" : "Accounts") : (language === "zh" ? "审计" : "Audit")}</button>)}
         </div>
         {error && <p className="mt-5 text-sm text-[color:var(--danger)]" role="alert">{error}</p>}

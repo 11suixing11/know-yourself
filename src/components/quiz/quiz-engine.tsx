@@ -525,7 +525,7 @@ export default function QuizEngine({ questionSet }: { questionSet: QuizQuestionS
       </div>
       <div className="press-quiz-submit-status mt-4 min-h-5 text-center text-xs" role="status" aria-live="polite">{submitError}</div>
       <p className="press-quiz-tip mt-5 text-center text-[11px] text-ink/35 dark:text-white/35">
-        {language === "zh" ? "提示：1–9 选择，↑ ↓ 换选项，← → 换题" : "Tip: 1–9 to choose, ↑ ↓ between options, ← → between questions"}
+        {language === "zh" ? `提示：1–${question.options.length} 选择，↑ ↓ 换选项，← → 换题` : `Tip: 1–${question.options.length} to choose, ↑ ↓ between options, ← → between questions`}
       </p>
     </QuizShell>
   );

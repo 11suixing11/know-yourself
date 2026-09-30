@@ -285,7 +285,7 @@ export default function AccountPage() {
       <PageContainer className="max-w-3xl">
         <div className="max-w-2xl">
           <h1 className="atlas-section-title">{zh ? "账号与同步" : "Account and sync"}</h1>
-          <p className="mt-4 text-base leading-7 text-ink/60 dark:text-white/60">{zh ? "游客数据默认留在本机。登录后，本机与云端数据会自动合并并在设备之间同步。" : "Guest data stays on this device by default. After signing in, device and cloud data merge automatically and stay synced across devices."}</p>
+          <p className="mt-4 text-base leading-7 text-ink/60 dark:text-white/60">{zh ? "游客数据默认留在本机。登录后，本机与云端数据会自动合并并在设备之间同步——你答过的每一次测评都跟着你。" : "Guest data stays on this device by default. After signing in, device and cloud data merge automatically and stay synced across devices — your assessment history follows you."}</p>
           <Link href="/settings/" className="atlas-secondary-action mt-6 justify-center">
             <Settings className="size-4" aria-hidden="true" />
             {zh ? "数据与偏好设置" : "Data and preferences"}
@@ -297,7 +297,7 @@ export default function AccountPage() {
             <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <h2 id="auth-heading" className="text-2xl font-semibold">{authMode === "login" ? (zh ? "登录" : "Sign in") : (zh ? "创建账号" : "Create account")}</h2>
-                <p className="mt-3 text-sm leading-6 text-ink/55 dark:text-white/55">{zh ? "登录后会自动合并本机与云端数据，并保持跨设备同步。" : "Signing in automatically merges device and cloud data and keeps it synced across devices."}</p>
+                <p className="mt-3 text-sm leading-6 text-ink/55 dark:text-white/55">{zh ? "一个账号，跨设备接续你的测评与草稿。登录后本机数据自动并入云端，不会丢失。" : "One account picks up your assessments and drafts across devices. Local data merges into the cloud after signing in and is never lost."}</p>
                 <div className="mt-6 inline-grid grid-cols-2 rounded-lg border border-ink/12 p-1 dark:border-white/12" role="tablist" aria-label={zh ? "账号操作" : "Account action"}>
                   <button type="button" role="tab" aria-selected={authMode === "login"} onClick={() => { setAuthMode("login"); setFeedback(""); setNeedsVerification(false); }} className={cn("min-h-10 rounded-md px-4 text-sm font-semibold", authMode === "login" ? "bg-ink text-paper" : "text-ink/55 dark:text-white/55")}>{zh ? "登录" : "Sign in"}</button>
                   <button type="button" role="tab" aria-selected={authMode === "register"} onClick={() => { setAuthMode("register"); setFeedback(""); setNeedsVerification(false); setCaptchaToken(""); setCaptchaConfigurationStatus("loading"); setCaptchaResetSignal((value) => value + 1); }} className={cn("min-h-10 rounded-md px-4 text-sm font-semibold", authMode === "register" ? "bg-ink text-paper" : "text-ink/55 dark:text-white/55")}>{zh ? "注册" : "Register"}</button>
