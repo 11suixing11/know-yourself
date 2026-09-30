@@ -17,7 +17,7 @@
   margin-bottom: 1.35rem;
   color: var(--accent);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
 }
 
@@ -251,7 +251,7 @@ html[lang="zh-CN"] .press-test-card-title {
 .press-test-card .atlas-card-category {
   color: var(--accent);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .press-test-card .atlas-card-trust {
@@ -341,7 +341,7 @@ html[lang="zh-CN"] .press-test-card-title {
 .press-detail-kicker .atlas-section-kicker {
   color: var(--accent);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
 }
 
@@ -445,7 +445,7 @@ html[lang="zh-CN"] .press-detail-trust h2 {
 .press-detail-trust dt {
   color: var(--teal);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
 }
 
@@ -538,7 +538,7 @@ html[lang="zh-CN"] .press-detail-brief .atlas-assessment-brief-heading h2 {
 .press-detail-preview .atlas-section-kicker {
   color: var(--accent);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
 }
 

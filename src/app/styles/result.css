@@ -64,7 +64,7 @@
 .press-result-question {
   color: var(--accent);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
 }
 
@@ -94,7 +94,7 @@
 .press-result-main .atlas-result-identity-label {
   color: var(--teal);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
 }
 
@@ -251,7 +251,7 @@ html[lang="zh-CN"] .press-result-details .atlas-result-details-heading h2 {
 .press-result-details .atlas-result-details-item h3 {
   color: var(--accent);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
@@ -303,7 +303,7 @@ html[lang="zh-CN"] .press-result-panel .press-result-section-title {
 .press-result-main .press-narrative-signals h3 {
   color: var(--accent);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
@@ -330,7 +330,7 @@ html[lang="zh-CN"] .press-result-panel .press-result-section-title {
 .press-result-main .atlas-result-scenes h3 {
   color: var(--teal);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
@@ -425,7 +425,7 @@ html[lang="zh-CN"] .press-reflection h2 {
 .press-reflection .atlas-reflection-block h3 {
   color: var(--teal);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 

@@ -21,7 +21,7 @@ html.dark body::after { opacity: 0.03; }
 ::selection { background: var(--accent); color: var(--color-accent-ink); }
 
 .press-page { min-height: 100dvh; background: linear-gradient(var(--soft-line), var(--soft-line)) top / 100% 1px no-repeat, var(--paper); }
-.press-header { position: sticky; top: 0; z-index: 40; min-height: var(--header-height); border: 0; border-bottom: 1px solid var(--line); background: color-mix(in oklab, var(--paper) 94%, transparent); color: var(--ink); box-shadow: none; backdrop-filter: blur(14px); }
+.press-header { position: sticky; top: 0; z-index: 40; min-height: var(--header-height); border: 0; border-bottom: 1px solid color-mix(in oklab, var(--ink) 30%, transparent); background: color-mix(in oklab, var(--paper) 94%, transparent); color: var(--ink); box-shadow: none; backdrop-filter: blur(14px); }
 .press-header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; width: min(100%, var(--layout-max)); min-height: var(--header-height); margin-inline: auto; padding-inline: clamp(1rem, 3vw, 2.5rem); }
 .press-header-inner--focus { grid-template-columns: minmax(0, 1fr) auto; max-width: 58rem; }
 .press-header-brand { display: flex; min-width: 0; align-items: center; gap: 1rem; }
@@ -29,7 +29,7 @@ html.dark body::after { opacity: 0.03; }
 .press-wordmark-seal { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--accent); border-radius: var(--radius-control); background: var(--accent); color: var(--color-accent-ink); font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; }
 .press-wordmark-seal::before { display: none; }
 .press-wordmark-seal span { position: static; width: auto; height: auto; background: none; }
-.press-wordmark-copy strong { color: var(--ink); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.02em; }
+.press-wordmark-copy strong { color: var(--ink); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em; }
 .press-wordmark-copy small { color: var(--muted-text); font-family: var(--font-code); font-size: 0.55rem; letter-spacing: 0.12em; }
 .press-header .atlas-desktop-nav { display: flex; justify-self: center; margin: 0; gap: 1.4rem; }
 .press-header .atlas-desktop-nav a { position: relative; min-height: 2.75rem; padding: 0.7rem 0; border-radius: 0; background: none; color: var(--muted-text); font-size: 0.72rem; }
@@ -43,12 +43,12 @@ html.dark body::after { opacity: 0.03; }
 .press-community-page { max-width: var(--layout-max); }
 .press-community-intro { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(15rem, 0.7fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; border-bottom: 1px solid var(--line); padding-bottom: clamp(2.5rem, 6vw, 5rem); }
 .press-community-statement { max-width: 58rem; }
-.press-edition-line { margin: 0 0 1.4rem; color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+.press-edition-line { margin: 0 0 1.4rem; color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; }
 .press-community-intro h1 { max-width: 12ch; margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-style: normal; font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.06; text-wrap: balance; }
 html[lang="zh-CN"] .press-community-intro h1 { max-width: 9em; letter-spacing: 0; line-height: 1.08; }
 .press-community-statement > p:last-child { max-width: 58ch; margin: 2rem 0 0; color: var(--muted-text); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.8; }
 .press-community-note { border-top: 1px solid var(--line); padding-top: 1rem; }
-.press-community-note > span { color: var(--accent); font-size: 0.72rem; font-weight: 800; }
+.press-community-note > span { color: var(--accent); font-size: 0.72rem; font-weight: 700; }
 .press-community-note p { margin: 0.8rem 0 0; color: var(--muted-text); font-size: 0.82rem; line-height: 1.75; }
 .press-inline-link { justify-content: flex-start; margin-top: 0.75rem; padding-inline: 0; }
 .press-create-desk { display: grid; grid-template-columns: minmax(15rem, 1fr) auto auto; align-items: center; gap: 0.75rem; margin: 0; padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
