@@ -289,8 +289,11 @@ its signature and starts looking generated.
 - **Round question voice** (`press-home-lede h1`, `press-home-facet-entry`):
   the round CJK face at weight 500 speaks in first person — hero question and
   facet entry lines only.
-- **Mascot rain** (`press-mascot-rain`, 2026-09-26): about a dozen mascot
-  stickers and two tiny hand-drawn shapes (heart, star — `public/stickers/`)
+- **Mascot rain** (`press-mascot-rain`, 2026-09-26; mascots switch to
+  いらすとや 2026-09-30): eight sprites — five いらすとや mascots (bear, cat,
+  hamster, cloud, sprout; converted to webp in `public/stickers/`,
+  © みふねたかし / いらすとや, credited in the home footer) and two tiny
+  hand-drawn shapes (heart, star)
   drift down through the hero's morning sky on invisible lanes, each with its
   own speed, sway, and gentle tilt (never a full spin — the mascots must not
   hang upside down). Decorative only: aria-hidden, pointer-transparent,

@@ -156,6 +156,14 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
         heading={text ? "最近的声音 🫧" : "Recent voices 🫧"}
         subheading={text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}
       />
-    </PageContainer>
+      </PageContainer>
+
+      {/* Mascot rain credit: the five hero mascots are irasutoya illustrations. */}
+      <footer className="press-footer wellness-footer">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-semibold text-ink/70 dark:text-white/70">认识你自己 / Know Yourself</span>
+          <div className="flex gap-5"><a href="https://www.irasutoya.com/" target="_blank" rel="noreferrer" className="atlas-text-link">{text ? "イラスト素材：いらすとや" : "Illustrations: irasutoya"}</a></div>
+        </div>
+      </footer>
   </div>;
 }
