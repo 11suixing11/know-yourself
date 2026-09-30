@@ -3,10 +3,11 @@
   Design preview · Know Yourself — the skin-trial regression target.
 
   What this is: a static catalog of the active design tokens and the press-*
-  component grammar, rendered once in the light theme and once in .dark, on one
+  component grammar, rendered in the light theme, .dark, and html.fresh, on one
   page. It links the REAL stylesheets (tokens.css for the structural scale,
-  src/app/styles/base.css for the active palette and components), so a
-  screenshot of this page is a fingerprint of the current skin.
+  src/app/styles/base.css for the active palette, src/app/styles/fresh.css for
+  the fresh skin, and the press-* component modules), so a screenshot of this
+  page is a fingerprint of the current skins.
 
   It is NOT part of the app: no route, no build, no Tailwind. Font fidelity is
   approximate — production serves Archivo and IBM Plex Mono through next/font;
@@ -41,6 +42,7 @@
 <link rel="stylesheet" href="src/app/styles/journal.css" />
 <link rel="stylesheet" href="src/app/styles/home.css" />
 <link rel="stylesheet" href="src/app/styles/motion.css" />
+<link rel="stylesheet" href="src/app/styles/fresh.css" />
 <style>
   /* Preview-only scaffolding (pv-*). Never used by the app. */
   :root {
@@ -50,7 +52,7 @@
   body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
   .pv-theme { padding: 0 0 3.5rem; }
   .pv-wrap { width: min(100%, 68rem); margin-inline: auto; padding: 2.5rem clamp(1rem, 3vw, 2.5rem) 0; }
-  .pv-kicker { margin: 0 0 0.6rem; color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+  .pv-kicker { margin: 0 0 0.6rem; color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; }
   .pv-page-title { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 640; letter-spacing: var(--tracking-display); line-height: 1.15; color: var(--ink); }
   .pv-note { margin: 0.8rem 0 0; max-width: 70ch; color: var(--muted-text); font-size: 0.78rem; line-height: 1.75; }
   .pv-group { margin-top: 2.4rem; }
@@ -67,7 +69,7 @@
   .pv-round { margin: 0; font-family: "YouYuan", "幼圆", "Yuanti SC", "Hiragino Maru Gothic ProN", var(--font-display); font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 500; letter-spacing: 0.02em; line-height: 1.4; color: var(--ink); }
   .pv-body { margin: 0.5rem 0 0; color: var(--muted-text); font-size: var(--text-sm); line-height: 1.75; }
   .pv-mono { font-family: var(--font-code); font-size: var(--text-sm); color: var(--ink); }
-  .pv-label { color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; }
+  .pv-label { color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; }
   .pv-meter { position: relative; height: 0.9rem; border: 1px solid var(--meter-rule); border-radius: 999px; background: var(--meter-track); max-width: 26rem; }
   .pv-meter-fill { position: absolute; inset-block: 0; left: 0; width: 62%; border-radius: 999px; background: var(--meter-fill); }
   .pv-meter-needle { position: absolute; top: -0.3rem; bottom: -0.3rem; left: calc(62% - 1px); width: 2px; background: var(--meter-needle); }
@@ -83,6 +85,78 @@
      --surface-contrast/-ink are intentionally absent: they are set directly
      by the .dark blocks, which the section already inherits. */
   .pv-theme.dark {
+    --background: var(--color-paper);
+    --foreground: var(--color-ink);
+    --paper: var(--color-paper);
+    --paper-strong: var(--color-paper-strong);
+    --ink: var(--color-ink);
+    --night: var(--color-night);
+    --accent: var(--color-accent);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-text);
+    --muted-text: var(--color-muted-text);
+    --sheet-wash: var(--color-sheet-wash);
+    --sheet-surface: var(--color-sheet-surface);
+    --sheet-ink: var(--color-sheet-ink);
+    --blue-wash: var(--color-blue-wash);
+    --danger: var(--color-danger);
+    --accent-wash: color-mix(in oklab, var(--accent) 11%, var(--paper));
+    --teal: var(--color-teal);
+    --teal-soft: var(--color-teal-soft);
+    --signal: var(--color-signal);
+    --signal-ink: var(--color-signal-ink);
+    --sky: var(--color-sky);
+    --topic-self: var(--color-topic-self);
+    --topic-emotion: var(--color-topic-emotion);
+    --topic-relationship: var(--color-topic-relationship);
+    --topic-life: var(--color-topic-life);
+    --line: color-mix(in oklab, var(--ink) 24%, transparent);
+    --soft-line: color-mix(in oklab, var(--ink) 17%, transparent);
+    --sheet-line: color-mix(in oklab, var(--sheet-ink) 22%, transparent);
+    --border: var(--soft-line);
+    --ring: var(--accent);
+    --meter-track: color-mix(in oklab, var(--ink) 7%, transparent);
+    --meter-rule: color-mix(in oklab, var(--ink) 20%, transparent);
+    --meter-fill: var(--accent);
+    --meter-needle: var(--signal);
+    --shadow-card-hover: 0 1.25rem 2.5rem color-mix(in oklab, var(--color-ink) 14%, transparent);
+    --shadow-feedback: 0 0.875rem 2rem color-mix(in oklab, var(--color-ink) 17%, transparent);
+    --shadow-dialog: 0 1.5rem 4rem color-mix(in oklab, var(--color-night) 26%, transparent);
+    --shadow-soft: 0 1.25rem 2.75rem color-mix(in oklab, var(--color-ink) 11%, transparent);
+    --shadow-lift: 0 1.75rem 3.5rem color-mix(in oklab, var(--color-ink) 16%, transparent);
+  }
+
+  /* Fresh-skin shim, same trick as .dark: the html.fresh selector cannot
+     match a section, so the fresh palette (kept in sync with
+     src/app/styles/fresh.css, which the palette script reads directly) is
+     re-declared here, together with the :root aliases that otherwise arrive
+     frozen to the light values. Fresh is a light skin, so the line/meter/
+     shadow mixes mirror the light ones against the fresh ink. */
+  .pv-theme.fresh {
+    --color-paper: oklch(96.8% 0.008 235);
+    --color-paper-strong: oklch(98.6% 0.004 235);
+    --color-ink: oklch(27% 0.022 255);
+    --color-night: oklch(20% 0.01 250);
+    --color-night-ink: oklch(93% 0.008 235);
+    --color-accent: oklch(48% 0.11 285);
+    --color-accent-ink: oklch(99% 0.004 285);
+    --color-accent-soft: oklch(92% 0.03 285);
+    --color-teal: oklch(48% 0.05 180);
+    --color-teal-soft: oklch(94% 0.015 180);
+    --color-signal: oklch(70% 0.11 280);
+    --color-signal-ink: oklch(26% 0.06 280);
+    --color-muted: oklch(94.5% 0.006 235);
+    --color-muted-text: oklch(44% 0.02 250);
+    --color-sheet-wash: oklch(93.5% 0.01 235);
+    --color-sheet-surface: oklch(98.2% 0.005 235);
+    --color-sheet-ink: oklch(42% 0.025 250);
+    --color-danger: oklch(50% 0.14 25);
+    --color-topic-self: oklch(50% 0.09 280);
+    --color-topic-emotion: oklch(49% 0.08 300);
+    --color-topic-relationship: oklch(49% 0.06 230);
+    --color-topic-life: oklch(48% 0.05 170);
+    --surface-contrast: oklch(26% 0.015 250);
+    --surface-contrast-ink: oklch(93% 0.008 235);
     --background: var(--color-paper);
     --foreground: var(--color-ink);
     --paper: var(--color-paper);
@@ -131,7 +205,7 @@
 <div class="pv-wrap">
   <p class="pv-kicker">DESIGN PREVIEW · 回归靶</p>
   <h1 class="pv-page-title">认识你自己 · 设计系统目录</h1>
-  <p class="pv-note">本页直连 tokens.css（结构层）与 src/app/styles/*.css（base 色板与 press-* 组件语法），下方依次渲染亮色与暗色两套主题。换肤、CSS 蒸馏、token 改动后，用 Edge headless 对本页截图对比（全新 user-data-dir，防缓存假渲染）。字体为系统近似，以色值/形状/节奏对比为准。</p>
+  <p class="pv-note">本页直连 tokens.css（结构层）与 src/app/styles/*.css（base 色板、fresh 色板与 press-* 组件语法），下方依次渲染亮色、暗色与 fresh 三套主题。换肤（含 html.fresh）、CSS 蒸馏、token 改动后，用 Edge headless 对本页截图对比（全新 user-data-dir，防缓存假渲染）。字体为系统近似，以色值/形状/节奏对比为准。</p>
 </div>
 
 <!-- ───────────────────────── LIGHT theme ───────────────────────── -->
@@ -292,12 +366,20 @@
   </div>
 </section>
 
+<!-- ───────────────────────── FRESH theme (catalog cloned from light) ───────────────────────── -->
+<section class="pv-theme fresh" style="background: var(--color-paper); color: var(--color-ink)">
+  <div class="pv-wrap" id="pv-catalog-fresh">
+    <p class="pv-kicker">THEME · FRESH html.fresh</p>
+  </div>
+</section>
+
 <script>
-  // The dark catalog is an exact clone of the light catalog so both themes
-  // always show the same set of tokens and components.
+  // The dark and fresh catalogs are exact clones of the light catalog so all
+  // three themes always show the same set of tokens and components.
   const light = document.getElementById("pv-catalog-body");
   const darkHost = document.getElementById("pv-catalog-dark");
   darkHost.insertAdjacentHTML("beforeend", light.innerHTML);
+  document.getElementById("pv-catalog-fresh").insertAdjacentHTML("beforeend", light.innerHTML);
 
   // Resolve each swatch's live token value inside its theme context.
   for (const el of document.querySelectorAll("[data-token]")) {
