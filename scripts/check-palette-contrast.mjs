@@ -13,6 +13,8 @@ const FLOOR = 5.4;
 const SOURCES = [
   path.join(process.cwd(), "tokens.css"),
   path.join(process.cwd(), "src/app/styles/base.css"),
+  // fresh.css carries the html.fresh palette block; the browser loads it last.
+  path.join(process.cwd(), "src/app/styles/fresh.css"),
 ];
 
 function parseBlocks(css, file) {
@@ -38,7 +40,9 @@ function parseBlocks(css, file) {
     }
     blocks[name] = { ...(blocks[name] ?? {}), ...map };
   }
-  if (!blocks[":root"]) throw new Error(`:root not found in ${file}`);
+  if (!blocks[":root"] && !blocks[".dark"] && !blocks["html.fresh"]) {
+    throw new Error(`no palette block found in ${file}`);
+  }
   return blocks;
 }
 
@@ -149,6 +153,7 @@ const PAIRS = {
     ["color-signal-ink", "color-signal"],
     ["color-sheet-ink", "color-sheet-surface"],
     ["color-teal", "color-paper"],
+    ["surface-contrast-ink", "surface-contrast"],
     ["color-topic-self", "color-paper-strong"],
     ["color-topic-emotion", "color-paper-strong"],
     ["color-topic-relationship", "color-paper-strong"],
