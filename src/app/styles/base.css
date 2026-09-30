@@ -47,27 +47,53 @@
 
 .dark {
   --color-paper: var(--color-night);
-  --color-paper-strong: oklch(25% 0.01 60);
+  --color-paper-strong: oklch(27% 0.01 60);
   --color-ink: var(--color-night-ink);
   --color-accent: oklch(74% 0.075 65);
   --color-accent-ink: oklch(20% 0.02 55);
-  --color-accent-soft: oklch(28% 0.03 60);
+  --color-accent-soft: oklch(30% 0.03 60);
   --color-teal: oklch(72% 0.045 150);
-  --color-teal-soft: oklch(27% 0.02 150);
+  --color-teal-soft: oklch(30% 0.022 150);
   --color-signal: oklch(80% 0.09 82);
-  --color-muted: oklch(28% 0.01 60);
+  --color-muted: oklch(29% 0.01 60);
   --color-muted-text: oklch(76% 0.012 85);
-  --color-sheet-wash: oklch(27% 0.014 65);
-  --color-sheet-surface: oklch(24% 0.01 62);
+  --color-sheet-wash: oklch(29% 0.014 65);
+  --color-sheet-surface: oklch(26% 0.01 62);
   --color-sheet-ink: oklch(80% 0.028 85);
   --color-danger: oklch(72% 0.12 25);
   --color-topic-self: oklch(75% 0.09 45);
   --color-topic-emotion: oklch(78% 0.08 25);
   --color-topic-relationship: oklch(80% 0.06 70);
   --color-topic-life: oklch(78% 0.05 150);
-  --surface-contrast: oklch(27% 0.012 60);
+  /* The night-lamp elevation ladder (2026-09-30). The page stays at 21% so
+   * the room stays dark, but cards used to sit only four points above it —
+   * quiz, community, and assessment cards would not float off the page, and
+   * the light-skin border mixes (18% / 11% ink) all but vanished. Cards now
+   * lift to 26-27%, header/footer/panels to 30%, and dark draws its own
+   * stronger borders instead of borrowing the light ones. */
+  --surface-contrast: oklch(30% 0.012 60);
   --surface-contrast-ink: var(--color-night-ink);
+  --line: color-mix(in oklab, var(--ink) 24%, transparent);
+  --soft-line: color-mix(in oklab, var(--ink) 17%, transparent);
 }
 
 html { scrollbar-color: color-mix(in oklab, var(--accent) 55%, transparent) var(--paper); }
+
+/* Autofill: Chrome paints filled fields with its own pale-blue canvas and
+ * ink, which on paper reads as a rendering glitch. Pin both back to the
+ * writing-field material — the inset shadow is the only reliable way to
+ * repaint the autofill background, and it adapts to every skin via the
+ * tokens. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--paper-strong) inset;
+  transition: background-color 99999s ease-in-out 0s;
+}
 

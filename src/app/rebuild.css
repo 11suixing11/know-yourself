@@ -139,7 +139,7 @@ textarea {
 
 .atlas-wordmark-copy strong {
   font-size: 0.83rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .atlas-wordmark-copy small {
@@ -270,7 +270,7 @@ textarea {
   border-radius: var(--radius-control);
   padding: var(--space-xs) var(--space-sm);
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0;
   white-space: nowrap;
   outline: 2px solid transparent;
@@ -380,7 +380,7 @@ textarea {
   min-height: 2.75rem;
   color: var(--color-teal);
   font-size: 0.74rem;
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -585,9 +585,9 @@ textarea {
 .assessment-catalog-intro h1 {
   max-width: 52rem;
   margin-top: 1rem;
-  color: var(--paper);
+  color: var(--surface-contrast-ink);
   font-size: 2.8rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.96;
 }
 
@@ -617,7 +617,7 @@ textarea {
   min-height: 2.5rem;
   color: var(--color-signal);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
 }
 
@@ -687,7 +687,7 @@ textarea {
   gap: var(--space-3xs);
   color: var(--color-sheet-ink);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
 }
 
@@ -970,7 +970,7 @@ textarea {
 
 .assessment-detail-enter h1 {
   font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.02;
 }
 
@@ -1233,7 +1233,7 @@ textarea {
   background: color-mix(in oklab, var(--paper) 58%, transparent);
   color: var(--color-teal);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .quiz-answer-list .atlas-answer-selected .atlas-answer-key {
@@ -1372,7 +1372,7 @@ textarea {
 .community-intro h1 {
   max-width: 26rem;
   font-size: 2.7rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.98;
 }
 
@@ -1452,7 +1452,7 @@ html[lang="zh-CN"] .community-intro h1 {
 .community-toolbar button {
   color: color-mix(in oklab, var(--ink) 55%, transparent);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .journal-library-toolbar button.is-active,
