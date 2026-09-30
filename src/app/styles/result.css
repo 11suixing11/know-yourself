@@ -100,6 +100,10 @@
 
 .press-result-main .atlas-result-identity-title {
   margin-top: 0.5rem;
+  /* Legacy rebuild.css paints this title with --surface-contrast-ink (light
+     ink for the old dark contrast block); the press sheet is light, so the
+     title must follow the theme ink or it renders white-on-white. */
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(1.9rem, 3.8vw, 2.9rem);
   font-weight: 640;

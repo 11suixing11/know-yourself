@@ -528,6 +528,13 @@ html[lang="zh-CN"] .press-detail-brief .atlas-assessment-brief-heading h2 {
   padding: 1.35rem 1.4rem 1.6rem;
 }
 
+/* Sample question text: rebuild.css paints `.atlas-detail-panel p` with
+   --surface-contrast-ink (light ink for the old dark panel); the press panel
+   is light, so without this the samples render white-on-white in light mode. */
+.press-detail-aside .press-detail-preview p:not(.atlas-section-kicker) {
+  color: var(--ink);
+}
+
 .press-detail-preview .atlas-section-kicker {
   color: var(--accent);
   font-size: 0.7rem;
