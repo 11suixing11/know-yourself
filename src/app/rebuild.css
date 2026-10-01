@@ -1629,7 +1629,7 @@ html[lang="zh-CN"] .community-intro h1 {
 .wellness-footer {
   border-top-color: color-mix(in oklab, var(--ink) 20%, transparent);
   background: var(--surface-contrast);
-  color: color-mix(in oklab, var(--surface-contrast-ink) 65%, transparent);
+  color: color-mix(in oklab, var(--surface-contrast-ink) 76%, transparent);
 }
 
 .wellness-footer a,

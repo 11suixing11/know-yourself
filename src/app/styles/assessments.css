@@ -15,7 +15,7 @@
 .press-assessment-title > span {
   display: block;
   margin-bottom: 1.35rem;
-  color: var(--accent);
+  color: color-mix(in oklab, var(--accent) 55%, var(--surface-contrast-ink));
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -43,9 +43,13 @@ html[lang="zh-CN"] .press-assessment-intro h1 {
   padding-top: 1rem;
 }
 
+/* The copy column sits on the intro band's ink ground (light skins draw the
+ * band dark), so its text cannot use page-tuned --muted-text -- 47% grey on
+ * 25% ink was under 2:1. Derive both tones from the band's own ink instead;
+ * they track the band across all three skins. */
 .press-assessment-intro-copy > p {
   margin: 0;
-  color: var(--muted-text);
+  color: color-mix(in oklab, var(--surface-contrast-ink) 82%, transparent);
   font-size: 0.9rem;
   line-height: 1.8;
 }
@@ -62,7 +66,7 @@ html[lang="zh-CN"] .press-assessment-intro h1 {
   min-height: 2.75rem;
   align-items: center;
   gap: 0.4rem;
-  color: var(--teal);
+  color: color-mix(in oklab, var(--teal) 40%, var(--surface-contrast-ink));
   font-size: 0.76rem;
   font-weight: 620;
 }

@@ -33,7 +33,7 @@ export function CommunityStream() {
       <CommunityVoiceSection
         language={language}
         heading={text ? "正在被写下的观察" : "Observations being written now"}
-        subheading={text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}
+        subheading={text ? "测评、文字与图像，\n按同一条时间线出现。" : "Assessments, words, and images\nshare one chronology."}
       />
     </PageContainer>
   </div>;

@@ -45,6 +45,7 @@ html[lang="zh-CN"] .press-quiz-heading-row .quiz-main-title {
 
 .press-quiz-page .quiz-progress-block .atlas-meter-fill {
   background: var(--accent);
+  transition: width 280ms var(--ease-out);
 }
 
 .press-quiz-page .quiz-progress-meta {
@@ -122,7 +123,7 @@ html[lang="zh-CN"] .press-quiz-page .quiz-question-title {
   font-weight: 550;
   line-height: 1.55;
   box-shadow: none;
-  transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out), transform 160ms var(--ease-out);
 }
 
 .press-quiz-page .quiz-answer-list .atlas-answer-option:hover {
@@ -151,7 +152,7 @@ html[lang="zh-CN"] .press-quiz-page .quiz-question-title {
 .press-quiz-page .quiz-answer-list .atlas-answer-option.atlas-answer-selected {
   background: var(--accent-soft);
   border-color: var(--accent);
-  box-shadow: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 14%, transparent);
   font-weight: 650;
 }
 
@@ -211,6 +212,18 @@ html[lang="zh-CN"] .press-quiz-page .quiz-question-title {
 @media (prefers-reduced-motion: reduce) {
   .press-quiz-page .quiz-answer-list .atlas-answer-option {
     transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The quiet lift: a hovered option rises one pixel and its key letter
+   * warms toward the accent, so the pointer always knows which row it is on. */
+  .press-quiz-page .quiz-answer-list .atlas-answer-option:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+  .press-quiz-page .quiz-answer-list .atlas-answer-option:not(:disabled):hover .atlas-answer-key {
+    color: var(--accent);
+    transition: color 160ms var(--ease-out);
   }
 }
 

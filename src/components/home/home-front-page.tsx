@@ -73,9 +73,18 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
         </div>
       </section>
 
-      {/* === FACET 2 · emotion: reversed — card on the left, links on the right, plus entry question as a pull-quote === */}
+      {/* === FACET 2 · emotion: reversed — the badge hangs on the row's far end
+          instead of leading it, the card sits on the left, and the entry question
+          stays a pull-quote between head and body === */}
       <section className="press-home-facet home-facet press-home-facet--reverse" aria-labelledby="home-facet-emotion">
-        <p className="press-home-facet-entry press-home-facet-entry--quote">{text ? f[1].entryZh : f[1].entryEn}</p>
+        <header className="press-home-facet-head">
+          <div>
+            <h2 id="home-facet-emotion">{text ? f[1].zh : f[1].en}</h2>
+            <p>{text ? f[1].descriptionZh : f[1].descriptionEn}</p>
+          </div>
+          <span className="press-home-facet-index" aria-hidden="true">{f[1].emoji}</span>
+        </header>
+        <p className="press-home-facet-entry">{text ? f[1].entryZh : f[1].entryEn}</p>
         <div className="press-home-facet-body">
           <div className="press-home-facet-anchor">
             {emotionAnchor && <TestCard test={emotionAnchor} lang={language} variant="card" />}
@@ -92,13 +101,6 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
             ))}
           </ul>
         </div>
-        <header className="press-home-facet-head press-home-facet-head--after">
-          <span className="press-home-facet-index" aria-hidden="true">{f[1].emoji}</span>
-          <div>
-            <h2 id="home-facet-emotion">{text ? f[1].zh : f[1].en}</h2>
-            <p>{text ? f[1].descriptionZh : f[1].descriptionEn}</p>
-          </div>
-        </header>
       </section>
 
       {/* === FACET 3 · relationship: a full-width editorial strip — all four entries inline, no card === */}
@@ -154,7 +156,7 @@ export function HomeFrontPage({ cards }: { cards: PublicQuizCard[] }) {
       <CommunityVoiceSection
         language={language}
         heading={text ? "最近的声音 🫧" : "Recent voices 🫧"}
-        subheading={text ? "测评、文字与图像，按同一条时间线出现。" : "Assessments, words, and images share one chronology."}
+        subheading={text ? "测评、文字与图像，\n按同一条时间线出现。" : "Assessments, words, and images\nshare one chronology."}
       />
       </PageContainer>
 

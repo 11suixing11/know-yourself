@@ -207,7 +207,11 @@ export function CommunityFeed({ language, onCreateText }: { language: Lang; onCr
         ? <Link href="/history/" className="atlas-primary-action"><History aria-hidden="true" />{language === "zh" ? "从测评记录开始" : "Start from history"}</Link>
         : <Link href="/assessments/" className="atlas-primary-action"><ClipboardList aria-hidden="true" />{language === "zh" ? "选择一种表达方式" : "Choose how to express yourself"}</Link>;
 
-  return <>
+  /* One root element: this component renders inside .press-feed-section's
+   * two-column grid, and a fragment would let the toolbar and the empty state
+   * auto-place as separate grid items — the empty card used to land under the
+   * heading in the left column. */
+  return <div className="community-feed-stack">
     <div className="community-toolbar" aria-label={language === "zh" ? "社区筛选与排序" : "Community filters and sort"}>
       <div role="tablist" aria-label={language === "zh" ? "内容类型" : "Content type"}>{filters.map(([value, label]) => <button type="button" role="tab" aria-selected={filter === value} className={filter === value ? "is-active" : ""} key={value} onClick={() => setFilter(value)}>{label}</button>)}</div>
       <div><button type="button" className={sort === "latest" ? "is-active" : ""} onClick={() => setSort("latest")}>{language === "zh" ? "最新" : "Latest"}</button><button type="button" className={sort === "resonant" ? "is-active" : ""} onClick={() => setSort("resonant")}>{language === "zh" ? "最多共鸣" : "Most resonant"}</button></div>
@@ -218,5 +222,5 @@ export function CommunityFeed({ language, onCreateText }: { language: Lang; onCr
     <div className="community-feed">{posts.map((item) => item.source === "journal"
       ? <JournalPostCard key={`${item.source}-${item.id}`} item={item} language={language} />
       : <CommunityPostCard key={`${item.source}-${item.id}`} post={item} language={language} user={user} refresh={() => void load()} />)}</div>
-  </>;
+  </div>;
 }

@@ -28,7 +28,9 @@ html.dark body::after { opacity: 0.03; }
 .press-wordmark { gap: 0.7rem; color: var(--ink); }
 .press-wordmark-seal { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--accent); border-radius: var(--radius-control); background: var(--accent); color: var(--color-accent-ink); font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; }
 .press-wordmark-seal::before { display: none; }
-.press-wordmark-seal span { position: static; width: auto; height: auto; background: none; }
+/* The legacy .wellness-page rule zeroes the mark's font-size to hide its old
+ * decorative dot; the press seal needs the glyph back on every route. */
+.press-wordmark-seal span { position: static; width: auto; height: auto; background: none; font-size: 0.85rem; }
 .press-wordmark-copy strong { color: var(--ink); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em; }
 .press-wordmark-copy small { color: var(--muted-text); font-family: var(--font-code); font-size: 0.55rem; letter-spacing: 0.12em; }
 .press-header .atlas-desktop-nav { display: flex; justify-self: center; margin: 0; gap: 1.4rem; }
@@ -64,11 +66,17 @@ html[lang="zh-CN"] .press-community-intro h1 { max-width: 9em; letter-spacing: 0
 .press-feed-section { display: grid; grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr); gap: clamp(2rem, 5vw, 5rem); padding-top: clamp(3rem, 7vw, 6rem); }
 .press-feed-heading { align-self: start; position: sticky; top: calc(var(--header-height) + 2rem); }
 .press-feed-heading h2 { max-width: 10em; margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 640; line-height: 1.08; }
-.press-feed-heading p { max-width: 28ch; margin: 1rem 0 0; color: var(--muted-text); font-size: 0.8rem; line-height: 1.7; }
+.press-feed-heading p { max-width: 28ch; margin: 1rem 0 0; color: var(--muted-text); font-size: 0.8rem; line-height: 1.7; white-space: pre-line; }
 .press-feed-section > :not(.press-feed-heading) { min-width: 0; }
 .press-feed-section .community-toolbar { margin-top: 0; padding: 0 0 1rem; border-bottom: 1px solid var(--line); }
 .press-feed-section .community-toolbar button { border-radius: var(--radius-control); }
 .press-feed-section .community-toolbar button.is-active { background: var(--accent-soft); color: var(--accent); }
+/* The quiet-hours empty state carries the whole feed column when there is
+ * nothing to read yet: a bounded panel instead of a small card floating
+ * beside a large blank column. */
+.press-feed-section .community-state { display: grid; place-content: center; justify-items: center; gap: 0.9rem; min-height: 17rem; margin-top: 1.4rem; border: 1px solid var(--soft-line); border-radius: var(--radius-panel); background: var(--paper-strong); padding: 2.5rem 2rem; text-align: center; }
+.press-feed-section .community-state h2 { margin: 0; font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 620; letter-spacing: var(--tracking-title); }
+.press-feed-section .community-state p { max-width: 34ch; margin: 0; color: var(--muted-text); font-size: 0.82rem; line-height: 1.75; }
 .press-feed-section .community-post { border: 1px solid var(--soft-line); border-radius: var(--radius-panel); background: var(--paper-strong); padding: 1.4rem 1.5rem 1.6rem; box-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 4%, transparent); transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
 .press-feed-section .community-post + .community-post { margin-top: 0.9rem; }
 .press-feed-section .community-post:hover { transform: none; border-color: color-mix(in oklab, var(--accent) 30%, var(--soft-line)); box-shadow: var(--shadow-soft); }
@@ -118,6 +126,25 @@ html[lang="zh-CN"] .press-community-intro h1 { max-width: 9em; letter-spacing: 0
   background: color-mix(in oklab, var(--paper) 94%, transparent);
   color: var(--ink);
 }
+
+/* Focus headers (answering, reading a result, reading a journal piece) keep
+ * the ink band the quiz and journal workbenches already wear: the framed task
+ * reads as a different room from the site shell. The light override above left
+ * the result page's back-link text — painted for the dark band by the legacy
+ * sheet — invisible on light paper. The selector mirrors the winning
+ * .press-page.atlas-page compound's specificity; shell loads after the legacy
+ * sheet, so the later tie wins. */
+.press-page.atlas-page .press-header--focus {
+  background: var(--surface-contrast);
+  color: var(--surface-contrast-ink);
+  border-bottom: 0;
+}
+.press-page.atlas-page .press-header--focus .atlas-back-link { color: color-mix(in oklab, var(--surface-contrast-ink) 78%, transparent); }
+.press-page.atlas-page .press-header--focus .atlas-header-section { color: color-mix(in oklab, var(--surface-contrast-ink) 62%, transparent); }
+.press-page.atlas-page .press-header--focus .atlas-icon-link,
+.press-page.atlas-page .press-header--focus .atlas-preference-control { border-color: color-mix(in oklab, var(--surface-contrast-ink) 24%, transparent); color: var(--surface-contrast-ink); }
+.press-page.atlas-page .press-header--focus .atlas-icon-link:hover,
+.press-page.atlas-page .press-header--focus .atlas-preference-control:hover { border-color: color-mix(in oklab, var(--surface-contrast-ink) 45%, transparent); background: color-mix(in oklab, var(--surface-contrast-ink) 10%, transparent); color: var(--surface-contrast-ink); }
 
 .press-page .community-intro aside {
   border: 0;

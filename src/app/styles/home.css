@@ -1,7 +1,11 @@
 /* Homepage front page: four facets, four different editorial rhythms.
  * Taste-skill dials: VARIANCE 8 / MOTION 3 / DENSITY 3.
  * Hero lede: baked watercolor washes carry the first impression. */
-.press-home-lede { border-bottom: 1px solid var(--line); padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 6vw, 5rem); position: relative; margin-inline: calc(-1 * clamp(1rem, 3vw, 2.5rem)); overflow: hidden; }
+/* The band bleeds past the reading column into the container's gutters; the
+ * matching inline padding keeps the question on the page's reading grid —
+ * without it the hero copy sits flush against the band edge and, below 800px,
+ * against the physical screen edge. */
+.press-home-lede { border-bottom: 1px solid var(--line); padding: clamp(4rem, 10vw, 7rem) clamp(1rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem); position: relative; margin-inline: calc(-1 * clamp(1rem, 3vw, 2.5rem)); overflow: hidden; }
 .press-home-lede-wash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 html:not(.dark) .press-home-lede-wash[data-wash="dark"] { display: none; }
 html.dark .press-home-lede-wash[data-wash="light"] { display: none; }
@@ -60,20 +64,29 @@ html[lang="zh-CN"] .press-home-facet-head h2 { letter-spacing: 0.02em; }
 .press-home-facet-link-title { flex: 1; min-width: 0; font-weight: 500; line-height: 1.5; }
 .press-home-facet-link-meta { color: var(--muted-text); font-family: var(--font-plex-mono); font-size: 0.72rem; white-space: nowrap; }
 
-/* ── Facet 2 · emotion: reversed — card on the LEFT, links on the RIGHT, with a pull-quote entry above ── */
+/* ── Facet 2 · emotion: reversed — card on the LEFT, links on the RIGHT; the
+ * sticker badge closes the head row (DOM order flipped) so the title still
+ * leads the section while the badge mirrors the other facets' leading one. ── */
 .press-home-facet--reverse { padding-top: clamp(2rem, 4vw, 3rem); }
 .press-home-facet--reverse .press-home-facet-body { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); }
 .press-home-facet--reverse .press-home-facet-anchor { order: -1; }
-.press-home-facet--reverse .press-home-facet-head { flex-direction: row-reverse; justify-content: flex-start; text-align: left; }
-.press-home-facet--reverse .press-home-facet-entry { margin-top: 0; margin-bottom: 1.2rem; }
+.press-home-facet--reverse .press-home-facet-entry { margin-top: 1.6rem; margin-bottom: 0; }
 
-/* ── Facet 3 · relationship: full-width editorial strip, no card, four inline pills ── */
-.press-home-facet--inline .press-home-facet-inline-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.4rem; }
-.press-home-facet-inline-pill { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 2.75rem; padding: 0.55rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); color: var(--ink); font-size: 0.82rem; font-weight: 500; transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out); }
+/* ── Facet 3 · relationship: full-width editorial strip — the four entries sit
+ * in equal cells across the whole band, so the strip reads as a composed index
+ * instead of a left-packed cluster with a dead right half. ── */
+.press-home-facet--inline .press-home-facet-inline-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.7rem; margin-top: 1.4rem; }
+.press-home-facet-inline-pill { display: inline-flex; align-items: center; justify-content: space-between; gap: 0.55rem; min-height: 2.75rem; padding: 0.55rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); color: var(--ink); font-size: 0.82rem; font-weight: 500; transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out); }
 .press-home-facet-inline-pill:hover { border-color: var(--accent); color: var(--accent); }
 .press-home-facet-inline-pill .press-home-facet-link-meta { color: var(--muted-text); }
 
 /* ── Facet 4 · life: compact two-column split — info left, links right, no anchor card ── */
+/* The compact facet's h2 lives outside a .press-home-facet-head, so it has no
+ * display-tier rule of its own — under the preflight reset it collapsed to
+ * body size and read as a stray caption instead of a section title. */
+.press-home-facet--compact h2 { display: flex; align-items: baseline; gap: 0.45em; margin: 0; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 1.8rem); font-weight: 620; letter-spacing: var(--tracking-display); }
+html[lang="zh-CN"] .press-home-facet--compact h2 { letter-spacing: 0.02em; }
+.press-home-facet--compact h2 > span { font-size: 0.72em; }
 .press-home-facet--compact .press-home-facet-compact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; margin-top: 1.2rem; }
 .press-home-facet--compact .press-home-facet-links { border-top: 1px solid var(--line); }
 .press-home-facet--compact .press-home-facet-entry--compact { margin-top: 1rem; font-size: clamp(1.1rem, 1.8vw, 1.4rem); }

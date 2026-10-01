@@ -158,6 +158,31 @@ html[lang="zh-CN"] .press-result-main .atlas-result-identity-title {
   line-height: 1.75;
 }
 
+/* The intro block stays the ink letter panel from rebuild.css (the cream
+ * identity card reads as the letter inside it), but the summary rows and the
+ * identity note sit directly on that ink ground. The page-ink tones above turn
+ * invisible there — ink on ink — so anything on the panel derives from the
+ * panel's own ink instead. */
+.press-result-main .atlas-result-intro-block .atlas-result-summary {
+  border-color: color-mix(in oklab, var(--surface-contrast-ink) 24%, transparent);
+}
+
+.press-result-main .atlas-result-intro-block .atlas-result-summary-item + .atlas-result-summary-item {
+  border-color: color-mix(in oklab, var(--surface-contrast-ink) 24%, transparent);
+}
+
+.press-result-main .atlas-result-intro-block .atlas-result-summary-item span {
+  color: color-mix(in oklab, var(--surface-contrast-ink) 74%, transparent);
+}
+
+.press-result-main .atlas-result-intro-block .atlas-result-summary-item strong {
+  color: var(--color-signal);
+}
+
+.press-result-main .atlas-result-intro-block .atlas-result-identity-note {
+  color: color-mix(in oklab, var(--surface-contrast-ink) 74%, transparent);
+}
+
 .press-result-main .press-visual-feedback {
   margin-top: 1.6rem;
   border-top: 1px solid var(--line);
