@@ -1,5 +1,5 @@
 ﻿import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { AppThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
@@ -23,12 +23,21 @@ import { AccountProvider } from "@/components/account/account-provider";
 import { OG_IMAGE_URL, serializeJsonLd, SITE_DESCRIPTION, SITE_DESCRIPTION_EN, SITE_NAME, SITE_URL, siteUrl } from "@/lib/site-config";
 
 /* Archivo sets every heading and IBM Plex Mono every number the product
- * reports. next/font self-hosts both, so there is no third-party connection
- * and no metric swap after paint. Archivo is loaded as a variable font because
- * the display tier uses 620 and 640 -- weights no static cut carries.
- * Neither face has han glyphs; CJK stays on the system stack behind them. */
-const archivo = Archivo({ subsets: ["latin"], display: "swap", variable: "--font-archivo" });
-const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", variable: "--font-plex-mono" });
+ * reports. Both faces are committed to the repo and served through
+ * next/font/local, so builds never reach out to Google and there is no
+ * metric swap after paint. Archivo is the variable cut because the display
+ * tier uses 620 and 640 -- weights no static cut carries. Neither face has
+ * han glyphs; CJK stays on the system stack behind them. */
+const archivo = localFont({ src: "./fonts/archivo-latin-wght-normal.woff2", display: "swap", variable: "--font-archivo" });
+const plexMono = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/ibm-plex-mono-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-plex-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
